@@ -88,6 +88,16 @@ kbd { font-size: .74rem; }
 .notes-panel p { font-size: 1rem; }
 .overview-grid button strong { font-size: 1rem; }
 
+.purpose-layout { height: 100%; display: grid; grid-template-rows: 1fr auto; gap: .75em; }
+.purpose-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: .8em; }
+.purpose-cards article { padding: 1em 1.05em; border: 1px solid #d6e1fa; border-radius: .7rem; background: rgba(255,255,255,.84); box-shadow: 6px 8px 0 #dce7ff; }
+.purpose-cards article > span { color: var(--blue-deep); font-size: clamp(.7rem,.8vw,.88rem); font-weight: 760; }
+.purpose-cards h3 { margin: .62em 0 .38em; font-size: clamp(.98rem,1.22vw,1.35rem); letter-spacing: -.04em; }
+.purpose-cards p { margin: 0; color: #5f6f8e; font-size: clamp(.72rem,.82vw,.9rem); line-height: 1.48; }
+.purpose-result { display: flex; align-items: center; justify-content: space-between; gap: 1.5em; padding: .7em 1em; border: 1px solid #c8d7fb; border-radius: .62rem; background: linear-gradient(120deg,#edf3ff,#fff); }
+.purpose-result > span { color: #5878ca; font-size: clamp(.68rem,.76vw,.84rem); font-weight: 720; }
+.purpose-result strong { color: #315dce; font-size: clamp(.92rem,1.18vw,1.3rem); text-align: right; }
+
 /* Korean/Chinese parallel copy. */
 .slide-meta > span:first-child small {
   display: block;
@@ -119,7 +129,10 @@ kbd { font-size: .74rem; }
 .presenter-notes p small,
 .notes-panel p small,
 .overview-panel h2 small,
-.overview-grid button strong small {
+.overview-grid button strong small,
+.purpose-cards h3 small,
+.purpose-cards p small,
+.purpose-result strong small {
   display: block;
   color: #8795b6;
   font-weight: 520;
@@ -140,6 +153,9 @@ kbd { font-size: .74rem; }
 .notes-panel p small { margin-top: .6em; font-size: .9em; line-height: 1.65; }
 .overview-panel h2 small { margin-top: .18em; font-size: .68em; }
 .overview-grid button strong small { margin-top: .35em; font-size: .8em; line-height: 1.4; }
+.purpose-cards h3 small { margin-top: .15em; font-size: .74em; }
+.purpose-cards p small { margin-top: .22em; font-size: .88em; line-height: 1.38; }
+.purpose-result strong small { margin-top: .16em; font-size: .72em; }
 
 /* Presenter view: a separate control surface that stays in sync with the slideshow. */
 .presenter-shell {
@@ -252,4 +268,5 @@ kbd { font-size: .74rem; }
   .presenter-stage-wrap .slide-stage { min-height: 0; aspect-ratio: 16/9; }
   .presenter-stage-wrap .slide-content { position: absolute; inset: auto 4.8% 7%; top: 47%; margin: 0; min-height: 0; }
   .presenter-sidebar { grid-template-columns: 1fr; }
+  .purpose-cards { grid-template-columns: 1fr; }
 }
