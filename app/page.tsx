@@ -1,9 +1,9 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import {
   ArrowLeft, ArrowRight, Check, ChevronRight, ClipboardList,
-  Expand, Minimize, Sparkles, Users, X,
+  Expand, Minimize, MonitorUp, Sparkles, Users, X,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -21,9 +21,9 @@ const slides: Slide[] = [
   },
   {
     index: "02", eyebrow: "이번 학기 수업", chineseEyebrow: "本学期课程",
-    title: "만들고, 확인하고,\n다음 선택을 정합니다", chineseTitle: "开发、确认，并决定下一步",
-    note: "AI 기술을 나열하기보다 팀 프로젝트의 문제, 사용자, 데이터, AI 기능을 연결해 개발하는 수업임을 안내합니다.",
-    content: <div className="course-grid"><article><span>01</span><h3>문제와 사용자</h3><p>누구의 어떤 상황을 다룰지 정합니다.</p><small>问题与用户</small></article><article><span>02</span><h3>데이터와 AI 기능</h3><p>입력, AI 처리, 결과의 흐름을 설계합니다.</p><small>数据与AI功能</small></article><article><span>03</span><h3>구현과 점검</h3><p>사용 시나리오에서 결과를 보고 개선합니다.</p><small>实现与检查</small></article><article className="assessment"><span>평가 · 评价</span><div><b>출결</b><strong>20%</strong></div><div><b>주차별 프로젝트 과제</b><strong>30%</strong></div><div><b>중간 발표</b><strong>20%</strong></div><div><b>최종 발표와 시연</b><strong>30%</strong></div></article></div>,
+    title: "문제를 명확히 정의하고,\nAI 해결책을 구현·검증합니다", chineseTitle: "明确界定问题，并实现与验证AI解决方案",
+    note: "문제 정의와 대상 사용자 설정을 구분하고, 확인한 사용자 요구에 맞춰 AI 기능을 구현하고 검증하는 수업임을 안내합니다.",
+    content: <div className="course-grid"><article><span>01</span><h3>문제 정의</h3><p>해결할 문제의 원인·범위·맥락을 구체화합니다.</p><small>问题定义</small></article><article><span>02</span><h3>대상 사용자</h3><p>누구를 위한 프로젝트인지 정하고 요구를 확인합니다.</p><small>目标用户</small></article><article><span>03</span><h3>AI 해결책</h3><p>요구에 맞는 핵심 기능을 구현하고 결과를 검증합니다.</p><small>AI解决方案</small></article><article className="assessment"><span>평가 · 评价</span><div><b>출결</b><strong>20%</strong></div><div><b>주차별 프로젝트 과제</b><strong>30%</strong></div><div><b>중간 발표</b><strong>20%</strong></div><div><b>최종 발표와 시연</b><strong>30%</strong></div></article></div>,
   },
   {
     index: "03", eyebrow: "이 수업에서의 실증", chineseEyebrow: "本课程中的实证",
@@ -71,15 +71,179 @@ const slides: Slide[] = [
   },
 ];
 
+const DECK_CHANNEL = "dong-a-week-1-deck";
+const DECK_STORAGE_KEY = "dong-a-week-1-current";
+
+function SlideCanvas({ slide, position }: { slide: Slide; position: number }) {
+  return (
+    <section className="slide-stage" aria-live="polite">
+      <div className="wire wire-one" />
+      <div className="wire wire-two" />
+      <div className="cube cube-one" />
+      <div className="cube cube-two" />
+      <div className="cube cube-three" />
+      <div className="slide-meta">
+        <span>{slide.index} · {slide.eyebrow}</span>
+        <span>{String(position + 1).padStart(2, "0")} / {String(slides.length).padStart(2, "0")}</span>
+      </div>
+      <div className="slide-title-wrap">
+        <h1>{slide.title.split("\n").map((line) => <span key={line}>{line}</span>)}</h1>
+        <p>{slide.chineseTitle}</p>
+      </div>
+      <div className="slide-content">{slide.content}</div>
+      <div className="corner-mark">DONG-A · AI · WEEK 01</div>
+    </section>
+  );
+}
+
 export default function Home() {
   const [current, setCurrent] = useState(0);
   const [showNotes, setShowNotes] = useState(false);
   const [showOverview, setShowOverview] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
-  const go = useCallback((next: number) => setCurrent(Math.max(0, Math.min(slides.length - 1, next))), []);
-  useEffect(() => { const onKey = (event: KeyboardEvent) => { if (["ArrowRight", "PageDown", " "].includes(event.key)) { event.preventDefault(); go(current + 1); } if (["ArrowLeft", "PageUp"].includes(event.key)) { event.preventDefault(); go(current - 1); } if (event.key.toLowerCase() === "n") setShowNotes((value) => !value); if (event.key.toLowerCase() === "o") setShowOverview((value) => !value); if (event.key === "Escape") { setShowOverview(false); setShowNotes(false); } }; window.addEventListener("keydown", onKey); return () => window.removeEventListener("keydown", onKey); }, [current, go]);
-  useEffect(() => { const onFullscreen = () => setIsFullscreen(Boolean(document.fullscreenElement)); document.addEventListener("fullscreenchange", onFullscreen); return () => document.removeEventListener("fullscreenchange", onFullscreen); }, []);
+  const [viewMode, setViewMode] = useState<"slideshow" | "presenter">("slideshow");
+  const channelRef = useRef<BroadcastChannel | null>(null);
+
+  const go = useCallback((next: number) => {
+    const normalized = Math.max(0, Math.min(slides.length - 1, next));
+    setCurrent(normalized);
+    window.localStorage.setItem(DECK_STORAGE_KEY, String(normalized));
+    channelRef.current?.postMessage({ type: "navigate", current: normalized });
+  }, []);
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    setViewMode(params.get("view") === "presenter" ? "presenter" : "slideshow");
+
+    const stored = Number(window.localStorage.getItem(DECK_STORAGE_KEY));
+    if (Number.isInteger(stored)) setCurrent(Math.max(0, Math.min(slides.length - 1, stored)));
+
+    const channel = "BroadcastChannel" in window ? new BroadcastChannel(DECK_CHANNEL) : null;
+    channelRef.current = channel;
+    if (channel) {
+      channel.onmessage = (event: MessageEvent<{ type?: string; current?: number }>) => {
+        if (event.data.type === "navigate" && Number.isInteger(event.data.current)) {
+          setCurrent(Math.max(0, Math.min(slides.length - 1, event.data.current as number)));
+        }
+      };
+    }
+
+    const onStorage = (event: StorageEvent) => {
+      if (event.key !== DECK_STORAGE_KEY || event.newValue === null) return;
+      const next = Number(event.newValue);
+      if (Number.isInteger(next)) setCurrent(Math.max(0, Math.min(slides.length - 1, next)));
+    };
+    window.addEventListener("storage", onStorage);
+    return () => {
+      window.removeEventListener("storage", onStorage);
+      channel?.close();
+      channelRef.current = null;
+    };
+  }, []);
+
+  const openDeckWindow = useCallback((mode: "slideshow" | "presenter") => {
+    window.localStorage.setItem(DECK_STORAGE_KEY, String(current));
+    const url = new URL(window.location.href);
+    url.searchParams.set("view", mode);
+    const features = mode === "presenter" ? "popup,width=1440,height=920" : "popup,width=1600,height=1000";
+    window.open(url.toString(), `dong-a-${mode}`, features)?.focus();
+  }, [current]);
+
+  useEffect(() => {
+    const onKey = (event: KeyboardEvent) => {
+      if (["ArrowRight", "PageDown", " "].includes(event.key)) { event.preventDefault(); go(current + 1); }
+      if (["ArrowLeft", "PageUp"].includes(event.key)) { event.preventDefault(); go(current - 1); }
+      if (event.key.toLowerCase() === "n" && viewMode === "slideshow") setShowNotes((value) => !value);
+      if (event.key.toLowerCase() === "o" && viewMode === "slideshow") setShowOverview((value) => !value);
+      if (event.key.toLowerCase() === "p" && viewMode === "slideshow") openDeckWindow("presenter");
+      if (event.key === "Escape") { setShowOverview(false); setShowNotes(false); }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [current, go, openDeckWindow, viewMode]);
+
+  useEffect(() => {
+    const onFullscreen = () => setIsFullscreen(Boolean(document.fullscreenElement));
+    document.addEventListener("fullscreenchange", onFullscreen);
+    return () => document.removeEventListener("fullscreenchange", onFullscreen);
+  }, []);
+
   const toggleFullscreen = async () => document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen();
   const slide = slides[current];
-  return <main className="deck-shell"><header className="deck-header"><button className="brand" onClick={() => go(0)} aria-label="첫 슬라이드로 이동"><span className="brand-mark">DA</span><span><strong>실증적AI개발프로젝트Ⅱ(종합설계)</strong><small>동아대학교 AI학과 · 2026-2</small></span></button><div className="header-actions"><button onClick={() => setShowOverview(true)}>전체 보기 <kbd>O</kbd></button><button onClick={() => setShowNotes((value) => !value)}>발표 메모 <kbd>N</kbd></button><Button variant="outline" size="icon-sm" onClick={toggleFullscreen} aria-label={isFullscreen ? "전체 화면 종료" : "전체 화면"}>{isFullscreen ? <Minimize /> : <Expand />}</Button></div></header><div className="stage-wrap"><section className="slide-stage" aria-live="polite"><div className="wire wire-one" /><div className="wire wire-two" /><div className="cube cube-one" /><div className="cube cube-two" /><div className="cube cube-three" /><div className="slide-meta"><span>{slide.index} · {slide.eyebrow}</span><span>{String(current + 1).padStart(2, "0")} / {String(slides.length).padStart(2, "0")}</span></div><div className="slide-title-wrap"><h1>{slide.title.split("\n").map((line) => <span key={line}>{line}</span>)}</h1><p>{slide.chineseTitle}</p></div><div className="slide-content">{slide.content}</div><div className="corner-mark">DONG-A · AI · WEEK 01</div></section></div><footer className="deck-footer"><div className="progress-track"><span style={{ width: `${((current + 1) / slides.length) * 100}%` }} /></div><div className="footer-controls"><p><kbd>←</kbd><kbd>→</kbd> 또는 화면 버튼으로 이동</p><div><Button variant="outline" size="icon" onClick={() => go(current - 1)} disabled={current === 0} aria-label="이전 슬라이드"><ArrowLeft /></Button><Button size="icon" onClick={() => go(current + 1)} disabled={current === slides.length - 1} aria-label="다음 슬라이드"><ArrowRight /></Button></div></div></footer>{showNotes && <aside className="notes-panel"><div><span>발표자 메모</span><button onClick={() => setShowNotes(false)} aria-label="발표자 메모 닫기"><X /></button></div><p>{slide.note}</p></aside>}{showOverview && <div className="overview-backdrop" role="dialog" aria-modal="true" aria-label="슬라이드 전체 보기"><div className="overview-panel"><header><div><span>SLIDE MAP</span><h2>1주차 수업 안내</h2></div><button onClick={() => setShowOverview(false)} aria-label="전체 보기 닫기"><X /></button></header><div className="overview-grid">{slides.map((item, index) => <button key={item.index} className={index === current ? "active" : ""} onClick={() => { go(index); setShowOverview(false); }}><span>{item.index}</span><strong>{item.title.replace("\n", " ")}</strong></button>)}</div></div></div>}</main>;
+  const nextSlide = slides[current + 1];
+
+  if (viewMode === "presenter") {
+    return (
+      <main className="presenter-shell">
+        <header className="presenter-header">
+          <div>
+            <span>발표자 화면 · WEEK 01</span>
+            <h1>실증적AI개발프로젝트Ⅱ(종합설계)</h1>
+          </div>
+          <Button variant="outline" onClick={() => openDeckWindow("slideshow")}>
+            <MonitorUp /> 슬라이드쇼 화면 열기
+          </Button>
+        </header>
+        <div className="presenter-layout">
+          <section className="presenter-current">
+            <div className="presenter-section-label">
+              <span>현재 슬라이드</span>
+              <strong>{String(current + 1).padStart(2, "0")} / {String(slides.length).padStart(2, "0")}</strong>
+            </div>
+            <div className="presenter-stage-wrap"><SlideCanvas slide={slide} position={current} /></div>
+          </section>
+          <aside className="presenter-sidebar">
+            <section className="presenter-next">
+              <span>다음 슬라이드</span>
+              {nextSlide ? (
+                <>
+                  <b>{nextSlide.index}</b>
+                  <strong>{nextSlide.title.replace("\n", " ")}</strong>
+                  <p>{nextSlide.chineseTitle}</p>
+                </>
+              ) : <strong>마지막 슬라이드입니다.</strong>}
+            </section>
+            <section className="presenter-notes">
+              <span>발표자 메모</span>
+              <p>{slide.note}</p>
+            </section>
+            <div className="presenter-controls">
+              <Button variant="outline" onClick={() => go(current - 1)} disabled={current === 0}><ArrowLeft /> 이전</Button>
+              <Button onClick={() => go(current + 1)} disabled={current === slides.length - 1}>다음 <ArrowRight /></Button>
+            </div>
+          </aside>
+        </div>
+      </main>
+    );
+  }
+
+  return (
+    <main className="deck-shell">
+      <header className="deck-header">
+        <button className="brand" onClick={() => go(0)} aria-label="첫 슬라이드로 이동">
+          <span className="brand-mark">DA</span>
+          <span><strong>실증적AI개발프로젝트Ⅱ(종합설계)</strong><small>동아대학교 AI학과 · 2026-2</small></span>
+        </button>
+        <div className="header-actions">
+          <button onClick={() => setShowOverview(true)}>전체 보기 <kbd>O</kbd></button>
+          <button onClick={() => setShowNotes((value) => !value)}>발표 메모 <kbd>N</kbd></button>
+          <button onClick={() => openDeckWindow("presenter")}>발표자 화면 <kbd>P</kbd></button>
+          <Button variant="outline" size="icon-sm" onClick={toggleFullscreen} aria-label={isFullscreen ? "전체 화면 종료" : "전체 화면"}>{isFullscreen ? <Minimize /> : <Expand />}</Button>
+        </div>
+      </header>
+      <div className="stage-wrap"><SlideCanvas slide={slide} position={current} /></div>
+      <footer className="deck-footer">
+        <div className="progress-track"><span style={{ width: `${((current + 1) / slides.length) * 100}%` }} /></div>
+        <div className="footer-controls">
+          <p><kbd>←</kbd><kbd>→</kbd> 또는 화면 버튼으로 이동</p>
+          <div>
+            <Button variant="outline" size="icon" onClick={() => go(current - 1)} disabled={current === 0} aria-label="이전 슬라이드"><ArrowLeft /></Button>
+            <Button size="icon" onClick={() => go(current + 1)} disabled={current === slides.length - 1} aria-label="다음 슬라이드"><ArrowRight /></Button>
+          </div>
+        </div>
+      </footer>
+      {showNotes && <aside className="notes-panel"><div><span>발표자 메모</span><button onClick={() => setShowNotes(false)} aria-label="발표자 메모 닫기"><X /></button></div><p>{slide.note}</p></aside>}
+      {showOverview && <div className="overview-backdrop" role="dialog" aria-modal="true" aria-label="슬라이드 전체 보기"><div className="overview-panel"><header><div><span>SLIDE MAP</span><h2>1주차 수업 안내</h2></div><button onClick={() => setShowOverview(false)} aria-label="전체 보기 닫기"><X /></button></header><div className="overview-grid">{slides.map((item, index) => <button key={item.index} className={index === current ? "active" : ""} onClick={() => { go(index); setShowOverview(false); }}><span>{item.index}</span><strong>{item.title.replace("\n", " ")}</strong></button>)}</div></div></div>}
+    </main>
+  );
 }
