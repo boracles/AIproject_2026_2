@@ -32,7 +32,7 @@ const slides: Slide[] = [
     title: "프로젝트Ⅰ 결과물을\n이번 학기에 고도화합니다", chineseTitle: "本学期继续优化项目Ⅰ的成果",
     note: "프로젝트Ⅰ 결과물의 현재 상태를 점검하고, 필요한 기능을 추가한 뒤 사용자 테스트를 거쳐 고도화합니다.",
     chineseNote: "先检查项目Ⅰ成果的当前状态，补充所需功能，再通过用户测试持续优化。",
-    content: <div className="purpose-layout"><div className="purpose-cards">{[["01", "현재 상태 점검", "检查当前状态", "프로젝트Ⅰ에서 만든 것과 아직 안 된 것을 먼저 정리합니다.", "先梳理项目Ⅰ中已经完成和尚未完成的部分。"], ["02", "필요한 기능 추가", "补充所需功能", "AI 모델이나 API를 실제 화면과 기능에 연결합니다.", "把AI模型或API接入实际界面与功能。"], ["03", "사용자 테스트와 수정", "用户测试与修改", "대상 사용자가 핵심 기능을 써 보게 하고, 막히는 부분을 고칩니다.", "让目标用户试用核心功能，并修改使用中遇到的问题。"]].map(([number, title, chineseTitle, detail, chineseDetail]) => <article key={number}><span>{number}</span><h3>{title}<small>{chineseTitle}</small></h3><p>{detail}<small>{chineseDetail}</small></p></article>)}</div><div className="purpose-result"><span>학기 말 결과물 · 学期成果</span><strong>고도화된 AI 서비스 + 사용자 테스트 기록<small>优化后的AI服务 + 用户测试记录</small></strong></div></div>,
+    content: <div className="purpose-layout"><div className="purpose-cards">{[["01", "현재 상태 점검", "检查当前状态", "프로젝트Ⅰ에서 만든 것과 아직 안 된 것을 먼저 정리합니다.", "先梳理项目Ⅰ中已经完成和尚未完成的部分。"], ["02", "필요한 기능 추가", "补充所需功能", "AI 모델이나 API를 실제 화면과 기능에 연결합니다.", "把AI模型或API接入实际界面与功能。"], ["03", "사용자 테스트와 수정", "用户测试与修改", "대상 사용자가 핵심 기능을 써 보게 하고, 막히는 부분을 고칩니다.", "让目标用户试用核心功能，并修改使用中遇到的问题。"]].map(([number, title, chineseTitle, detail, chineseDetail]) => <article key={number}><span>{number}</span><h3>{title}<small>{chineseTitle}</small></h3><p>{detail}<small>{chineseDetail}</small></p></article>)}</div><div className="purpose-result"><span>학기 말 결과물 · 学期成果</span><strong>AI 데모 서비스 + 사용자 테스트 기록<small>AI演示服务 + 用户测试记录</small></strong></div></div>,
   },
   {
     index: "04", eyebrow: "AI 프로젝트 사례 1 · 학습", chineseEyebrow: "AI项目案例1 · 学习",
