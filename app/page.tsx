@@ -231,13 +231,12 @@ export default function Home() {
 
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => {
-      if (viewMode !== "presenter") return;
       if (["ArrowRight", "PageDown", " "].includes(event.key)) { event.preventDefault(); go(current + 1); }
       if (["ArrowLeft", "PageUp"].includes(event.key)) { event.preventDefault(); go(current - 1); }
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [current, go, openDeckWindow, viewMode]);
+  }, [current, go]);
   const slide = slides[current];
   const nextSlide = slides[current + 1];
 
@@ -288,6 +287,11 @@ export default function Home() {
   return (
     <main className="audience-shell" aria-label="학생용 슬라이드쇼 화면">
       <SlideCanvas slide={slide} position={current} />
+      <nav className="audience-controls" aria-label="슬라이드 이동">
+        <Button variant="outline" onClick={() => go(current - 1)} disabled={current === 0} aria-label="이전 슬라이드"><ArrowLeft /> 이전</Button>
+        <span>{String(current + 1).padStart(2, "0")} / {String(slides.length).padStart(2, "0")}</span>
+        <Button onClick={() => go(current + 1)} disabled={current === slides.length - 1} aria-label="다음 슬라이드">다음 <ArrowRight /></Button>
+      </nav>
     </main>
   );
 }
