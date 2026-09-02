@@ -398,6 +398,7 @@ kbd { font-size: .74rem; }
 }
 .presenter-layout {
   width: min(96vw, 1600px);
+  height: calc(100dvh - 6.5rem);
   margin: 0 auto;
   display: grid;
   grid-template-columns: minmax(0, 2.25fr) minmax(300px, .75fr);
@@ -412,7 +413,7 @@ kbd { font-size: .74rem; }
   background: rgba(255, 255, 255, .9);
   box-shadow: 0 14px 40px rgba(76, 102, 161, .12);
 }
-.presenter-current { padding: .9rem; }
+.presenter-current { min-height: 0; padding: .9rem; overflow: hidden; }
 .presenter-section-label {
   display: flex;
   align-items: center;
@@ -427,8 +428,9 @@ kbd { font-size: .74rem; }
 .presenter-stage-wrap .slide-stage { width: 100%; }
 .presenter-sidebar {
   min-width: 0;
+  min-height: 0;
   display: grid;
-  grid-template-rows: auto 1fr auto;
+  grid-template-rows: auto minmax(0, 1fr) auto;
   gap: 1rem;
 }
 .presenter-next,
@@ -453,11 +455,58 @@ kbd { font-size: .74rem; }
   font-size: .88rem;
   line-height: 1.5;
 }
-.presenter-notes p {
-  margin: 1rem 0 0;
+.speaker-note-copy {
+  margin-top: 1rem;
   color: #4e5e7e;
-  font-size: 1rem;
-  line-height: 1.72;
+  font-size: .96rem;
+  line-height: 1.65;
+}
+.speaker-note-copy p { margin: 0; }
+.speaker-note-lead {
+  color: #293858;
+  font-weight: 720;
+}
+.speaker-note-copy ul {
+  display: grid;
+  gap: .48rem;
+  margin: .85rem 0 0;
+  padding-left: 1.15rem;
+}
+.speaker-note-copy li::marker { color: #5c83ea; }
+.speaker-note-transition {
+  margin-top: 1rem !important;
+  padding: .72rem .8rem;
+  border-left: 3px solid #6f93ef;
+  background: #f2f6ff;
+}
+.speaker-note-transition strong {
+  display: block;
+  margin-bottom: .2rem;
+  color: #4267c7;
+  font-size: .72rem;
+  letter-spacing: .04em;
+}
+.speaker-note-sources {
+  display: grid;
+  gap: .28rem;
+  margin-top: .9rem;
+  padding-top: .7rem;
+  border-top: 1px solid #d8e2f7;
+  font-size: .76rem;
+}
+.speaker-note-sources strong { color: #7786aa; }
+.speaker-note-sources a {
+  color: #4267c7;
+  overflow-wrap: anywhere;
+  text-decoration: none;
+}
+.speaker-note-sources a:hover { text-decoration: underline; }
+.presenter-notes {
+  min-height: 0;
+  overflow: auto;
+}
+.presenter-notes p {
+  color: #4e5e7e;
 }
 .presenter-controls {
   display: grid;
