@@ -2,8 +2,8 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import {
-  ArrowLeft, ArrowRight, Check, ChevronRight, ClipboardList,
-  Expand, Minimize, MonitorUp, Sparkles, Users, X,
+  ArrowLeft, ArrowRight, ChevronRight, ClipboardList,
+  Expand, Minimize, MonitorUp, X,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -35,39 +35,39 @@ const slides: Slide[] = [
     content: <div className="purpose-layout"><div className="purpose-cards">{[["01", "현재 상태 점검", "检查当前状态", "프로젝트Ⅰ에서 만든 것과 아직 안 된 것을 먼저 정리합니다.", "先梳理项目Ⅰ中已经完成和尚未完成的部分。"], ["02", "서비스에 연결", "接入服务", "AI 모델이나 API를 사용자가 실제로 거치는 화면과 기능에 연결합니다.", "把AI模型或API接入用户实际使用的界面与功能。"], ["03", "직접 써 보고 수정", "实际使用并修改", "대상 사용자가 핵심 기능을 써 보게 하고, 막히는 부분을 고칩니다.", "让目标用户试用核心功能，并修改使用中遇到的问题。"]].map(([number, title, chineseTitle, detail, chineseDetail]) => <article key={number}><span>{number}</span><h3>{title}<small>{chineseTitle}</small></h3><p>{detail}<small>{chineseDetail}</small></p></article>)}</div><div className="purpose-result"><span>학기 말 결과물 · 学期成果</span><strong>직접 실행할 수 있는 AI 서비스 + 테스트 기록<small>可直接运行的AI服务 + 测试记录</small></strong></div></div>,
   },
   {
-    index: "04", eyebrow: "프로젝트 사례 · 아이디어", chineseEyebrow: "项目案例 · 创意",
-    title: "이런 일상의 불편에서\nAI 프로젝트를 시작할 수 있습니다", chineseTitle: "可以从这些日常不便中开始AI项目",
-    note: "거창한 기술보다 자주 겪는 불편을 구체적으로 찾는 것이 좋은 출발입니다. 세 가지 예시 중 어떤 기능을 직접 써 보고 싶은지 학생들에게 물어봅니다.",
-    chineseNote: "比起宏大的技术，从经常遇到的具体不便出发更合适。可以问学生三个案例中最想亲自使用哪一个。",
-    content: <div className="example-grid">{[["SPEECH", "발표 연습 코치", "演讲练习教练", "발표 영상을 올리면 말 빠르기·반복 표현·침묵 구간을 보여주고, 다음 연습 항목을 추천합니다.", "上传演讲视频后，分析语速、重复表达和停顿，并推荐下一步练习内容。", "발표가 낯선 대학생", "不熟悉演讲的大学生"], ["STUDY", "전공 수업 자료 도우미", "专业课程资料助手", "강의자료의 어려운 용어를 쉽게 풀고, 답변마다 근거가 된 페이지를 함께 보여줍니다.", "用简单语言解释课件中的难懂术语，并在每个回答中标出依据页面。", "한국어 전공 수업을 듣는 유학생", "学习韩语专业课的留学生"], ["CAMPUS", "교내 공지 찾기", "校内通知查找助手", "학과·장학·졸업 공지를 모아 질문에 답하고, 원문 링크와 마감일을 정리해 줍니다.", "汇总院系、奖学金和毕业通知，回答问题并整理原文链接与截止日期。", "필요한 공지를 자주 놓치는 학생", "经常错过重要通知的学生"]].map(([tag, title, chineseTitle, detail, chineseDetail, user, chineseUser]) => <article key={tag}><span>{tag}</span><h3>{title}<small>{chineseTitle}</small></h3><p>{detail}<small>{chineseDetail}</small></p><b>사용자 · 用户<strong>{user}<small>{chineseUser}</small></strong></b></article>)}</div>,
+    index: "04", eyebrow: "AI 프로젝트 사례 1 · 학습", chineseEyebrow: "AI项目案例1 · 学习",
+    title: "자료를 읽고 정리하는 NotebookLM", chineseTitle: "帮助阅读和整理资料的NotebookLM",
+    note: "NotebookLM은 사용자가 올린 자료 안에서 답을 찾고 출처를 함께 보여 줍니다. AI 기능이 구체적인 공부 흐름과 어떻게 연결되는지 살펴봅니다.",
+    chineseNote: "NotebookLM在用户上传的资料中寻找答案，并同时显示来源。请留意AI功能如何接入具体的学习流程。",
+    content: <div className="case-study case-contain"><figure><img src="/cases/notebooklm.png" alt="NotebookLM 공식 소개 이미지" /><figcaption>Google 공식 소개 이미지 · Google官方介绍图片</figcaption></figure><div className="case-study-points">{[["누가 쓰나", "谁来使用", "강의 자료와 논문을 많이 읽는 학생·연구자", "需要阅读大量课程资料和论文的学生、研究者"], ["어떤 문제인가", "要解决什么问题", "자료가 많을수록 핵심 내용과 출처를 한꺼번에 파악하기 어렵다", "资料越多，越难同时掌握重点内容和来源"], ["무엇을 만들었나", "实现了什么", "올린 자료를 바탕으로 답하고 요약·학습 가이드·오디오 개요를 만드는 서비스", "基于上传资料回答问题，并生成摘要、学习指南和音频概览的服务"], ["눈여겨볼 점", "值得注意", "답변과 원문 출처를 연결해 사용자가 직접 확인할 수 있다", "把回答与原文来源连接起来，方便用户直接核对"]].map(([label, chineseLabel, detail, chineseDetail]) => <article key={label}><span>{label}<small>{chineseLabel}</small></span><strong>{detail}<small>{chineseDetail}</small></strong></article>)}<a href="https://blog.google/innovation-and-ai/products/developing-notebooklm/" target="_blank" rel="noreferrer">Google 공식 소개 보기 · 查看Google官方介绍 ↗</a></div></div>,
   },
   {
-    index: "05", eyebrow: "프로젝트 사례 · 구체화", chineseEyebrow: "项目案例 · 具体化",
-    title: "막연한 아이디어도\n사용 장면을 정하면 프로젝트가 됩니다", chineseTitle: "模糊的想法，只要明确使用场景，就能变成项目",
-    note: "‘AI 공부 앱’처럼 넓은 아이디어를 사용자, 사용 장면, 핵심 기능, 테스트 방법으로 좁혀 가는 과정을 보여줍니다.",
-    chineseNote: "展示如何把“AI学习应用”这样宽泛的想法，收窄为用户、使用场景、核心功能和测试方法。",
-    content: <div className="case-flow">{[["01 · 처음 아이디어", "01 · 最初想法", "AI로 공부를 도와주는 앱", "用AI帮助学习的应用"], ["02 · 사용 장면", "02 · 使用场景", "중국인 유학생이 한국어 전공 강의자료를 읽다가 이해되지 않는 개념을 만났을 때", "中国留学生阅读韩语专业课资料时，遇到不理解的概念"], ["03 · 핵심 기능", "03 · 核心功能", "자료 업로드 → 질문 → 근거 페이지 + 쉬운 설명 + 한중 용어 비교", "上传资料 → 提问 → 依据页面 + 简单解释 + 中韩术语对照"], ["04 · 테스트 방법", "04 · 测试方法", "실제 강의자료의 질문 10개로 근거 페이지가 맞는지, 설명이 도움이 되는지 살펴봅니다.", "用真实课件的10个问题，检查依据页面是否正确、解释是否有帮助。"]].map(([label, chineseLabel, detail, chineseDetail], i) => <article key={label} className={i === 0 ? "case-start" : ""}><span>{label}<small>{chineseLabel}</small></span><strong>{detail}<small>{chineseDetail}</small></strong>{i < 3 && <ChevronRight />}</article>)}</div>,
+    index: "05", eyebrow: "AI 프로젝트 사례 2 · 접근성", chineseEyebrow: "AI项目案例2 · 无障碍",
+    title: "수어를 텍스트로 바꾸는 Master Gesture", chineseTitle: "把手语转换为文字的Master Gesture",
+    note: "Master Gesture의 실제 화면을 보며 누구의 어떤 어려움을 해결하려 했는지, 무엇을 구현했고 어떻게 공개했는지 차례로 짚습니다.",
+    chineseNote: "通过Master Gesture的真实界面，了解团队为谁解决什么困难、实现了什么功能，以及如何公开成果。",
+    content: <div className="case-study"><figure><img src="/cases/master-gesture.jpg" alt="Master Gesture가 카메라로 수어를 인식하는 테스트 화면" /><figcaption>프로젝트 테스트 화면 · 项目测试界面</figcaption></figure><div className="case-study-points">{[["누가 쓰나", "谁来使用", "청각·언어장애인과 대화 상대", "听障、言语障碍人士及其交流对象"], ["어떤 문제인가", "要解决什么问题", "수어를 모르는 사람과 바로 대화하기 어렵다", "难以与不懂手语的人即时交流"], ["무엇을 만들었나", "实现了什么", "카메라로 수어를 읽어 실시간 텍스트로 보여 주는 앱", "通过摄像头识别手语并实时显示文字的应用"], ["어떻게 구현했나", "如何实现", "YOLO로 동작을 인식하고 PyTorch·ONNX 모델을 앱에 연결", "用YOLO识别动作，并把PyTorch、ONNX模型接入应用"]].map(([label, chineseLabel, detail, chineseDetail]) => <article key={label}><span>{label}<small>{chineseLabel}</small></span><strong>{detail}<small>{chineseDetail}</small></strong></article>)}<a href="https://devpost.com/software/tomjerry" target="_blank" rel="noreferrer">Devpost 프로젝트 페이지 보기 · 查看Devpost项目页面 ↗</a></div></div>,
   },
   {
-    index: "06", eyebrow: "이 수업에서 말하는 실증", chineseEyebrow: "本课程所说的实证",
+    index: "06", eyebrow: "AI 프로젝트 사례 3 · 접근성", chineseEyebrow: "AI项目案例3 · 无障碍",
+    title: "사진과 영상을 설명하는 FROM YOUR EYES", chineseTitle: "描述照片和视频的FROM YOUR EYES",
+    note: "FROM YOUR EYES는 시각장애인이 이미지와 영상의 내용을 파악할 수 있도록 설명을 제공합니다. 명확한 사용자 문제에서 시작해 서비스로 발전한 사례입니다.",
+    chineseNote: "FROM YOUR EYES为视障用户提供图片和视频内容说明。这是一个从明确的用户问题出发并发展成服务的案例。",
+    content: <div className="case-study case-contain"><figure><img src="/cases/from-your-eyes.webp" alt="FROM YOUR EYES 앱 화면" /><figcaption>서비스 화면 · 服务界面</figcaption></figure><div className="case-study-points">{[["누가 쓰나", "谁来使用", "이미지와 영상 정보를 얻기 어려운 시각장애인", "难以获取图片和视频信息的视障用户"], ["어떤 문제인가", "要解决什么问题", "온라인의 시각 자료가 설명 없이 제공되면 내용을 알기 어렵다", "网络视觉资料如果没有说明，就很难理解其内容"], ["무엇을 만들었나", "实现了什么", "사진과 영상을 분석해 사용자에게 내용 설명을 제공하는 서비스", "分析照片和视频，并向用户提供内容说明的服务"], ["프로젝트 결과", "项目成果", "2024 Microsoft Imagine Cup 세계 우승", "获得2024 Microsoft Imagine Cup全球冠军"]].map(([label, chineseLabel, detail, chineseDetail]) => <article key={label}><span>{label}<small>{chineseLabel}</small></span><strong>{detail}<small>{chineseDetail}</small></strong></article>)}<a href="https://news.microsoft.com/source/latam/noticias-de-microsoft/anunciamos-al-campeon-mundial-de-imagine-cup-2024/" target="_blank" rel="noreferrer">Microsoft 우승 사례 보기 · 查看Microsoft冠军案例 ↗</a></div></div>,
+  },
+  {
+    index: "07", eyebrow: "이 수업에서 말하는 실증", chineseEyebrow: "本课程所说的实证",
     title: "‘좋아 보인다’가 아니라\n직접 써 본 결과로 판단합니다", chineseTitle: "不凭“看起来不错”，而用实际使用结果来判断",
     note: "먼저 테스트 목표를 정하고, 사용자가 직접 써 보는 모습을 살펴본 뒤, 기록한 결과를 다음 버전에 반영하는 과정을 실증이라고 설명합니다.",
     chineseNote: "先确定测试目标，观察用户实际使用，再把记录的结果反映到下一版本——这就是本课程所说的实证。",
     content: <div className="evidence-layout"><div className="evidence-word"><strong>실증</strong><span>實證 · EVIDENCE</span></div><div className="evidence-flow">{[["테스트 목표", "测试目标"], ["직접 사용", "实际使用"], ["결과 기록", "记录结果"], ["다음 버전", "下一版本"]].map(([item, chinese], i) => <div key={item}><span>0{i + 1}</span><p>{item}<small>{chinese}</small></p>{i < 3 && <ChevronRight />}</div>)}</div><p className="evidence-explain">먼저 무엇이 잘되어야 하는지 기준을 정합니다. 그다음 사용자가 서비스를 쓰는 모습을 살펴보고, 결과를 기록해 다음 버전에 반영합니다.<br /><small>先确定什么才算做得好，再观察用户如何使用服务，并把记录的结果反映到下一版本。</small></p></div>,
   },
   {
-    index: "07", eyebrow: "15주 프로젝트 흐름", chineseEyebrow: "15周项目流程",
+    index: "08", eyebrow: "15주 프로젝트 흐름", chineseEyebrow: "15周项目流程",
     title: "2~3주 단위로 만들고,\n수업에서 함께 리뷰합니다", chineseTitle: "每2~3周完成一轮开发，并在课堂上共同评审",
     note: "한 번에 완성하려 하지 않고, 2~3주마다 계획·개발·리뷰를 반복합니다. 중간 발표와 최종 발표는 지금까지 만든 결과를 직접 보여주는 시간입니다.",
     chineseNote: "不追求一次完成，而是每2~3周重复计划、开发与评审。期中和期末汇报用于现场展示已经完成的成果。",
     content: <div className="sprint-map">{[["01–02", "시작", "开始", "수업 안내 · 프로젝트 현황 공유", "课程说明 · 分享项目现状"], ["03–05", "스프린트 1", "冲刺 1", "MVP 범위 정하기 · 핵심 AI 기능 구현", "确定MVP范围 · 实现核心AI功能"], ["06–08", "스프린트 2", "冲刺 2", "화면과 AI 기능 연결 · 중간 발표", "连接界面与AI功能 · 期中汇报"], ["09–11", "스프린트 3", "冲刺 3", "사용자 테스트 · 문제점 수정", "用户测试 · 修改问题"], ["12–15", "스프린트 4", "冲刺 4", "최종 통합 · 발표와 시연", "最终整合 · 汇报与演示"]].map(([week, title, chineseTitle, detail, chineseDetail], i) => <article key={week} className={i === 0 ? "start-phase" : ""}><span>{week}</span><h3>{title}<small>{chineseTitle}</small></h3><p>{detail}<small>{chineseDetail}</small></p>{i === 2 && <b>8주차 · 第8周<br />중간 발표 · 期中汇报</b>}{i === 4 && <b>15주차 · 第15周<br />최종 발표 · 期末汇报</b>}</article>)}</div>,
-  },
-  {
-    index: "08", eyebrow: "오늘 진행 순서", chineseEyebrow: "今天的进行顺序",
-    title: "오늘 수업은\n이 순서로 진행합니다", chineseTitle: "今天的课程按以下顺序进行",
-    note: "수업 운영 방식과 프로젝트 사례를 살펴본 뒤, 학생들의 프로젝트Ⅰ 진행 상황을 함께 이야기하고 다음 주 팀 프로젝트 소개를 안내합니다.",
-    chineseNote: "先了解课程方式和项目案例，再交流项目Ⅰ的进展，并说明下周的团队项目介绍。",
-    content: <div className="today-layout"><div className="today-list">{[["수업 안내", "课程说明", "수업 목표, 평가 방식, 한 학기 진행 순서를 설명합니다.", "说明课程目标、评价方式与一学期的进行顺序。"], ["프로젝트 사례와 이야기", "项目案例与交流", "사례를 함께 보고, 프로젝트Ⅰ에서 만든 것과 어려운 점을 이야기합니다.", "一起看项目案例，并交流项目Ⅰ中完成的内容与遇到的困难。"], ["다음 주 준비 안내", "下周准备说明", "본인 팀 프로젝트를 어떻게 소개하면 되는지 안내합니다.", "说明下周如何介绍自己团队的项目。"]].map(([title, chineseTitle, detail, chineseDetail], i) => <article key={title}><span>0{i + 1}</span><div><h3>{title}<small>{chineseTitle}</small></h3><p>{detail}<small>{chineseDetail}</small></p></div><Check /></article>)}</div><aside><Users /><strong>오늘 이야기할 내용</strong><span>今天要交流的内容</span><p>자기소개 · 프로젝트Ⅰ에서 만든 것 · 현재 어려운 점<small>自我介绍 · 项目Ⅰ中完成的内容 · 目前的困难</small></p></aside></div>,
   },
   {
     index: "09", eyebrow: "다음 주 준비", chineseEyebrow: "下周准备",
@@ -76,13 +76,6 @@ const slides: Slide[] = [
     chineseNote: "为下节课介绍自己团队的项目，请整理团队成员、要解决的问题、当前状态以及本学期的核心AI功能。",
     content: <div className="assignment-layout"><div className="assignment-head"><ClipboardList /><div><span>2주차 팀 프로젝트 소개 · 第2周团队项目介绍</span><h3>본인 팀 프로젝트 소개 준비<small>准备介绍自己团队的项目</small></h3><p>다음 수업에서 아래 내용을 팀별로 소개합니다.<small>下节课各组介绍以下内容。</small></p></div></div><ol>{[["팀명과 팀원", "团队名称与成员"], ["프로젝트 이름, 해결하려는 문제, 대상 사용자", "项目名称、要解决的问题与目标用户"], ["프로젝트Ⅰ에서 만든 것과 현재 어려운 점", "项目Ⅰ中已经完成的内容与目前的困难"], ["이번 학기에 구현할 핵심 AI 기능", "本学期要实现的核心AI功能"]].map(([item, chinese], i) => <li key={item}><span>{i + 1}</span><div><strong>{item}</strong><small>{chinese}</small></div></li>)}</ol><div className="submission-box"><span>다음 수업 · 下节课</span><strong>팀 프로젝트 소개<small>团队项目介绍</small></strong><p>본인 팀의 프로젝트를 설명할 수 있도록 준비해 오세요.<small>请准备好介绍自己团队的项目。</small></p></div></div>,
   },
-  {
-    index: "10", eyebrow: "마무리", chineseEyebrow: "结束",
-    title: "다음 주에는 각 팀이\n무엇을 만들지 함께 봅니다", chineseTitle: "下周一起看看每个团队要做什么",
-    note: "다음 주에 준비할 세 가지 항목을 다시 짚고, 수업이나 프로젝트에 관한 질문을 받습니다.",
-    chineseNote: "再次确认下周要准备的三项内容，并回答有关课程或项目的问题。",
-    content: <div className="closing-content"><div className="closing-orb"><Sparkles /></div><div><p>궁금한 점이 있나요?<small>有想问的吗？</small></p><span>다음 주에는 본인 팀의 프로젝트와 이번 학기 계획을 소개합니다.<small>下周将介绍自己团队的项目与本学期计划。</small></span></div></div>,
-  },
 ];
 
 const DECK_CHANNEL = "dong-a-week-1-deck";
@@ -90,7 +83,7 @@ const DECK_STORAGE_KEY = "dong-a-week-1-current";
 
 function SlideCanvas({ slide, position }: { slide: Slide; position: number }) {
   return (
-    <section className="slide-stage" aria-live="polite">
+    <section className={`slide-stage slide-${slide.index}`} aria-live="polite">
       <div className="wire wire-one" />
       <div className="wire wire-two" />
       <div className="cube cube-one" />
