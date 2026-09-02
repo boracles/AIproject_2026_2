@@ -89,6 +89,66 @@ kbd { font-size: .74rem; }
 .notes-panel p { font-size: 1rem; }
 .overview-grid button strong { font-size: 1.06rem; }
 
+/* Keep every 16:9 slide proportional inside both the audience and presenter views.
+   Viewport units made the presenter preview's type stay too large for its smaller canvas,
+   which pushed the lower rows of slides 3, 7 and 9 underneath the frame. */
+.slide-stage { container-type: inline-size; }
+
+@media (min-width: 761px) {
+  .slide-stage .slide-meta { font-size: .9cqw; }
+  .slide-stage .slide-title-wrap h1 { font-size: 5.05cqw; }
+  .slide-stage .slide-title-wrap > p { font-size: 1.12cqw; }
+  .slide-stage .corner-mark { font-size: .7cqw; }
+
+  .slide-stage .cover-statement > span,
+  .slide-stage .course-card > span { font-size: .84cqw; }
+  .slide-stage .cover-statement strong { font-size: 2.5cqw; }
+  .slide-stage .cover-statement p { font-size: .98cqw; }
+  .slide-stage .course-card strong { font-size: 1.95cqw; }
+  .slide-stage .course-card p { font-size: .88cqw; }
+
+  .slide-stage .course-grid article > span { font-size: .84cqw; }
+  .slide-stage .course-grid h3 { font-size: 1.42cqw; }
+  .slide-stage .course-grid p { font-size: .88cqw; }
+  .slide-stage .course-grid small { font-size: .76cqw; }
+  .slide-stage .assessment div { font-size: .76cqw; }
+
+  .slide-stage .evidence-word strong { font-size: 4cqw; }
+  .slide-stage .evidence-word span { font-size: .76cqw; }
+  .slide-stage .evidence-flow span {
+    width: 3.8cqw;
+    font-size: .9cqw;
+  }
+  .slide-stage .evidence-flow p { font-size: .96cqw; }
+  .slide-stage .evidence-explain { font-size: .94cqw; }
+
+  .slide-stage .sprint-map span { font-size: .78cqw; }
+  .slide-stage .sprint-map h3 { font-size: 1.26cqw; }
+  .slide-stage .sprint-map p { font-size: .82cqw; }
+  .slide-stage .sprint-map b { font-size: .78cqw; }
+
+  .slide-stage .assignment-head > svg { width: 2.2cqw; }
+  .slide-stage .assignment-head span,
+  .slide-stage .submission-box span { font-size: .75cqw; }
+  .slide-stage .assignment-head h3 { font-size: 1.32cqw; }
+  .slide-stage .assignment-head p { font-size: .84cqw; }
+  .slide-stage .assignment-layout li { font-size: .88cqw; }
+  .slide-stage .submission-box strong { font-size: 1.7cqw; }
+  .slide-stage .submission-box p { font-size: .72cqw; }
+
+  .slide-stage .purpose-cards article > span { font-size: .8cqw; }
+  .slide-stage .purpose-cards h3 { font-size: 1.3cqw; }
+  .slide-stage .purpose-cards p { font-size: .88cqw; }
+  .slide-stage .purpose-result > span { font-size: .76cqw; }
+  .slide-stage .purpose-result strong { font-size: 1.18cqw; }
+
+  :is(.slide-04,.slide-05,.slide-06) .slide-title-wrap h1 { font-size: 3.1cqw; }
+  .slide-stage .case-study figcaption { font-size: .7cqw; }
+  .slide-stage .case-study-points article > span { font-size: .72cqw; }
+  .slide-stage .case-study-points article > strong { font-size: .84cqw; }
+  .slide-stage .case-study-points > a { font-size: .76cqw; }
+}
+
 .purpose-layout { height: 100%; display: grid; grid-template-rows: 1fr auto; gap: .75em; }
 .purpose-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: .8em; }
 .purpose-cards article { padding: 1em 1.05em; border: 1px solid #d6e1fa; border-radius: .7rem; background: rgba(255,255,255,.84); box-shadow: 6px 8px 0 #dce7ff; }
