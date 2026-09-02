@@ -28,11 +28,11 @@ const slides: Slide[] = [
     content: <div className="course-grid"><article><span>01</span><h3>문제 정리</h3><p>무엇이 불편한지, 왜 해결해야 하는지부터 분명히 합니다.</p><small>梳理问题<br />先明确哪里不方便，以及为什么需要解决。</small></article><article><span>02</span><h3>사용자 이해</h3><p>누가 언제 이 서비스를 쓰는지 살펴보고 필요한 기능을 정합니다.</p><small>理解用户<br />了解谁会在什么情况下使用，并确定所需功能。</small></article><article><span>03</span><h3>만들고 다듬기</h3><p>AI 기능을 실제 화면에 붙이고, 써 본 반응을 보며 고칩니다.</p><small>开发与改进<br />把AI功能接入实际界面，并根据使用反馈修改。</small></article><article className="assessment"><span>평가 · 评价</span><div><b>출결<small>出勤</small></b><strong>20%</strong></div><div><b>주차별 프로젝트 과제<small>每周项目作业</small></b><strong>30%</strong></div><div><b>중간 발표<small>期中汇报</small></b><strong>20%</strong></div><div><b>최종 발표와 시연<small>期末汇报与演示</small></b><strong>30%</strong></div></article></div>,
   },
   {
-    index: "03", eyebrow: "이 수업은 무엇을 하는가", chineseEyebrow: "这门课要做什么",
-    title: "프로젝트Ⅰ에서 만든 결과를 이어,\n이번 학기에는 ‘쓸 수 있는 서비스’로 완성합니다", chineseTitle: "延续项目Ⅰ的成果，本学期把它完成为真正可用的服务",
-    note: "프로젝트Ⅰ에서 만든 결과를 처음부터 다시 만드는 수업이 아닙니다. 현재 상태를 점검하고, AI 기능을 서비스 흐름에 연결한 뒤 직접 써 보며 완성도를 높입니다.",
-    chineseNote: "这门课不是从头重做项目Ⅰ，而是检查当前状态，把AI功能接入服务流程，并通过实际使用不断提高完成度。",
-    content: <div className="purpose-layout"><div className="purpose-cards">{[["01", "현재 상태 점검", "检查当前状态", "프로젝트Ⅰ에서 만든 것과 아직 안 된 것을 먼저 정리합니다.", "先梳理项目Ⅰ中已经完成和尚未完成的部分。"], ["02", "서비스에 연결", "接入服务", "AI 모델이나 API를 사용자가 실제로 거치는 화면과 기능에 연결합니다.", "把AI模型或API接入用户实际使用的界面与功能。"], ["03", "직접 써 보고 수정", "实际使用并修改", "대상 사용자가 핵심 기능을 써 보게 하고, 막히는 부분을 고칩니다.", "让目标用户试用核心功能，并修改使用中遇到的问题。"]].map(([number, title, chineseTitle, detail, chineseDetail]) => <article key={number}><span>{number}</span><h3>{title}<small>{chineseTitle}</small></h3><p>{detail}<small>{chineseDetail}</small></p></article>)}</div><div className="purpose-result"><span>학기 말 결과물 · 学期成果</span><strong>직접 실행할 수 있는 AI 서비스 + 테스트 기록<small>可直接运行的AI服务 + 测试记录</small></strong></div></div>,
+    index: "03", eyebrow: "이번 학기 프로젝트", chineseEyebrow: "本学期项目",
+    title: "프로젝트Ⅰ 결과물을\n이번 학기에 고도화합니다", chineseTitle: "本学期继续优化项目Ⅰ的成果",
+    note: "프로젝트Ⅰ 결과물의 현재 상태를 점검하고, 필요한 기능을 추가한 뒤 사용자 테스트를 거쳐 고도화합니다.",
+    chineseNote: "先检查项目Ⅰ成果的当前状态，补充所需功能，再通过用户测试持续优化。",
+    content: <div className="purpose-layout"><div className="purpose-cards">{[["01", "현재 상태 점검", "检查当前状态", "프로젝트Ⅰ에서 만든 것과 아직 안 된 것을 먼저 정리합니다.", "先梳理项目Ⅰ中已经完成和尚未完成的部分。"], ["02", "필요한 기능 추가", "补充所需功能", "AI 모델이나 API를 실제 화면과 기능에 연결합니다.", "把AI模型或API接入实际界面与功能。"], ["03", "사용자 테스트와 수정", "用户测试与修改", "대상 사용자가 핵심 기능을 써 보게 하고, 막히는 부분을 고칩니다.", "让目标用户试用核心功能，并修改使用中遇到的问题。"]].map(([number, title, chineseTitle, detail, chineseDetail]) => <article key={number}><span>{number}</span><h3>{title}<small>{chineseTitle}</small></h3><p>{detail}<small>{chineseDetail}</small></p></article>)}</div><div className="purpose-result"><span>학기 말 결과물 · 学期成果</span><strong>고도화된 AI 서비스 + 사용자 테스트 기록<small>优化后的AI服务 + 用户测试记录</small></strong></div></div>,
   },
   {
     index: "04", eyebrow: "AI 프로젝트 사례 1 · 학습", chineseEyebrow: "AI项目案例1 · 学习",
