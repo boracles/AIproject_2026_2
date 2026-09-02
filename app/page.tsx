@@ -19,7 +19,7 @@ type Slide = {
 const slides: Slide[] = [
   {
     eyebrow: "2026 · 2학기 / ORIENTATION",
-    title: "실증적AI개발\n프로젝트 II",
+    title: "실증적AI개발프로젝트Ⅱ\n(종합설계)",
     note: "학생들을 환영하고, 이 수업이 단순한 AI 기술 학습이 아니라 실제 문제를 발견하고 구현하고 검증하는 종합설계 수업임을 강조합니다.",
     content: <div className="cover-layout">
       <div><p className="cover-copy">아이디어를 작동하는 AI 서비스로,</p><p className="cover-copy muted-copy">작동하는 서비스를 검증된 결과로.</p></div>
@@ -136,7 +136,7 @@ const slides: Slide[] = [
     eyebrow: "WELCOME / START HERE",
     title: "잘 만든 답보다\n잘 검증한 질문에서 시작합시다",
     note: "마무리 슬라이드입니다. 질문을 받고, 오늘 활동 결과와 다음 주 준비 내용을 다시 확인합니다.",
-    content: <div className="closing-layout"><div className="closing-badge"><Sparkles /></div><p>질문이 있나요?</p><span>실증적AI개발프로젝트II · 2026</span></div>,
+    content: <div className="closing-layout"><div className="closing-badge"><Sparkles /></div><p>질문이 있나요?</p><span>실증적AI개발프로젝트Ⅱ(종합설계) · 2026</span></div>,
     tone: "blue",
   },
 ];
@@ -171,7 +171,7 @@ export default function Home() {
 
   return <main className="deck-shell">
     <header className="deck-header">
-      <button className="brand" onClick={() => go(0)} aria-label="첫 슬라이드로 이동"><span className="brand-mark">DA</span><span><strong>실증적AI개발프로젝트II</strong><small>동아대학교 AI학과</small></span></button>
+      <button className="brand" onClick={() => go(0)} aria-label="첫 슬라이드로 이동"><span className="brand-mark">DA</span><span><strong>실증적AI개발프로젝트Ⅱ(종합설계)</strong><small>동아대학교 AI학과</small></span></button>
       <div className="header-actions"><button onClick={() => setShowOverview(true)}>전체 보기 <kbd>O</kbd></button><button onClick={() => setShowNotes((value) => !value)}>발표 메모 <kbd>N</kbd></button><Button variant="outline" size="icon-sm" onClick={toggleFullscreen} aria-label={isFullscreen ? "전체 화면 종료" : "전체 화면"}>{isFullscreen ? <Minimize /> : <Expand />}</Button></div>
     </header>
     <div className="stage-wrap"><section className={`slide-stage tone-${slide.tone ?? "lime"}`} aria-live="polite"><div className="grid-overlay" /><div className="slide-meta"><span>{slide.eyebrow}</span><span>{String(current + 1).padStart(2, "0")} / {String(slides.length).padStart(2, "0")}</span></div><div className="slide-title-wrap"><h1>{slide.title.split("\n").map((line, index) => <span key={index}>{line}</span>)}</h1></div><div className="slide-content">{slide.content}</div><div className="corner-mark">DONG-A · AI</div></section></div>
