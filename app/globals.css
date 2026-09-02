@@ -298,6 +298,7 @@ kbd { font-size: .74rem; }
 }
 
 /* Korean/Chinese parallel copy. */
+.slide-meta { right: 5.2%; }
 .slide-meta > span:first-child small {
   display: block;
   margin-top: .2em;
