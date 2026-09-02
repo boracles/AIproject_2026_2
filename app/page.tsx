@@ -22,7 +22,7 @@ const slides: Slide[] = [
   },
   {
     index: "02", eyebrow: "이번 학기 수업", chineseEyebrow: "本学期课程",
-    title: "문제를 분명히 하고,\n필요한 AI 기능을 끝까지 구현합니다", chineseTitle: "明确问题，并把真正需要的AI功能实现到底",
+    title: "문제를 분명히 하고,\n필요한 AI 기능을 구현합니다", chineseTitle: "明确问题，并实现真正需要的AI功能",
     note: "문제와 사용자를 따로 살펴본 뒤, 필요한 AI 기능을 실제 서비스에 붙이고 사용자의 반응을 보며 다듬는 수업이라고 설명합니다.",
     chineseNote: "先分别梳理问题与用户，再把所需的AI功能接入实际服务，并根据用户反馈持续改进。",
     content: <div className="course-grid"><article><span>01</span><h3>문제 정리</h3><p>무엇이 불편한지, 왜 해결해야 하는지부터 분명히 합니다.</p><small>梳理问题<br />先明确哪里不方便，以及为什么需要解决。</small></article><article><span>02</span><h3>사용자 이해</h3><p>누가 언제 이 서비스를 쓰는지 살펴보고 필요한 기능을 정합니다.</p><small>理解用户<br />了解谁会在什么情况下使用，并确定所需功能。</small></article><article><span>03</span><h3>만들고 다듬기</h3><p>AI 기능을 실제 화면에 붙이고, 써 본 반응을 보며 고칩니다.</p><small>开发与改进<br />把AI功能接入实际界面，并根据使用反馈修改。</small></article><article className="assessment"><span>평가 · 评价</span><div><b>출결<small>出勤</small></b><strong>20%</strong></div><div><b>주차별 프로젝트 과제<small>每周项目作业</small></b><strong>30%</strong></div><div><b>중간 발표<small>期中汇报</small></b><strong>20%</strong></div><div><b>최종 발표와 시연<small>期末汇报与演示</small></b><strong>30%</strong></div></article></div>,
@@ -170,39 +170,38 @@ export default function Home() {
       <main className="presenter-shell">
         <header className="presenter-header">
           <div>
-            <span>발표자 화면 · 演讲者视图 · WEEK 01</span>
-            <h1>실증적AI개발프로젝트Ⅱ(종합설계)<small>实证人工智能开发项目Ⅱ（综合设计）</small></h1>
+            <span>발표자 화면 · WEEK 01</span>
+            <h1>실증적AI개발프로젝트Ⅱ(종합설계)</h1>
           </div>
           <Button variant="outline" onClick={() => openDeckWindow("slideshow")}>
-            <MonitorUp /> 슬라이드쇼 열기 · 打开幻灯片
+            <MonitorUp /> 슬라이드쇼 열기
           </Button>
         </header>
         <div className="presenter-layout">
           <section className="presenter-current">
             <div className="presenter-section-label">
-              <span>현재 슬라이드 · 当前幻灯片</span>
+              <span>현재 슬라이드</span>
               <strong>{String(current + 1).padStart(2, "0")} / {String(slides.length).padStart(2, "0")}</strong>
             </div>
             <div className="presenter-stage-wrap"><SlideCanvas slide={slide} position={current} /></div>
           </section>
           <aside className="presenter-sidebar">
             <section className="presenter-next">
-              <span>다음 슬라이드 · 下一张幻灯片</span>
+              <span>다음 슬라이드</span>
               {nextSlide ? (
                 <>
                   <b>{nextSlide.index}</b>
                   <strong>{nextSlide.title.replace("\n", " ")}</strong>
-                  <p>{nextSlide.chineseTitle}</p>
                 </>
-              ) : <strong>마지막 슬라이드입니다.<small>这是最后一张幻灯片。</small></strong>}
+              ) : <strong>마지막 슬라이드입니다.</strong>}
             </section>
             <section className="presenter-notes">
-              <span>발표자 메모 · 演讲备注</span>
-              <p>{slide.note}<small>{slide.chineseNote}</small></p>
+              <span>발표자 메모</span>
+              <p>{slide.note}</p>
             </section>
             <div className="presenter-controls">
-              <Button variant="outline" onClick={() => go(current - 1)} disabled={current === 0}><ArrowLeft /> 이전 · 上一张</Button>
-              <Button onClick={() => go(current + 1)} disabled={current === slides.length - 1}>다음 · 下一张 <ArrowRight /></Button>
+              <Button variant="outline" onClick={() => go(current - 1)} disabled={current === 0}><ArrowLeft /> 이전</Button>
+              <Button onClick={() => go(current + 1)} disabled={current === slides.length - 1}>다음 <ArrowRight /></Button>
             </div>
           </aside>
         </div>
