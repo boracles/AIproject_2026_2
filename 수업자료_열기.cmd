@@ -24,7 +24,7 @@ if not exist "%VITE_ENTRY%" (
 echo 수업자료를 여는 중입니다...
 echo 이 창을 닫으면 로컬 수업자료도 종료됩니다.
 echo.
-start "" powershell.exe -NoProfile -WindowStyle Hidden -Command "Start-Sleep -Seconds 2; Start-Process 'http://localhost:3000'"
+start "" powershell.exe -NoProfile -WindowStyle Hidden -Command "Start-Sleep -Seconds 2; Start-Process 'http://localhost:3000/?view=presenter'"
 "%NODE_EXE%" "%VITE_ENTRY%" --host 127.0.0.1 --port 3000
 
 endlocal

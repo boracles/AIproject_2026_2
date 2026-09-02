@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import {
   ArrowLeft, ArrowRight, ChevronRight, ClipboardList,
-  Expand, Minimize, MonitorUp, X,
+  MonitorUp,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -105,9 +105,6 @@ function SlideCanvas({ slide, position }: { slide: Slide; position: number }) {
 
 export default function Home() {
   const [current, setCurrent] = useState(0);
-  const [showNotes, setShowNotes] = useState(false);
-  const [showOverview, setShowOverview] = useState(false);
-  const [isFullscreen, setIsFullscreen] = useState(false);
   const [viewMode, setViewMode] = useState<"slideshow" | "presenter">("slideshow");
   const channelRef = useRef<BroadcastChannel | null>(null);
 
@@ -158,24 +155,13 @@ export default function Home() {
 
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => {
+      if (viewMode !== "presenter") return;
       if (["ArrowRight", "PageDown", " "].includes(event.key)) { event.preventDefault(); go(current + 1); }
       if (["ArrowLeft", "PageUp"].includes(event.key)) { event.preventDefault(); go(current - 1); }
-      if (event.key.toLowerCase() === "n" && viewMode === "slideshow") setShowNotes((value) => !value);
-      if (event.key.toLowerCase() === "o" && viewMode === "slideshow") setShowOverview((value) => !value);
-      if (event.key.toLowerCase() === "p" && viewMode === "slideshow") openDeckWindow("presenter");
-      if (event.key === "Escape") { setShowOverview(false); setShowNotes(false); }
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [current, go, openDeckWindow, viewMode]);
-
-  useEffect(() => {
-    const onFullscreen = () => setIsFullscreen(Boolean(document.fullscreenElement));
-    document.addEventListener("fullscreenchange", onFullscreen);
-    return () => document.removeEventListener("fullscreenchange", onFullscreen);
-  }, []);
-
-  const toggleFullscreen = async () => document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen();
   const slide = slides[current];
   const nextSlide = slides[current + 1];
 
@@ -225,32 +211,8 @@ export default function Home() {
   }
 
   return (
-    <main className="deck-shell">
-      <header className="deck-header">
-        <button className="brand" onClick={() => go(0)} aria-label="첫 슬라이드로 이동">
-          <span className="brand-mark">DA</span>
-          <span><strong>실증적AI개발프로젝트Ⅱ(종합설계)</strong><small>实证人工智能开发项目Ⅱ（综合设计） · 2026-2</small></span>
-        </button>
-        <div className="header-actions">
-          <button onClick={() => setShowOverview(true)}>전체 보기 · 总览 <kbd>O</kbd></button>
-          <button onClick={() => setShowNotes((value) => !value)}>발표 메모 · 备注 <kbd>N</kbd></button>
-          <button onClick={() => openDeckWindow("presenter")}>발표자 화면 · 演讲者视图 <kbd>P</kbd></button>
-          <Button variant="outline" size="icon-sm" onClick={toggleFullscreen} aria-label={isFullscreen ? "전체 화면 종료" : "전체 화면"}>{isFullscreen ? <Minimize /> : <Expand />}</Button>
-        </div>
-      </header>
-      <div className="stage-wrap"><SlideCanvas slide={slide} position={current} /></div>
-      <footer className="deck-footer">
-        <div className="progress-track"><span style={{ width: `${((current + 1) / slides.length) * 100}%` }} /></div>
-        <div className="footer-controls">
-          <p><kbd>←</kbd><kbd>→</kbd> 또는 화면 버튼으로 이동 · 使用方向键或屏幕按钮切换</p>
-          <div>
-            <Button variant="outline" size="icon" onClick={() => go(current - 1)} disabled={current === 0} aria-label="이전 슬라이드"><ArrowLeft /></Button>
-            <Button size="icon" onClick={() => go(current + 1)} disabled={current === slides.length - 1} aria-label="다음 슬라이드"><ArrowRight /></Button>
-          </div>
-        </div>
-      </footer>
-      {showNotes && <aside className="notes-panel"><div><span>발표자 메모 · 演讲备注</span><button onClick={() => setShowNotes(false)} aria-label="발표자 메모 닫기"><X /></button></div><p>{slide.note}<small>{slide.chineseNote}</small></p></aside>}
-      {showOverview && <div className="overview-backdrop" role="dialog" aria-modal="true" aria-label="슬라이드 전체 보기"><div className="overview-panel"><header><div><span>SLIDE MAP · 幻灯片总览</span><h2>1주차 수업 안내<small>第1周课程说明</small></h2></div><button onClick={() => setShowOverview(false)} aria-label="전체 보기 닫기"><X /></button></header><div className="overview-grid">{slides.map((item, index) => <button key={item.index} className={index === current ? "active" : ""} onClick={() => { go(index); setShowOverview(false); }}><span>{item.index}</span><strong>{item.title.replace("\n", " ")}<small>{item.chineseTitle}</small></strong></button>)}</div></div></div>}
+    <main className="audience-shell" aria-label="학생용 슬라이드쇼 화면">
+      <SlideCanvas slide={slide} position={current} />
     </main>
   );
 }
