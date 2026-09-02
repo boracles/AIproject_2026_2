@@ -48,11 +48,11 @@ const slides: Slide[] = [
     content: <div className="cover-content"><div className="cover-statement"><span>THU 12:00–15:00 · S06-602</span><strong>1주차 · 수업 안내와 프로젝트 소개</strong><p>第1周 · 课程说明与项目介绍</p></div><div className="course-card"><span>2026. 09. 03</span><strong>WEEK 01</strong><p>동아대학교 AI학과 · 东亚大学人工智能系<br />윤보라 · 尹보라</p></div></div>,
   },
   {
-    index: "02", eyebrow: "이번 학기 수업", chineseEyebrow: "本学期课程",
-    title: "문제를 분명히 하고,\n필요한 AI 기능을 구현합니다", chineseTitle: "明确问题，并实现真正需要的AI功能",
-    note: <SpeakerNote lead="이 수업에서는 문제 정의, 사용자 이해, AI 기능 구현을 연결해서 진행합니다." points={["문제 정리는 무엇이 불편하고 왜 해결해야 하는지를 분명히 하는 일입니다.", "대상 사용자를 정하는 일은 누가 언제 이 서비스를 쓰는지 구체적으로 살펴보는 일입니다. 문제 정의와는 구분해서 생각합니다.", "그다음 그 문제를 줄이는 데 필요한 AI 기능을 실제 화면에 연결하고, 테스트하면서 수정합니다.", "평가는 출결 20%, 주차별 프로젝트 과제 30%, 중간 발표 20%, 최종 발표와 시연 30%입니다."]} transition="수업 설명을 마친 뒤에는 오늘 함께할 자기소개와 프로젝트 공유를 시작하겠습니다." />,
-    chineseNote: "先分别梳理问题与用户，再把所需的AI功能接入实际服务，并根据用户反馈持续改进。",
-    content: <div className="course-grid"><article><span>01</span><h3>문제 정리</h3><p>무엇이 불편한지, 왜 해결해야 하는지부터 분명히 합니다.</p><small>梳理问题<br />先明确哪里不方便，以及为什么需要解决。</small></article><article><span>02</span><h3>사용자 이해</h3><p>누가 언제 이 서비스를 쓰는지 살펴보고 필요한 기능을 정합니다.</p><small>理解用户<br />了解谁会在什么情况下使用，并确定所需功能。</small></article><article><span>03</span><h3>만들고 다듬기</h3><p>AI 기능을 실제 화면에 붙이고, 써 본 반응을 보며 고칩니다.</p><small>开发与改进<br />把AI功能接入实际界面，并根据使用反馈修改。</small></article><article className="assessment"><span>평가 · 评价</span><div><b>출결<small>出勤</small></b><strong>20%</strong></div><div><b>주차별 프로젝트 과제<small>每周项目作业</small></b><strong>30%</strong></div><div><b>중간 발표<small>期中汇报</small></b><strong>20%</strong></div><div><b>최종 발표와 시연<small>期末汇报与演示</small></b><strong>30%</strong></div></article></div>,
+    index: "02", eyebrow: "교과목 개요", chineseEyebrow: "课程概要",
+    title: "AI 시스템을 완성하고,\n현장 실증으로 효과와 한계를 검증합니다", chineseTitle: "完成AI系统，并通过现场实证验证效果与局限",
+    note: <SpeakerNote lead="이 교과목은 프로젝트Ⅰ의 결과를 이어 AI 시스템을 고도화하고, 그 성능과 사용자 효과를 현장에서 검증하는 종합설계 수업입니다." points={["프로젝트Ⅰ에서 만든 결과물을 바탕으로 사용자 문제를 해결하는 AI 서비스 또는 시스템을 완성합니다.", "데이터, 모델, 서비스 화면, 로그가 연결되도록 전체 시스템을 구성합니다.", "기준선과 비교해 성능, 지연시간, 비용, 안정성, 오류를 측정하고 대상 사용자를 통해 효과와 한계를 확인합니다.", "학기 말에는 AI 데모 서비스, 실증 결과, 재현 가능한 코드·모델·문서를 함께 제시합니다."]} transition="그럼 먼저 각 팀이 프로젝트Ⅰ에서 어디까지 만들었는지 공유해 보겠습니다." />,
+    chineseNote: "本课程在项目Ⅰ成果的基础上完善AI系统，并通过性能测量与目标用户测试验证其效果与局限。",
+    content: <div className="course-grid"><article><span>01 · 만들 프로젝트</span><h3>AI 서비스 또는 시스템</h3><p>프로젝트Ⅰ 결과를 고도화해 사용자 문제를 해결하는 서비스나 시스템을 완성합니다.</p><small>制作项目<br />继续优化项目Ⅰ成果，完成解决用户问题的AI服务或系统。</small></article><article><span>02 · AI 기술 적용</span><h3>데이터부터 서비스까지 연결</h3><p>데이터·모델·서비스 화면·로그를 연결해 하나의 사용 흐름으로 구성합니다.</p><small>应用AI技术<br />连接数据、模型、服务界面与日志，构成完整的使用流程。</small></article><article><span>03 · 실증할 내용</span><h3>성능과 사용자 효과</h3><p>성능·지연시간·비용·안정성·오류와 사용자에게 미치는 효과·한계를 검증합니다.</p><small>实证内容<br />验证性能、延迟、成本、稳定性、错误以及对用户的效果与局限。</small></article><article className="assessment"><span>04 · 학기 말 결과물</span><h3>데모 + 실증 + 재현</h3><p>AI 데모 서비스와 실증 결과를 제시하고, 코드·모델·문서를 재현 가능한 형태로 정리합니다.</p><small>学期成果<br />AI演示服务 + 实证结果 + 可复现的代码、模型与文档</small></article></div>,
   },
   {
     index: "03", eyebrow: "오늘 첫 순서", chineseEyebrow: "今天的第一项",
