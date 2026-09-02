@@ -17,7 +17,7 @@ const slides: Slide[] = [
     index: "01", eyebrow: "실증적AI개발프로젝트Ⅱ(종합설계)", chineseEyebrow: "实证人工智能开发项目Ⅱ（综合设计）",
     title: "1주차 · 수업 안내와\n프로젝트 소개", chineseTitle: "第1周 · 课程说明与项目介绍",
     note: "첫 수업은 약 1시간 동안 운영 방식을 안내하고, 학생들이 프로젝트Ⅰ의 현재 상태를 편하게 말로 공유하도록 진행합니다.",
-    content: <div className="cover-content"><div className="cover-statement"><span>THU 12:00–15:00 · S06-602</span><strong>문제에서 시작해<br />근거로 다음 개발을 정합니다.</strong><p>问题出发，以证据决定下一步开发。</p></div><div className="course-card"><span>2026. 09. 03</span><strong>WEEK 01</strong><p>동아대학교 AI학과<br />윤보라</p></div></div>,
+    content: <div className="cover-content"><div className="cover-statement"><span>THU 12:00–15:00 · S06-602</span><strong>문제를 정의하고<br />사용자 데이터와 테스트 결과로 개선 방향을 결정합니다.</strong><p>先定义问题，再根据用户数据和测试结果确定改进方向。</p></div><div className="course-card"><span>2026. 09. 03</span><strong>WEEK 01</strong><p>동아대학교 AI학과<br />윤보라</p></div></div>,
   },
   {
     index: "02", eyebrow: "이번 학기 수업", chineseEyebrow: "本学期课程",
