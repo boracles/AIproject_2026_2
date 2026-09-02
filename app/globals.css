@@ -88,6 +88,59 @@ kbd { font-size: .74rem; }
 .notes-panel p { font-size: 1rem; }
 .overview-grid button strong { font-size: 1rem; }
 
+/* Korean/Chinese parallel copy. */
+.slide-meta > span:first-child small {
+  display: block;
+  margin-top: .2em;
+  color: #8292b7;
+  font-size: .82em;
+  font-weight: 600;
+  letter-spacing: .04em;
+}
+.assessment b small {
+  display: block;
+  margin: .08em 0 0;
+  color: #8997b8;
+  font-size: .82em;
+  font-weight: 540;
+}
+.evidence-flow p small,
+.sprint-map h3 small,
+.sprint-map p small,
+.today-list h3 small,
+.today-list p small,
+.assignment-head h3 small,
+.assignment-head p small,
+.submission-box p small,
+.closing-content p small,
+.closing-content span small,
+.presenter-header h1 small,
+.presenter-next strong small,
+.presenter-notes p small,
+.notes-panel p small,
+.overview-panel h2 small,
+.overview-grid button strong small {
+  display: block;
+  color: #8795b6;
+  font-weight: 520;
+}
+.evidence-flow p small { margin-top: .25em; font-size: .82em; }
+.sprint-map h3 small { margin-top: .18em; font-size: .72em; }
+.sprint-map p small { margin-top: .24em; font-size: .88em; line-height: 1.38; }
+.today-list h3 small { margin-top: .1em; font-size: .78em; }
+.today-list p small { margin-top: .12em; font-size: .88em; }
+.assignment-head h3 small { margin-top: .08em; font-size: .72em; }
+.assignment-head p small,
+.submission-box p small { margin-top: .18em; font-size: .9em; }
+.closing-content p small { margin-top: .2em; font-size: .58em; }
+.closing-content span small { margin-top: .2em; font-size: .92em; }
+.presenter-header h1 small { margin-top: .18em; font-size: .72em; }
+.presenter-next strong small { margin-top: .35em; font-size: .72em; }
+.presenter-notes p small,
+.notes-panel p small { margin-top: .6em; font-size: .9em; line-height: 1.65; }
+.overview-panel h2 small { margin-top: .18em; font-size: .68em; }
+.overview-grid button strong small { margin-top: .35em; font-size: .8em; line-height: 1.4; }
+
 /* Presenter view: a separate control surface that stays in sync with the slideshow. */
 .presenter-shell {
   min-height: 100dvh;
