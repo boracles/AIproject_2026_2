@@ -215,6 +215,8 @@ kbd { font-size: .74rem; }
 
 :is(.slide-13,.slide-15,.slide-17) .slide-title-wrap { top: 10.5%; }
 :is(.slide-13,.slide-15,.slide-17) .slide-content { top: 37%; bottom: 33%; }
+.slide-13 .slide-title-wrap h1 { font-size: 3.7cqw; white-space: nowrap; }
+.slide-13 .slide-content { top: 26%; }
 .feature-gallery { height: 100%; display: grid; gap: .75em 1em; }
 .feature-gallery-two { grid-template-columns: 1fr 1fr; grid-template-rows: 1fr auto; }
 .feature-gallery-three { grid-template-columns: repeat(3,1fr); grid-template-rows: 1fr; }

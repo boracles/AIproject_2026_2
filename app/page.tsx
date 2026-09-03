@@ -197,7 +197,7 @@ const slides: Slide[] = [
   },
   {
     index: "13", eyebrow: "NotebookLM · 주요 기능", chineseEyebrow: "NotebookLM · 主要功能",
-    title: "내 자료를 바탕으로 계속 질문하고\n요약을 읽고, 오디오로 듣습니다", chineseTitle: "围绕自己上传的资料持续提问、阅读摘要并收听音频",
+    title: "내 자료 기반의 대화·요약·오디오", chineseTitle: "基于个人资料的对话、摘要与音频",
     note: <SpeakerNote lead="NotebookLM은 내가 넣은 자료를 바탕으로 대화를 이어 가며 질문에 답하고, 내용을 요약하거나 오디오로 만들어 주는 서비스입니다." points={["한 번 답을 받은 뒤에도 같은 자료를 바탕으로 추가 질문을 이어 갈 수 있습니다.", "자료의 내용을 요약문, FAQ, 학습 가이드 형태로 정리해 줍니다.", "오디오 개요를 만들면 자료 내용을 두 진행자의 대화처럼 들을 수 있습니다.", "답변에는 참고한 원문이 표시되어 자료의 어느 부분에서 나온 내용인지 확인할 수 있습니다."]} transition="두 번째 사례에서는 AI 모델을 모바일 서비스 흐름에 연결한 방식을 보겠습니다." sources={[{ label: "Google — Developing NotebookLM", href: "https://blog.google/innovation-and-ai/products/developing-notebooklm/" }]} />,
     chineseNote: "NotebookLM可围绕用户上传的资料持续对话和回答问题，也能生成摘要、学习资料与对话式音频。",
     content: <div className="feature-gallery feature-gallery-two"><figure><img src="/cases/notebooklm-ui.webp" alt="NotebookLM 초기 화면에서 자료와 질문을 함께 보는 모습" /><figcaption><strong>질문하면 근거와 함께 답변<small>提问后获得带依据的回答</small></strong><span>업로드한 자료에서 답을 찾고 참고한 원문을 표시합니다.<small>从上传的资料中寻找答案，并显示参考原文。</small></span></figcaption></figure><figure><img src="/cases/notebooklm-audio.webp" alt="NotebookLM Audio Overview 시연 화면" /><figcaption><strong>자료를 대화형 오디오로 변환<small>将资料转换为对话式音频</small></strong><span>자료 내용을 두 진행자의 대화처럼 들려줍니다.<small>把资料内容转换为两位主持人的对话式音频。</small></span></figcaption></figure><div className="gallery-takeaway">NotebookLM은 사용자가 선택한 자료를 바탕으로 답하고 참고한 원문을 표시합니다.<small>NotebookLM根据用户选择的资料回答，并显示参考原文。</small></div></div>,
@@ -340,12 +340,43 @@ export default function Home() {
     };
   }, []);
 
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("view") !== "slideshow" || params.get("fullscreen") !== "1") return;
+
+    const enterFullscreen = () => {
+      if (document.fullscreenElement || !document.documentElement.requestFullscreen) return;
+      void document.documentElement.requestFullscreen({ navigationUI: "hide" }).catch(() => undefined);
+    };
+
+    enterFullscreen();
+    window.addEventListener("pointerdown", enterFullscreen, { once: true });
+    window.addEventListener("keydown", enterFullscreen, { once: true });
+    return () => {
+      window.removeEventListener("pointerdown", enterFullscreen);
+      window.removeEventListener("keydown", enterFullscreen);
+    };
+  }, []);
+
   const openDeckWindow = useCallback((mode: "slideshow" | "presenter") => {
     window.localStorage.setItem(DECK_STORAGE_KEY, String(current));
     const url = new URL(window.location.href);
     url.searchParams.set("view", mode);
-    const features = mode === "presenter" ? "popup,width=1440,height=920" : "popup,width=1600,height=1000";
-    window.open(url.toString(), `dong-a-${mode}`, features)?.focus();
+    if (mode === "slideshow") url.searchParams.set("fullscreen", "1");
+    else url.searchParams.delete("fullscreen");
+
+    const features = mode === "presenter"
+      ? "popup=yes,toolbar=no,location=no,menubar=no,status=no,scrollbars=yes,resizable=yes,width=1440,height=920"
+      : `popup=yes,fullscreen=yes,toolbar=no,location=no,menubar=no,status=no,scrollbars=no,resizable=yes,left=0,top=0,width=${window.screen.availWidth},height=${window.screen.availHeight}`;
+    const deckWindow = window.open(url.toString(), `dong-a-${mode}`, features);
+    if (!deckWindow) return;
+    if (mode === "slideshow") {
+      try {
+        deckWindow.moveTo(0, 0);
+        deckWindow.resizeTo(window.screen.availWidth, window.screen.availHeight);
+      } catch {}
+    }
+    deckWindow.focus();
   }, [current]);
 
   useEffect(() => {
@@ -364,38 +395,38 @@ export default function Home() {
       <main className="presenter-shell">
         <header className="presenter-header">
           <div>
-            <span>발표자 화면 · 演讲者视图 · WEEK 01</span>
-            <h1>실증적AI개발프로젝트Ⅱ(종합설계)<small>实证人工智能开发项目Ⅱ（综合设计）</small></h1>
+            <span>발표자 화면 · WEEK 01</span>
+            <h1>실증적AI개발프로젝트Ⅱ(종합설계)</h1>
           </div>
           <Button variant="outline" onClick={() => openDeckWindow("slideshow")}>
-            <MonitorUp /> 슬라이드쇼 열기 · 打开幻灯片
+            <MonitorUp /> 슬라이드쇼 열기
           </Button>
         </header>
         <div className="presenter-layout">
           <section className="presenter-current">
             <div className="presenter-section-label">
-              <span>현재 슬라이드 · 当前幻灯片</span>
+              <span>현재 슬라이드</span>
               <strong>{String(current + 1).padStart(2, "0")} / {String(slides.length).padStart(2, "0")}</strong>
             </div>
             <div className="presenter-stage-wrap"><SlideCanvas slide={slide} position={current} /></div>
           </section>
           <aside className="presenter-sidebar">
             <section className="presenter-next">
-              <span>다음 슬라이드 · 下一张</span>
+              <span>다음 슬라이드</span>
               {nextSlide ? (
                 <>
                   <b>{nextSlide.index}</b>
-                  <strong>{nextSlide.title.replace("\n", " ")}<small>{nextSlide.chineseTitle}</small></strong>
+                  <strong>{nextSlide.title.replace("\n", " ")}</strong>
                 </>
-              ) : <strong>마지막 슬라이드입니다.<small>这是最后一张幻灯片。</small></strong>}
+              ) : <strong>마지막 슬라이드입니다.</strong>}
             </section>
             <section className="presenter-notes">
-              <span>발표자 메모 · 演讲者备注</span>
+              <span>발표자 메모</span>
               {slide.note}
             </section>
             <div className="presenter-controls">
-              <Button variant="outline" onClick={() => go(current - 1)} disabled={current === 0}><ArrowLeft /> 이전 · 上一张</Button>
-              <Button onClick={() => go(current + 1)} disabled={current === slides.length - 1}>다음 · 下一张 <ArrowRight /></Button>
+              <Button variant="outline" onClick={() => go(current - 1)} disabled={current === 0}><ArrowLeft /> 이전</Button>
+              <Button onClick={() => go(current + 1)} disabled={current === slides.length - 1}>다음 <ArrowRight /></Button>
             </div>
           </aside>
         </div>
