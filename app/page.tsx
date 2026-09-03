@@ -4,7 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import {
   ArrowLeft, ArrowRight, Bot, Camera, ChevronRight, ClipboardList,
   Code2, FileStack, Glasses, Image as ImageIcon, MessageSquare,
-  MonitorUp, Presentation, Ruler, ScanLine, Target, TestTube2, Type, UserRound,
+  Maximize2, MonitorUp, Presentation, Ruler, ScanLine, Target, TestTube2, Type, UserRound,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -301,6 +301,7 @@ function SlideCanvas({ slide, position }: { slide: Slide; position: number }) {
 export default function Home() {
   const [current, setCurrent] = useState(0);
   const [viewMode, setViewMode] = useState<"slideshow" | "presenter">("slideshow");
+  const [fullscreenPrompt, setFullscreenPrompt] = useState(false);
   const channelRef = useRef<BroadcastChannel | null>(null);
 
   const go = useCallback((next: number) => {
@@ -340,23 +341,29 @@ export default function Home() {
     };
   }, []);
 
+  const enterSlideshowFullscreen = useCallback(async () => {
+    if (document.fullscreenElement) {
+      setFullscreenPrompt(false);
+      return;
+    }
+    try {
+      await document.documentElement.requestFullscreen({ navigationUI: "hide" });
+      setFullscreenPrompt(false);
+    } catch {
+      setFullscreenPrompt(true);
+    }
+  }, []);
+
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     if (params.get("view") !== "slideshow" || params.get("fullscreen") !== "1") return;
 
-    const enterFullscreen = () => {
-      if (document.fullscreenElement || !document.documentElement.requestFullscreen) return;
-      void document.documentElement.requestFullscreen({ navigationUI: "hide" }).catch(() => undefined);
-    };
-
-    enterFullscreen();
-    window.addEventListener("pointerdown", enterFullscreen, { once: true });
-    window.addEventListener("keydown", enterFullscreen, { once: true });
-    return () => {
-      window.removeEventListener("pointerdown", enterFullscreen);
-      window.removeEventListener("keydown", enterFullscreen);
-    };
-  }, []);
+    const syncFullscreenState = () => setFullscreenPrompt(!document.fullscreenElement);
+    syncFullscreenState();
+    void enterSlideshowFullscreen();
+    document.addEventListener("fullscreenchange", syncFullscreenState);
+    return () => document.removeEventListener("fullscreenchange", syncFullscreenState);
+  }, [enterSlideshowFullscreen]);
 
   const openDeckWindow = useCallback((mode: "slideshow" | "presenter") => {
     window.localStorage.setItem(DECK_STORAGE_KEY, String(current));
@@ -381,12 +388,13 @@ export default function Home() {
 
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => {
+      if (fullscreenPrompt) return;
       if (["ArrowRight", "PageDown", " "].includes(event.key)) { event.preventDefault(); go(current + 1); }
       if (["ArrowLeft", "PageUp"].includes(event.key)) { event.preventDefault(); go(current - 1); }
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [current, go]);
+  }, [current, fullscreenPrompt, go]);
   const slide = slides[current];
   const nextSlide = slides[current + 1];
 
@@ -437,6 +445,16 @@ export default function Home() {
   return (
     <main className="audience-shell" aria-label="학생용 슬라이드쇼 화면">
       <SlideCanvas slide={slide} position={current} />
+      {fullscreenPrompt && (
+        <div className="fullscreen-gate" role="dialog" aria-modal="true" aria-labelledby="fullscreen-title">
+          <div>
+            <Maximize2 />
+            <h1 id="fullscreen-title">전체 화면 시작</h1>
+            <p>주소창을 숨기고 슬라이드쇼를 시작합니다.</p>
+            <Button autoFocus onClick={enterSlideshowFullscreen}>전체 화면 시작</Button>
+          </div>
+        </div>
+      )}
       <nav className="audience-controls" aria-label="슬라이드 이동">
         <Button variant="outline" onClick={() => go(current - 1)} disabled={current === 0} aria-label="이전 슬라이드"><ArrowLeft /> 이전 · 上一张</Button>
         <span>{String(current + 1).padStart(2, "0")} / {String(slides.length).padStart(2, "0")}</span>
