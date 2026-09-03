@@ -195,9 +195,9 @@ const slides: Slide[] = [
   },
   {
     index: "13", eyebrow: "NotebookLM · 주요 기능", chineseEyebrow: "NotebookLM · 主要功能",
-    title: "긴 자료를 전부 읽지 않아도\n묻고, 요약해서 보고, 오디오로 듣습니다", chineseTitle: "无需通读长资料，也可以提问、阅读摘要或收听音频",
-    note: <SpeakerNote lead="NotebookLM에 자료를 넣으면 필요한 내용은 질문으로 찾고, 전체 내용은 요약해서 읽거나 오디오로 들을 수 있습니다." points={["질문을 입력하면 업로드한 자료에서 관련 내용을 찾아 답하고 출처를 표시합니다.", "긴 자료는 요약문, FAQ, 학습 가이드 형태로 정리해 읽을 수 있습니다.", "오디오 개요를 만들면 자료 내용을 두 진행자의 대화처럼 들을 수 있습니다.", "NotebookLM은 사용자가 선택한 자료를 바탕으로 답하고, 참고한 원문을 표시합니다."]} transition="두 번째 사례에서는 AI 모델을 모바일 서비스 흐름에 연결한 방식을 보겠습니다." sources={[{ label: "Google — Developing NotebookLM", href: "https://blog.google/innovation-and-ai/products/developing-notebooklm/" }]} />,
-    chineseNote: "上传资料后，可以通过提问寻找所需内容，把长资料整理成摘要，也可以转换为对话式音频。",
+    title: "내 자료를 바탕으로 계속 질문하고\n요약을 읽고, 오디오로 듣습니다", chineseTitle: "围绕自己上传的资料持续提问、阅读摘要并收听音频",
+    note: <SpeakerNote lead="NotebookLM은 내가 넣은 자료를 바탕으로 대화를 이어 가며 질문에 답하고, 내용을 요약하거나 오디오로 만들어 주는 서비스입니다." points={["한 번 답을 받은 뒤에도 같은 자료를 바탕으로 추가 질문을 이어 갈 수 있습니다.", "자료의 내용을 요약문, FAQ, 학습 가이드 형태로 정리해 줍니다.", "오디오 개요를 만들면 자료 내용을 두 진행자의 대화처럼 들을 수 있습니다.", "답변에는 참고한 원문이 표시되어 자료의 어느 부분에서 나온 내용인지 확인할 수 있습니다."]} transition="두 번째 사례에서는 AI 모델을 모바일 서비스 흐름에 연결한 방식을 보겠습니다." sources={[{ label: "Google — Developing NotebookLM", href: "https://blog.google/innovation-and-ai/products/developing-notebooklm/" }]} />,
+    chineseNote: "NotebookLM可围绕用户上传的资料持续对话和回答问题，也能生成摘要、学习资料与对话式音频。",
     content: <div className="feature-gallery feature-gallery-two"><figure><img src="/cases/notebooklm-ui.webp" alt="NotebookLM 초기 화면에서 자료와 질문을 함께 보는 모습" /><figcaption><strong>질문하면 근거와 함께 답변</strong><span>업로드한 자료에서 답을 찾고 참고한 원문을 표시합니다.<small>从上传的资料中寻找答案，并显示参考原文。</small></span></figcaption></figure><figure><img src="/cases/notebooklm-audio.webp" alt="NotebookLM Audio Overview 시연 화면" /><figcaption><strong>자료를 대화형 오디오로 변환</strong><span>자료 내용을 두 진행자의 대화처럼 들려줍니다.<small>把资料内容转换为两位主持人的对话式音频。</small></span></figcaption></figure><div className="gallery-takeaway">NotebookLM은 사용자가 선택한 자료를 바탕으로 답하고 참고한 원문을 표시합니다.<small>NotebookLM根据用户选择的资料回答，并显示参考原文。</small></div></div>,
   },
   {
@@ -223,8 +223,8 @@ const slides: Slide[] = [
   },
   {
     index: "17", eyebrow: "FROM YOUR EYES · 기능과 결과", chineseEyebrow: "FROM YOUR EYES · 功能与成果",
-    title: "사용자 문제에서 시작해\n앱과 API로 확장했습니다", chineseTitle: "从用户问题出发，扩展为应用与API",
-    note: <SpeakerNote lead="FROM YOUR EYES는 사진·영상 설명 기능을 앱과 API, 스마트 기기 연동으로 확장했고 2024 Imagine Cup 세계 우승을 차지했습니다." points={["스마트 글래스나 워치에서도 주변 상황 설명을 들을 수 있도록 사용 환경을 넓혔습니다.", "외부 서비스가 시각 설명 기능을 사용할 수 있도록 API도 제공했습니다.", "수상 자체보다 중요한 점은 처음 정한 사용자 문제를 유지하면서 서비스의 사용 범위를 확장했다는 것입니다.", "우리 프로젝트도 현재 기능을 다른 화면이나 상황에서 쓸 수 있는지 생각해 볼 수 있습니다."]} transition="세 사례를 본 뒤, 학생 프로젝트에서 가능한 검증 방법을 정리하겠습니다." sources={[{ label: "Microsoft — 2024 Imagine Cup World Champion", href: "https://news.microsoft.com/source/latam/noticias-de-microsoft/anunciamos-al-campeon-mundial-de-imagine-cup-2024/" }]} />,
+    title: "사진·영상 설명 기능을\n스마트 기기와 다른 앱에도 연결했습니다", chineseTitle: "将照片与视频说明功能接入智能设备和其他应用",
+    note: <SpeakerNote lead="FROM YOUR EYES는 사진·영상 설명 기능을 스마트 글래스와 워치, 다른 앱에 연결했고 2024 Imagine Cup 세계 우승을 차지했습니다." points={["스마트 글래스나 워치에서도 주변 상황 설명을 들을 수 있습니다.", "API를 사용하면 다른 앱도 사진·영상 설명 기능을 제공할 수 있습니다.", "하나의 AI 기능을 여러 기기와 서비스에서 사용할 수 있도록 구현 범위를 넓혔습니다.", "우리 프로젝트도 만든 AI 기능을 다른 화면이나 기기에서 사용할 필요가 있는지 살펴볼 수 있습니다."]} transition="세 사례를 본 뒤, 학생 프로젝트에서 가능한 검증 방법을 정리하겠습니다." sources={[{ label: "Microsoft — 2024 Imagine Cup World Champion", href: "https://news.microsoft.com/source/latam/noticias-de-microsoft/anunciamos-al-campeon-mundial-de-imagine-cup-2024/" }]} />,
     chineseNote: "项目扩展到照片、视频和文档说明、定制AI助手、外部服务API以及智能眼镜和手表，并获得2024 Imagine Cup世界冠军。",
     content: <div className="impact-layout"><div className="impact-images"><figure><img src="/cases/from-your-eyes-team.png" alt="2024 Imagine Cup 우승팀 FROM YOUR EYES" /><figcaption>2024 World Champion · 2024世界冠军</figcaption></figure><figure><img src="/cases/from-your-eyes-award.png" alt="2024 Imagine Cup World Championship 트로피" /><figcaption>Microsoft Imagine Cup</figcaption></figure></div><div className="impact-points"><article><Glasses /><div><strong>스마트 기기 연동</strong><p>글래스와 워치에서도 주변 상황 설명을 들을 수 있습니다.<small>也可通过智能眼镜和手表获取环境说明。</small></p></div></article><article><Code2 /><div><strong>외부 서비스용 API</strong><p>다른 앱에도 시각 설명 기능을 연결합니다.<small>把视觉说明功能接入其他应用。</small></p></div></article><div className="impact-result"><span>프로젝트 결과 · 项目成果</span><strong>2024 Imagine Cup 세계 우승<small>2024 Imagine Cup 世界冠军</small></strong></div></div></div>,
   },
