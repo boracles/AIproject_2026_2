@@ -129,7 +129,7 @@ const slides: Slide[] = [
     index: "02",
     section: "TODAY'S FLOW",
     chineseSection: "今日课程流程",
-    title: "오늘 수업은 이렇게\n진행합니다",
+    title: "오늘 수업은 이렇게 진행합니다",
     chineseTitle: "今天的课程流程",
     note: (
       <SpeakerNote
