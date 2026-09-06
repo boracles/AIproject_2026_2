@@ -377,19 +377,19 @@ const slides: Slide[] = [
     index: "08",
     section: "SERVICE CASES",
     chineseSection: "服务案例",
-    title: "세 서비스는 인식 결과를\n서로 다른 행동에 연결합니다",
-    chineseTitle: "三项服务把识别结果连接到不同操作",
+    title: "같은 이미지 인식도 서비스마다 쓰임이 다릅니다",
+    chineseTitle: "同样的图像识别，在不同服务中的用途各不相同",
     note: (
       <SpeakerNote
-        duration="8분"
-        lead="Google Photos, Apple Photos, Google Lens는 모두 이미지를 이해하지만 사용자가 얻는 행동은 다릅니다."
+        duration="4분"
+        lead="이 장에서는 세 서비스를 자세히 설명하기 전에, 앞으로 살펴볼 비교 기준 두 가지를 먼저 잡습니다."
         points={[
-          "Google Photos는 사람, 반려동물, 장소와 사물 인식을 검색과 자동 정리에 활용합니다.",
-          "Apple Photos는 사람과 반려동물, 장면과 사물을 People & Pets, 검색, 컬렉션에 연결합니다.",
-          "Google Lens는 카메라나 스크린샷 속 사물, 텍스트, 제품과 장소를 검색, 번역, 식별, 쇼핑 행동으로 연결합니다.",
-          "프로젝트 기획에서는 모델 이름보다 입력, 인식 결과, 후속 기능을 한 줄로 연결해 설명하는 것이 중요합니다.",
+          "첫 번째 기준은 서비스가 사진이나 카메라에서 무엇을 인식하는지입니다.",
+          "두 번째 기준은 인식 결과를 검색, 정리, 번역 같은 어떤 기능에 연결하는지입니다.",
+          "Google Photos는 사진 검색과 정리, Apple Photos는 앨범 구성과 검색, Google Lens는 검색·번역·정보 확인에 활용합니다.",
+          "같은 Recognition과 Classification 결과도 연결되는 기능에 따라 서로 다른 서비스 경험이 됩니다.",
         ]}
-        prompt="여러분 팀의 서비스에서 AI 결과가 연결될 다음 행동은 무엇인가요?"
+        prompt="여러분 팀의 AI 결과는 사용자의 어떤 다음 행동으로 이어지나요?"
         transition="먼저 Google Photos가 저장된 사진을 검색 가능한 정보로 바꾸는 과정을 자세히 보겠습니다."
         sources={[
           { label: "Google Photos 소개", href: "https://www.google.com/photos/about/" },
@@ -399,13 +399,29 @@ const slides: Slide[] = [
       />
     ),
     content: (
-      <div className="w2-case-table" role="table" aria-label="인식 분류 서비스 사례 비교">
-        <div className="w2-case-head" role="row"><span>서비스</span><span>입력</span><span>인식·분류</span><span>서비스 기능</span></div>
-        {[
-          ["Google Photos", "저장된 사진", "사람 · 반려동물 · 장소 · 문서", "검색 · 그룹 · 정리"],
-          ["Apple Photos", "저장된 사진", "사람 · 반려동물 · 장면 · 사물", "People & Pets · 검색 · 컬렉션"],
-          ["Google Lens", "카메라 · 이미지 · 화면", "사물 · 텍스트 · 제품 · 장소", "검색 · 번역 · 식별 · 쇼핑"],
-        ].map((row) => <div className="w2-case-row" role="row" key={row[0]}>{row.map((cell, index) => <span role="cell" data-label={["서비스","입력","인식·분류","서비스 기능"][index]} key={cell}>{cell}</span>)}</div>)}
+      <div className="w2-case-overview">
+        <div className="w2-case-table is-overview" role="table" aria-label="이미지 인식 서비스 활용 비교">
+          <div className="w2-case-head" role="row">
+            <span role="columnheader"><strong>서비스</strong><small>服务</small></span>
+            <span role="columnheader"><strong>무엇을 인식하나</strong><small>识别什么</small></span>
+            <span role="columnheader"><strong>어디에 사용하나</strong><small>用于什么功能</small></span>
+          </div>
+          {[
+            ["Google Photos", "사진 속 사람·장소·사물", "照片中的人物、地点与物体", "사진 검색과 정리", "照片搜索与整理"],
+            ["Apple Photos", "사람·반려동물·장면", "人物、宠物与场景", "앨범 구성과 검색", "相册整理与搜索"],
+            ["Google Lens", "카메라에 보이는 사물·텍스트", "摄像头中的物体与文字", "검색·번역·정보 확인", "搜索、翻译与信息确认"],
+          ].map(([service, recognition, recognitionZh, use, useZh]) => (
+            <div className="w2-case-row" role="row" key={service}>
+              <span role="cell" data-label="서비스"><strong>{service}</strong></span>
+              <span role="cell" data-label="무엇을 인식하나"><strong>{recognition}</strong><small>{recognitionZh}</small></span>
+              <span role="cell" data-label="어디에 사용하나"><strong>{use}</strong><small>{useZh}</small></span>
+            </div>
+          ))}
+        </div>
+        <div className="w2-case-takeaway" aria-label="Recognition leads to different uses">
+          <strong>Recognition <ArrowRight /> Different Uses</strong>
+          <small>识别结果 <ArrowRight /> 不同用途</small>
+        </div>
       </div>
     ),
   },
