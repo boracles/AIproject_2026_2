@@ -127,35 +127,43 @@ const slides: Slide[] = [
   },
   {
     index: "02",
-    section: "THIS WEEK'S GOALS",
-    chineseSection: "本周目标",
-    title: "수업이 끝나면\n세 가지 결과가 남습니다",
-    chineseTitle: "课程结束时完成三项成果",
+    section: "TODAY'S FLOW",
+    chineseSection: "今日课程流程",
+    title: "오늘 수업은 이렇게\n진행합니다",
+    chineseTitle: "今天的课程流程",
     note: (
       <SpeakerNote
         duration="4분"
-        lead="오늘의 성공 기준은 설명을 듣는 것이 아니라 세 가지 결과를 직접 남기는 것입니다."
+        lead="오늘 수업은 팀 아이디어 공유에서 시작해 개념 이해, API 연결, 사진 분류 실습, 팀 프로젝트 적용, 저장과 제출 순서로 진행합니다."
         points={[
-          "팀 발표에서 주제, 문제, 대상 사용자와 AI 역할을 말할 수 있어야 합니다.",
-          "터미널에서 Qwen Text API 응답이 출력되어야 합니다.",
-          "sample.jpg를 person, document, food, device, other 중 하나로 분류해야 합니다.",
+          "먼저 각 팀이 주제, 문제, 타깃 유저, 초기 아이디어와 AI 역할을 짧게 발표합니다.",
+          "Google Photos, Apple Photos, Google Lens를 보며 Recognition과 Classification이 서비스 행동으로 이어지는 방식을 살펴봅니다.",
+          "Python에서 Qwen Text API 응답을 확인해 Key, 주소, 모델 연결이 정상인지 점검합니다.",
+          "sample.jpg를 Qwen Vision에 보내 대표 category를 받고 해당 category folder에 연결하는 흐름을 실습합니다.",
+          "실습 구조를 각 팀의 Input, Recognition 또는 Classification, Result, Service Action으로 다시 설계합니다.",
+          "마지막으로 GitHub에 저장하고 Week 3 Goal을 작성해 제출합니다.",
         ]}
-        prompt="세 결과 중 지금 가장 불확실한 것은 무엇인가요? 손으로 표시해 주세요."
-        transition="첫 번째 결과인 팀 프로젝트 공유부터 시작합니다."
+        prompt="여섯 단계 중 오늘 여러분 팀이 가장 집중해서 확인해야 할 단계는 무엇인가요?"
+        transition="첫 번째 순서인 팀 프로젝트 아이디어 발표부터 시작하겠습니다."
       />
     ),
     content: (
-      <div className="w2-goals">
+      <div className="w2-today-flow">
         {[
-          ["01", "팀 방향 공유", "주제 · 문제 · 타깃 유저 · AI 역할", "分享团队方向"],
-          ["02", "API 연결 확인", "Python에서 Qwen의 텍스트 응답 출력", "确认API连接"],
-          ["03", "이미지 분류 실행", "sample.jpg를 한 개의 라벨로 분류", "运行图像分类"],
-        ].map(([number, title, detail, chinese]) => (
+          ["01", "팀 프로젝트 아이디어 발표", "주제 · 문제 · 타깃 유저 · 초기 아이디어 · AI 역할", "团队项目想法发表", "主题 · 问题 · 目标用户 · 初步想法 · AI作用"],
+          ["02", "Recognition / Classification 살펴보기", "Google Photos · Apple Photos · Google Lens 사례", "了解 Recognition / Classification", "Google Photos · Apple Photos · Google Lens 案例"],
+          ["03", "Qwen API 연결", "Python에서 Qwen 응답 확인", "连接 Qwen API", "在 Python 中确认 Qwen 响应"],
+          ["04", "AI Photo Classifier 실습", "sample.jpg → Qwen Vision → category → category folder", "AI Photo Classifier 实践", ""],
+          ["05", "팀 프로젝트에 적용", "Input → Recognition / Classification → Result → Service Action", "应用到团队项目", ""],
+          ["06", "저장 및 제출", "GitHub Push · Week 3 Goal 작성", "保存与提交", "GitHub Push · 撰写第3周目标"],
+        ].map(([number, title, detail, chineseTitle, chineseDetail]) => (
           <article key={number}>
             <span>{number}</span>
-            <h3>{title}</h3>
-            <p>{detail}</p>
-            <small>{chinese}</small>
+            <div>
+              <strong>{title}</strong>
+              <p>{detail}</p>
+              <small><b>{chineseTitle}</b>{chineseDetail && <em>{chineseDetail}</em>}</small>
+            </div>
           </article>
         ))}
       </div>

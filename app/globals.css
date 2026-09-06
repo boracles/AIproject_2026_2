@@ -783,6 +783,17 @@ kbd { font-size: .74rem; }
 .w2-goals h3 { margin: .5em 0 .28em; font-size: 1.45cqw; letter-spacing: -.035em; }
 .w2-goals p { margin: 0; color: #53637b; font-size: 1cqw; line-height: 1.4; }
 .w2-goals small { margin-top: auto; color: #8c98aa; font-size: .76cqw; }
+.w2-today-flow { height: 100%; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: repeat(3,1fr); gap: .48cqw 1.05cqw; }
+.w2-today-flow article { min-width: 0; display: grid; grid-template-columns: 2.45cqw minmax(0,1fr); gap: .68cqw; align-items: center; padding: .36cqw .68cqw; border-bottom: 1px solid #cedce1; background: rgba(255,255,255,.66); }
+.w2-today-flow article:nth-child(4),.w2-today-flow article:nth-child(5) { border-bottom-color: #efb09f; background: rgba(255,244,239,.74); }
+.w2-today-flow article > span { display: grid; place-items: center; width: 2.2cqw; aspect-ratio: 1; border-radius: 50%; background: #0f776d; color: #fff; font-size: .75cqw; font-weight: 850; }
+.w2-today-flow article:nth-child(4) > span,.w2-today-flow article:nth-child(5) > span { background: var(--w2-coral); }
+.w2-today-flow article > div { min-width: 0; }
+.w2-today-flow strong { display: block; color: #26394f; font-size: 1cqw; line-height: 1.12; letter-spacing: -.025em; }
+.w2-today-flow p { margin: .22em 0 0; overflow-wrap: anywhere; color: #586a80; font-size: .7cqw; line-height: 1.2; }
+.w2-today-flow small { display: flex; min-width: 0; gap: .35cqw; margin-top: .22em; color: #8a96a8; font-size: .62cqw; line-height: 1.16; }
+.w2-today-flow small b { flex: 0 1 auto; color: #6e7e94; font-weight: 720; }
+.w2-today-flow small em { min-width: 0; font-style: normal; }
 .w2-pipeline { height: 100%; display: flex; align-items: stretch; gap: .65cqw; }
 .w2-pipeline article { min-width: 0; flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 1.05cqw; border: 1px solid #d2dde5; background: rgba(255,255,255,.78); }
 .w2-pipeline article.is-result { border: .2cqw solid var(--w2-coral); background: #fff4ef; }
@@ -1073,6 +1084,11 @@ kbd { font-size: .74rem; }
   .w2-goals h3 { font-size: 1.72cqw; }
   .w2-goals p { font-size: 1.17cqw; line-height: 1.3; }
   .w2-goals small { font-size: .88cqw; }
+  .w2-today-flow article { grid-template-columns: 2.55cqw minmax(0,1fr); padding: .32cqw .68cqw; }
+  .w2-today-flow article > span { width: 2.3cqw; font-size: .82cqw; }
+  .w2-today-flow strong { font-size: 1.1cqw; }
+  .w2-today-flow p { font-size: .76cqw; }
+  .w2-today-flow small { font-size: .66cqw; }
 
   .w2-presentation-grid article { grid-template-columns: 2.6cqw 1fr; padding: .46cqw .72cqw; }
   .w2-presentation-grid article > span { width: 2.35cqw; font-size: .86cqw; }
@@ -1194,6 +1210,12 @@ kbd { font-size: .74rem; }
   .w2-case-example { display: grid; gap: .25rem; padding: .8rem; border-left-width: 3px; font-size: .78rem; }
   .w2-case-example span { font-size: .68rem; }
   .w2-case-example strong { font-size: .96rem; }
+  .w2-today-flow { grid-template-columns: 1fr; grid-template-rows: auto; gap: .55rem; }
+  .w2-today-flow article { min-height: 8.5rem; grid-template-columns: 2.6rem minmax(0,1fr); gap: .75rem; padding: .85rem; }
+  .w2-today-flow article > span { width: 2.25rem; font-size: .72rem; }
+  .w2-today-flow strong { font-size: 1.08rem; }
+  .w2-today-flow p { margin-top: .3rem; font-size: .78rem; line-height: 1.35; }
+  .w2-today-flow small { display: grid; gap: .18rem; margin-top: .35rem; font-size: .72rem; line-height: 1.3; }
   .w2-roadmap-step { min-height: 9rem; }.w2-roadmap-step article { padding: 1rem; }.w2-roadmap-step article svg { width: 2rem; height: 2rem; }.w2-roadmap-step article span { font-size: .66rem; }.w2-roadmap-step article strong { font-size: 1.18rem; }.w2-roadmap-step article small { font-size: .76rem; }
   .w2-tools-layout,.w2-cloud-setup,.w2-secret-layout,.w2-files-layout,.w2-code-result-layout,.w2-scenario,.w2-prompt-layout,.w2-encode-layout,.w2-vision-layout,.w2-submit-layout { grid-template-columns: 1fr; }
   .w2-tools-grid article { min-height: 7rem; grid-template-columns: 2.8rem 1fr; padding: .85rem; }.w2-tools-grid svg { width: 2.2rem; height: 2.2rem; }.w2-tools-grid strong { font-size: 1.08rem; }.w2-tools-grid small { font-size: .74rem; }
