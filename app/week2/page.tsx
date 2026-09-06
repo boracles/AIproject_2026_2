@@ -343,7 +343,7 @@ const slides: Slide[] = [
           "프로젝트 기획에서는 모델 이름보다 입력, 인식 결과, 후속 기능을 한 줄로 연결해 설명하는 것이 중요합니다.",
         ]}
         prompt="여러분 팀의 서비스에서 AI 결과가 연결될 다음 행동은 무엇인가요?"
-        transition="사례 구조를 확인했으니 이제 오늘 실습의 전체 순서를 먼저 보겠습니다."
+        transition="먼저 Google Photos가 저장된 사진을 검색 가능한 정보로 바꾸는 과정을 자세히 보겠습니다."
         sources={[
           { label: "Google Photos 소개", href: "https://www.google.com/photos/about/" },
           { label: "Apple Photos 사람 및 반려동물 찾기", href: "https://support.apple.com/ko-kr/108795" },
@@ -364,6 +364,143 @@ const slides: Slide[] = [
   },
   {
     index: "09",
+    section: "서비스 사례 · Google Photos",
+    chineseSection: "服务案例 · Google Photos",
+    title: "Google Photos는 사진 속 의미를\n검색 가능한 단서로 바꿉니다",
+    chineseTitle: "Google Photos把照片含义转换为可搜索线索",
+    note: (
+      <SpeakerNote
+        duration="6분"
+        lead="Google Photos의 핵심은 파일명이나 폴더를 기억하지 않아도 사진 속 의미를 단서로 원하는 장면을 다시 찾게 하는 것입니다."
+        points={[
+          "입력은 사용자가 저장하거나 백업한 사진입니다. 서비스는 사람과 반려동물, 장소, 문서, 사물처럼 사진 안에서 반복적으로 나타나는 특징을 찾습니다.",
+          "사용자는 ‘강아지’, ‘부산’, ‘영수증’처럼 사진의 내용을 나타내는 말로 검색할 수 있습니다. 검색 결과는 날짜나 파일명이 아니라 이미지 안의 의미를 중심으로 모입니다.",
+          "People & Pets에서는 같은 사람이나 반려동물로 추정되는 사진을 그룹으로 묶고 이름 라벨을 붙일 수 있습니다. 잘못 묶인 사진은 사용자가 수정할 수 있습니다.",
+          "중요한 설계 포인트는 인식 결과를 그대로 노출하는 것이 아니라 ‘다시 찾기’와 ‘자동 정리’라는 사용자의 시간을 줄이는 행동으로 연결한다는 점입니다.",
+          "얼굴 그룹 기능은 지역과 계정 유형에 따라 제공 여부가 다를 수 있으므로 서비스 기획에서도 기능 조건을 함께 확인해야 합니다.",
+        ]}
+        prompt="사진 앱에서 ‘인식 정확도’보다 ‘검색 결과가 유용한가’가 더 중요한 순간은 언제일까요?"
+        transition="다음은 비슷한 사진 인식을 사람 중심의 컬렉션 경험으로 연결하는 Apple Photos입니다."
+        sources={[
+          { label: "Google Photos에서 사람·사물·장소 검색", href: "https://support.google.com/photos/answer/15235862?hl=ko" },
+          { label: "Google Photos 얼굴 그룹 관리", href: "https://support.google.com/photos/answer/6128838?hl=ko" },
+        ]}
+      />
+    ),
+    content: (
+      <div className="w2-case-detail is-google">
+        <section className="w2-case-identity">
+          <Images />
+          <span>GOOGLE PHOTOS</span>
+          <strong>내용으로 다시 찾기</strong>
+          <small>按内容重新查找照片</small>
+        </section>
+        <section className="w2-case-mechanism">
+          <div className="w2-case-flow">
+            <article><b>INPUT</b><strong>저장된 사진</strong><small>백업된 이미지 모음</small></article>
+            <ChevronRight />
+            <article><b>RECOGNIZE</b><strong>사람 · 반려동물<br />장소 · 문서 · 사물</strong><small>사진 속 의미 단서</small></article>
+            <ChevronRight />
+            <article><b>ACTION</b><strong>검색 · 그룹 · 정리</strong><small>필요한 사진에 빠르게 도달</small></article>
+          </div>
+          <p className="w2-case-example"><span>사용 예</span><strong>“강아지” · “부산” · “영수증”</strong>처럼 내용으로 검색</p>
+        </section>
+      </div>
+    ),
+  },
+  {
+    index: "10",
+    section: "서비스 사례 · Apple Photos",
+    chineseSection: "服务案例 · Apple Photos",
+    title: "Apple Photos는 사람과 반려동물을\n하나의 컬렉션으로 모읍니다",
+    chineseTitle: "Apple Photos把人物与宠物整理为收藏集",
+    note: (
+      <SpeakerNote
+        duration="6분"
+        lead="Apple Photos도 사람, 장면, 사물을 인식하지만 특히 자주 등장하는 사람과 반려동물을 컬렉션 중심 경험으로 보여 줍니다."
+        points={[
+          "입력은 iPhone, iPad 등에서 촬영하거나 보관한 사진과 비디오입니다. Photos는 라이브러리를 분석해 사람, 장면, 사물을 찾습니다.",
+          "People & Pets에는 같은 사람이나 개·고양이로 판단된 사진이 그룹으로 나타납니다. 사용자는 이름을 붙이고 즐겨찾는 대상을 상단에 고정할 수 있습니다.",
+          "이름을 붙인 사람과 반려동물은 검색과 컬렉션에서 다시 활용됩니다. iCloud Photos를 사용하면 이름과 즐겨찾기 정보가 같은 Apple 계정의 기기 사이에서 동기화됩니다.",
+          "잘못 인식된 사진은 ‘이 사람이 아님’으로 수정하거나 중복된 그룹을 합칠 수 있습니다. 즉, 자동 분류 뒤에 사용자의 교정 과정이 포함됩니다.",
+          "반려동물 인식 범위와 화면 이름은 운영체제 버전에 따라 달라질 수 있습니다. 서비스 설계에서는 지원 환경과 예외 처리까지 함께 설명해야 합니다.",
+        ]}
+        prompt="자동으로 만든 그룹이 틀렸을 때, 사용자가 쉽게 고칠 수 있도록 어떤 인터페이스가 필요할까요?"
+        transition="마지막 사례는 저장된 라이브러리를 넘어 현재 카메라와 화면을 즉시 행동으로 바꾸는 Google Lens입니다."
+        sources={[
+          { label: "Apple Photos에서 사람 및 반려동물 찾기", href: "https://support.apple.com/ko-kr/108795" },
+        ]}
+      />
+    ),
+    content: (
+      <div className="w2-case-detail is-apple">
+        <section className="w2-case-identity">
+          <UsersRound />
+          <span>APPLE PHOTOS</span>
+          <strong>관계로 모아 보기</strong>
+          <small>按人物关系整理浏览</small>
+        </section>
+        <section className="w2-case-mechanism">
+          <div className="w2-case-flow">
+            <article><b>INPUT</b><strong>사진 · 비디오</strong><small>기기 속 라이브러리</small></article>
+            <ChevronRight />
+            <article><b>RECOGNIZE</b><strong>사람 · 반려동물<br />장면 · 사물</strong><small>반복되는 대상 묶기</small></article>
+            <ChevronRight />
+            <article><b>ACTION</b><strong>People &amp; Pets<br />검색 · 컬렉션</strong><small>이름 지정과 즐겨찾기</small></article>
+          </div>
+          <p className="w2-case-example"><span>사용 예</span><strong>이름 붙이기 → 그룹 찾기 → 오분류 수정</strong></p>
+        </section>
+      </div>
+    ),
+  },
+  {
+    index: "11",
+    section: "서비스 사례 · Google Lens",
+    chineseSection: "服务案例 · Google Lens",
+    title: "Google Lens는 보이는 대상을\n바로 다음 행동으로 연결합니다",
+    chineseTitle: "Google Lens把眼前对象直接连接到下一步操作",
+    note: (
+      <SpeakerNote
+        duration="6분"
+        lead="Google Lens는 카메라, 사진, 스크린샷 안의 대상을 이해하고 그 순간 필요한 검색, 번역, 복사, 식별 같은 행동을 제안합니다."
+        points={[
+          "입력은 실시간 카메라 화면, 이미 촬영한 이미지, 화면 캡처입니다. 사용자는 전체 장면이나 특정 영역을 선택해 질문할 수 있습니다.",
+          "Lens는 사물의 시각적 특징뿐 아니라 이미지 안의 텍스트, 제품, 식물과 동물, 장소 같은 의미를 파악합니다.",
+          "텍스트를 발견하면 복사하거나 번역하고, 제품과 비슷한 항목을 검색하며, 식물이나 동물은 종류를 탐색하는 식으로 인식 대상에 따라 행동이 달라집니다.",
+          "검색 결과를 정렬할 때는 이미지의 시각적 유사성뿐 아니라 입력된 단어, 언어, 위치와 같은 정보가 함께 사용될 수 있습니다.",
+          "따라서 Vision 서비스의 핵심 질문은 ‘무엇으로 보이는가?’에서 끝나지 않고 ‘이 결과로 사용자가 지금 무엇을 할 수 있는가?’까지 이어집니다.",
+        ]}
+        prompt="여러분 프로젝트가 카메라 입력을 받는다면, 인식 직후 가장 먼저 보여 줄 행동 버튼은 무엇인가요?"
+        transition="세 사례의 공통 구조를 확인했습니다. 이제 같은 구조를 직접 구현하는 오늘 실습 순서를 보겠습니다."
+        sources={[
+          { label: "Google Lens 기능 소개", href: "https://lens.google/intl/ko/" },
+          { label: "Google Lens 작동 방식", href: "https://lens.google/intl/ko/howlensworks/" },
+        ]}
+      />
+    ),
+    content: (
+      <div className="w2-case-detail is-lens">
+        <section className="w2-case-identity">
+          <ScanSearch />
+          <span>GOOGLE LENS</span>
+          <strong>보는 즉시 행동하기</strong>
+          <small>看见后立即采取行动</small>
+        </section>
+        <section className="w2-case-mechanism">
+          <div className="w2-case-flow">
+            <article><b>INPUT</b><strong>카메라 · 이미지<br />스크린샷</strong><small>전체 또는 선택 영역</small></article>
+            <ChevronRight />
+            <article><b>RECOGNIZE</b><strong>사물 · 텍스트<br />제품 · 식물 · 장소</strong><small>장면에 맞는 의미 추출</small></article>
+            <ChevronRight />
+            <article><b>ACTION</b><strong>검색 · 번역 · 복사<br />식별 · 쇼핑</strong><small>상황별 다음 행동</small></article>
+          </div>
+          <p className="w2-case-example"><span>사용 예</span><strong>메뉴 번역 · 식물 식별 · 비슷한 제품 찾기</strong></p>
+        </section>
+      </div>
+    ),
+  },
+  {
+    index: "12",
     section: "실습 로드맵",
     chineseSection: "实践路线图",
     title: "설정부터 제출까지\n다섯 단계로 진행합니다",
@@ -396,7 +533,7 @@ const slides: Slide[] = [
     ),
   },
   {
-    index: "10",
+    index: "13",
     section: "실습 환경 준비",
     chineseSection: "实践环境准备",
     title: "네 가지 도구가\n준비되어 있어야 합니다",
@@ -430,7 +567,7 @@ const slides: Slide[] = [
     ),
   },
   {
-    index: "11",
+    index: "14",
     section: "Model Studio 설정",
     chineseSection: "Model Studio设置",
     title: "Singapore 지역과\n무료 사용 한도를 먼저 확인합니다",
@@ -466,7 +603,7 @@ const slides: Slide[] = [
     ),
   },
   {
-    index: "12",
+    index: "15",
     section: "API Key와 Base URL",
     chineseSection: "API Key与基础URL",
     title: "API Key는 코드가 아니라\n환경 파일에 저장합니다",
@@ -498,7 +635,7 @@ const slides: Slide[] = [
     ),
   },
   {
-    index: "13",
+    index: "16",
     section: "프로젝트 파일",
     chineseSection: "项目文件",
     title: "프로젝트는 세 파일로\n단순하게 시작합니다",
@@ -528,7 +665,7 @@ const slides: Slide[] = [
     ),
   },
   {
-    index: "14",
+    index: "17",
     section: "Qwen Text API 연결",
     chineseSection: "连接Qwen文本API",
     title: "텍스트 응답이 출력되면\n연결 준비가 끝난 것입니다",
@@ -559,7 +696,7 @@ const slides: Slide[] = [
     ),
   },
   {
-    index: "15",
+    index: "18",
     section: "실습 시나리오",
     chineseSection: "实践场景",
     title: "여러 물체가 있어도\n대표 카테고리는 하나만 고릅니다",
@@ -590,7 +727,7 @@ const slides: Slide[] = [
     ),
   },
   {
-    index: "16",
+    index: "19",
     section: "분류 프롬프트",
     chineseSection: "分类提示词",
     title: "라벨 목록과 출력 규칙을\n프롬프트에 함께 넣습니다",
@@ -618,7 +755,7 @@ const slides: Slide[] = [
     ),
   },
   {
-    index: "17",
+    index: "20",
     section: "Vision 요청 준비",
     chineseSection: "准备Vision请求",
     title: "로컬 이미지를 읽어\nBase64 데이터로 변환합니다",
@@ -649,7 +786,7 @@ const slides: Slide[] = [
     ),
   },
   {
-    index: "18",
+    index: "21",
     section: "Qwen Vision 분류",
     chineseSection: "Qwen Vision分类",
     title: "이미지와 프롬프트를 보내고\n카테고리 한 단어를 받습니다",
@@ -680,7 +817,7 @@ const slides: Slide[] = [
     ),
   },
   {
-    index: "19",
+    index: "22",
     section: "문제 해결",
     chineseSection: "问题排查",
     title: "오류 메시지는\n어느 연결이 끊겼는지 알려 줍니다",
@@ -716,7 +853,7 @@ const slides: Slide[] = [
     ),
   },
   {
-    index: "20",
+    index: "23",
     section: "저장 및 제출",
     chineseSection: "保存与提交",
     title: "코드와 실행 결과를\nGitHub에 남깁니다",
