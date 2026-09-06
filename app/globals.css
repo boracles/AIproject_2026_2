@@ -638,6 +638,7 @@ kbd { font-size: .74rem; }
   --w2-mint: #14a58f;
   --w2-navy: #091426;
   --w2-line: #dbe4ef;
+  --w2-caption-safe: 30%;
   color: var(--w2-ink);
 }
 .w2-audience-shell {
@@ -1019,6 +1020,113 @@ kbd { font-size: .74rem; }
 .w2-submit-checklist > div strong { color: #a44631; font-size: 1.2cqw; }
 .w2-submit-checklist > div small { color: #8794a6; font-size: .68cqw; }
 
+/* Classroom projection: reserve the lower 30% for the Live Interpreter overlay. */
+@media (min-width: 761px) {
+  .w2-title-wrap { top: 12.5%; }
+  .w2-title-wrap h1 { font-size: 5.55cqw; line-height: .93; }
+  .w2-title-wrap p { margin-top: .58em; font-size: 1.3cqw; }
+  .w2-slide-content { top: 40.5%; bottom: var(--w2-caption-safe); }
+  .w2-slide-footer { display: none; }
+
+  .w2-slide-14 .w2-slide-content,
+  .w2-slide-16 .w2-slide-content,
+  .w2-slide-17 .w2-slide-content,
+  .w2-slide-18 .w2-slide-content,
+  .w2-slide-20 .w2-slide-content { top: 36.5%; }
+
+  .w2-kicker { font-size: 1.02cqw; }
+  .w2-cover p { font-size: 1.95cqw; }
+  .w2-cover small { font-size: 1.02cqw; }
+  .w2-cover-visual > b { font-size: .9cqw; }
+
+  .w2-goals article { padding: 1.05cqw 1.2cqw; }
+  .w2-goals span { font-size: .92cqw; }
+  .w2-goals h3 { font-size: 1.72cqw; }
+  .w2-goals p { font-size: 1.17cqw; line-height: 1.3; }
+  .w2-goals small { font-size: .88cqw; }
+
+  .w2-presentation-grid article { grid-template-columns: 2.6cqw 1fr; padding: .46cqw .72cqw; }
+  .w2-presentation-grid article > span { width: 2.35cqw; font-size: .86cqw; }
+  .w2-presentation-grid b { font-size: .8cqw; }
+  .w2-presentation-grid strong { font-size: 1.18cqw; }
+  .w2-presentation-grid small { font-size: .79cqw; }
+
+  .w2-review-step article { padding: .9cqw 1.02cqw; }
+  .w2-review-step span { font-size: .77cqw; }
+  .w2-review-step strong { font-size: 1.58cqw; }
+  .w2-review-step small { font-size: .86cqw; }
+
+  .w2-ai-types article { grid-template-columns: 2.5cqw 1fr; padding: .58cqw .82cqw; }
+  .w2-ai-types svg { width: 2.22cqw; height: 2.22cqw; }
+  .w2-ai-types strong { font-size: 1.28cqw; }
+  .w2-ai-types small { font-size: .84cqw; }
+
+  .w2-service-chain > div { padding: .82cqw 1cqw; }
+  .w2-service-chain div > svg { width: 2.4cqw; height: 2.4cqw; }
+  .w2-service-chain span { font-size: .78cqw; }
+  .w2-service-chain strong { font-size: 1.48cqw; }
+  .w2-service-chain small { font-size: .86cqw; }
+  .w2-service-labels p b { font-size: .8cqw; }
+
+  .w2-case-head span { font-size: .86cqw; }
+  .w2-case-row span { font-size: 1.02cqw; line-height: 1.18; }
+
+  .w2-roadmap-step article { padding: .65cqw .78cqw; }
+  .w2-roadmap-step article svg { width: 2.15cqw; height: 2.15cqw; }
+  .w2-roadmap-step article span { font-size: .76cqw; }
+  .w2-roadmap-step article strong { font-size: 1.18cqw; }
+  .w2-roadmap-step article small { font-size: .78cqw; }
+
+  .w2-tools-grid article { grid-template-columns: 2.55cqw 1fr; padding: .55cqw .78cqw; }
+  .w2-tools-grid svg { width: 2.25cqw; height: 2.25cqw; }
+  .w2-tools-grid strong { font-size: 1.2cqw; }
+  .w2-tools-grid small { font-size: .82cqw; }
+
+  .w2-code > div { font-size: .74cqw; }
+  .w2-code pre { font-size: .9cqw; line-height: 1.38; }
+  .w2-code.is-compact pre { font-size: .8cqw; line-height: 1.34; }
+
+  .w2-region-card span { font-size: .8cqw; }
+  .w2-region-card strong { font-size: 2.5cqw; }
+  .w2-region-card small { font-size: .92cqw; }
+  .w2-cloud-checks article { padding: .48cqw .8cqw; }
+  .w2-cloud-checks svg { width: 2.15cqw; height: 2.15cqw; }
+  .w2-cloud-checks strong { font-size: 1.3cqw; }
+  .w2-cloud-checks small { font-size: .84cqw; }
+
+  .w2-secret-card span { font-size: .76cqw; }
+  .w2-secret-card strong { font-size: 1.25cqw; }
+  .w2-secret-card p { font-size: .96cqw; }
+  .w2-secret-card small { font-size: .8cqw; }
+  .w2-folder-tree span { font-size: .88cqw; }
+  .w2-folder-tree strong { font-size: 1.2cqw; line-height: 1.55; }
+
+  .w2-success > span,.w2-vision-result > span { font-size: .78cqw; }
+  .w2-success code { font-size: .94cqw; }
+  .w2-success strong { font-size: 1.16cqw; }
+  .w2-vision-result strong { font-size: 1.62cqw; }
+  .w2-vision-result small { font-size: .84cqw; }
+
+  .w2-scenario figcaption { font-size: .8cqw; }
+  .w2-scenario-side > span { font-size: .78cqw; }
+  .w2-scenario-side b { font-size: .82cqw; }
+  .w2-scenario-side > strong { font-size: 2.65cqw; }
+  .w2-scenario-side > small { font-size: .84cqw; }
+
+  .w2-prompt-rules strong { font-size: 1.06cqw; }
+  .w2-prompt-rules small { font-size: .76cqw; }
+  .w2-encode-flow strong { font-size: 1.08cqw; }
+  .w2-encode-flow small { font-size: .76cqw; }
+
+  .w2-troubleshoot code { font-size: .84cqw; }
+  .w2-troubleshoot strong { font-size: .98cqw; }
+  .w2-troubleshoot small { font-size: .8cqw; }
+  .w2-submit-checklist > span { font-size: .82cqw; }
+  .w2-submit-checklist > p { font-size: .98cqw; }
+  .w2-submit-checklist > div strong { font-size: 1.32cqw; }
+  .w2-submit-checklist > div small { font-size: .8cqw; }
+}
+
 @media (max-width: 760px) {
   .w2-code { min-height: 15rem; border-radius: .6rem; }
   .w2-code > div { padding: .55rem .7rem; font-size: .66rem; }
@@ -1045,4 +1153,6 @@ kbd { font-size: .74rem; }
   .w2-encode-flow > div { min-height: 8rem; padding: .8rem; }.w2-encode-flow div svg { width: 2rem; height: 2rem; }.w2-encode-flow strong { font-size: 1rem; }.w2-encode-flow small { font-size: .7rem; }
   .w2-troubleshoot { display: block; }.w2-troubleshoot article { grid-template-columns: 1.6rem 1fr; margin-bottom: .6rem; padding: .75rem; border: 1px solid #d5e0e4; background: #fff; }.w2-troubleshoot svg { width: 1.3rem; height: 1.3rem; }.w2-troubleshoot code { font-size: .74rem; }.w2-troubleshoot strong,.w2-troubleshoot small { grid-column: 2; font-size: .82rem; }.w2-troubleshoot small { font-size: .72rem; }
   .w2-submit-checklist { padding: 1rem; }.w2-submit-checklist > span { font-size: .7rem; }.w2-submit-checklist > p { grid-template-columns: 1.4rem 1fr; margin-top: .7rem; font-size: .9rem; }.w2-submit-checklist > p svg { width: 1.2rem; }.w2-submit-checklist > div { grid-template-columns: 2.2rem 1fr; margin-top: 1rem; padding-top: .8rem; }.w2-submit-checklist > div svg { width: 1.8rem; height: 1.8rem; }.w2-submit-checklist > div strong { font-size: 1.12rem; }.w2-submit-checklist > div small { font-size: .72rem; }
+  .w2-slide-footer { display: none; }
+  .w2-slide-content { padding-bottom: calc(6.2rem + 30vh); }
 }
