@@ -173,31 +173,54 @@ const slides: Slide[] = [
     index: "03",
     section: "TODAY'S LAB",
     chineseSection: "今天的实践",
-    title: "이미지는 분류 결과를 거쳐\n서비스 행동으로 이어집니다",
-    chineseTitle: "图像通过分类结果连接到服务行为",
+    title: "이미지를 분류하고, 결과에 따라\n사진을 자동 정리합니다",
+    chineseTitle: "对图像进行分类，并根据结果自动整理照片",
     note: (
       <SpeakerNote
         duration="5분"
-        lead="오늘 실습의 핵심은 모델 호출 자체보다 입력과 출력이 서비스 안에서 어떻게 연결되는지 이해하는 것입니다."
+        lead="오늘 만들 흐름은 sample.jpg를 Qwen Vision으로 분류하고, 반환된 category를 사진 정리 규칙에 연결하는 것입니다."
         points={[
-          "입력은 로컬의 sample.jpg입니다.",
-          "Qwen Vision은 이미지와 분류 기준이 담긴 프롬프트를 함께 받습니다.",
-          "출력은 카테고리 한 단어로 제한합니다.",
-          "서비스는 이 결과를 이용해 사진을 Devices 폴더로 정리할 수 있습니다.",
+          "입력 단계에서 Python이 로컬의 sample.jpg를 읽어 API가 받을 수 있는 이미지 데이터로 변환합니다.",
+          "Qwen Vision에는 이미지와 함께 person, document, food, device, other 중 대표 카테고리 하나를 고르라는 프롬프트를 보냅니다.",
+          "사진에 휴대전화, 커피, 꽃이 함께 있어도 서비스 기준상 중심 대상인 휴대전화를 대표하는 device 한 단어만 받습니다.",
+          "서비스는 device 결과를 photos/device 폴더와 연결합니다. 같은 규칙으로 document는 documents 폴더, food는 food 폴더에 연결할 수 있습니다.",
+          "따라서 모델의 답을 보여 주는 데서 끝나지 않고 category를 실제 정리 행동으로 변환하는 것이 서비스 단계입니다.",
         ]}
         prompt="사진에 여러 물체가 함께 있다면 어떤 기준으로 대표 카테고리를 골라야 할까요?"
         transition="이제 팀별로 이번 학기 프로젝트가 어떤 문제를 다루는지 짧게 공유하겠습니다."
       />
     ),
     content: (
-      <div className="w2-pipeline">
-        <article><Images /><span>INPUT</span><strong>sample.jpg</strong><small>图像文件</small></article>
-        <i><ArrowRight /></i>
-        <article><ScanSearch /><span>MODEL</span><strong>Qwen Vision</strong><small>视觉理解</small></article>
-        <i><ArrowRight /></i>
-        <article className="is-result"><Sparkles /><span>OUTPUT</span><strong>device</strong><small>单一类别</small></article>
-        <i><ArrowRight /></i>
-        <article><MonitorUp /><span>ACTION</span><strong>사진 자동 정리</strong><small>自动整理照片</small></article>
+      <div className="w2-pipeline is-detailed">
+        <article className="w2-pipeline-input">
+          <figure>
+            <img src="https://images.unsplash.com/photo-1757778988730-6aed4fbef8a8?auto=format&fit=crop&fm=jpg&q=78&w=900" alt="휴대전화와 커피, 꽃이 놓인 책상 사진" />
+            <figcaption>sample.jpg</figcaption>
+          </figure>
+          <div><span>01 · INPUT</span><strong>sample.jpg</strong><small>분류할 원본 사진 · 待分类照片</small></div>
+        </article>
+        <i><ArrowRight /><small>이미지 + 지시문</small></i>
+        <article className="w2-pipeline-model">
+          <ScanSearch />
+          <span>02 · MODEL</span>
+          <strong>Qwen Vision</strong>
+          <p>사진 전체를 대표하는<br />카테고리 1개 선택</p>
+          <div>{["person", "document", "food", "device", "other"].map((label) => <b className={label === "device" ? "is-active" : ""} key={label}>{label}</b>)}</div>
+        </article>
+        <i><ArrowRight /><small>한 단어 응답</small></i>
+        <article className="is-result w2-pipeline-output">
+          <Tags />
+          <span>03 · OUTPUT</span>
+          <strong>device</strong>
+          <p>허용된 category 중 하나<br />单一类别结果</p>
+        </article>
+        <i><ArrowRight /><small>정리 규칙 실행</small></i>
+        <article className="w2-pipeline-action">
+          <FolderTree />
+          <span>04 · ACTION</span>
+          <strong>사진 자동 정리</strong>
+          <div><small>photos/</small><b>└── device/</b><em>sample.jpg</em></div>
+        </article>
       </div>
     ),
   },
