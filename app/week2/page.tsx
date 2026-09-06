@@ -937,6 +937,15 @@ const DECK_CHANNEL = "dong-a-week-2-deck";
 const DECK_STORAGE_KEY = "dong-a-week-2-current";
 
 function SlideCanvas({ slide, position }: { slide: Slide; position: number }) {
+  const titleText = slide.title.replace(/\s*\n\s*/g, " ");
+  const titleSizeClass = titleText.length <= 13
+    ? "is-title-short"
+    : titleText.length <= 20
+      ? "is-title-medium"
+      : titleText.length <= 28
+        ? "is-title-long"
+        : "is-title-xlong";
+
   return (
     <section className={`w2-stage w2-slide-${slide.index}`} aria-live="polite">
       <div className="w2-grid" aria-hidden="true" />
@@ -946,7 +955,7 @@ function SlideCanvas({ slide, position }: { slide: Slide; position: number }) {
         <span>{String(position + 1).padStart(2, "0")} / {String(slides.length).padStart(2, "0")}</span>
       </header>
       <div className="w2-title-wrap">
-        <h1>{slide.title.split("\n").map((line) => <span key={line}>{line}</span>)}</h1>
+        <h1 className={titleSizeClass}><span>{titleText}</span></h1>
         {slide.englishTitle && <p className="w2-title-english">{slide.englishTitle}</p>}
         <p className="w2-title-chinese">{slide.chineseTitle}</p>
       </div>
