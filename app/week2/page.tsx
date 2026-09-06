@@ -91,7 +91,7 @@ function CodeBlock({ title, code, compact = false }: { title: string; code: stri
 const slides: Slide[] = [
   {
     index: "01",
-    section: "2주차 · 인식과 분류",
+    section: "WEEK 02 · RECOGNITION & CLASSIFICATION",
     chineseSection: "第2周 · 识别与分类",
     title: "Recognition and\nClassification",
     chineseTitle: "识别与分类：Qwen Vision",
@@ -124,7 +124,7 @@ const slides: Slide[] = [
   },
   {
     index: "02",
-    section: "이번 주 목표",
+    section: "THIS WEEK'S GOALS",
     chineseSection: "本周目标",
     title: "수업이 끝나면\n세 가지 결과가 남습니다",
     chineseTitle: "课程结束时完成三项成果",
@@ -160,7 +160,7 @@ const slides: Slide[] = [
   },
   {
     index: "03",
-    section: "오늘의 실습",
+    section: "TODAY'S LAB",
     chineseSection: "今天的实践",
     title: "이미지는 분류 결과를 거쳐\n서비스 행동으로 이어집니다",
     chineseTitle: "图像通过分类结果连接到服务行为",
@@ -192,7 +192,7 @@ const slides: Slide[] = [
   },
   {
     index: "04",
-    section: "팀 프로젝트 아이디어 발표",
+    section: "TEAM PROJECT IDEA PITCH",
     chineseSection: "团队项目想法发表",
     title: "팀당 2분에서 3분,\n여섯 가지 질문에 답합니다",
     chineseTitle: "每组用2至3分钟回答六个问题",
@@ -227,7 +227,7 @@ const slides: Slide[] = [
   },
   {
     index: "05",
-    section: "3주차부터 개발 리뷰",
+    section: "DEVELOPMENT REVIEW FROM WEEK 03",
     chineseSection: "从第3周开始的开发回顾",
     title: "다음 주부터는\n짧은 개발 리뷰로 시작합니다",
     chineseTitle: "从下周开始用简短的开发回顾开场",
@@ -262,7 +262,7 @@ const slides: Slide[] = [
   },
   {
     index: "06",
-    section: "오늘의 AI 역할",
+    section: "TODAY'S AI ROLE",
     chineseSection: "今天的AI角色",
     title: "오늘은 여섯 가지 역할 중\n인식·분류에 집중합니다",
     chineseTitle: "今天聚焦六种AI角色中的识别与分类",
@@ -298,7 +298,7 @@ const slides: Slide[] = [
   },
   {
     index: "07",
-    section: "인식·분류와 서비스",
+    section: "RECOGNITION, CLASSIFICATION & SERVICE",
     chineseSection: "识别分类与服务",
     title: "모델의 라벨은\n다음 서비스 기능의 입력이 됩니다",
     chineseTitle: "模型标签成为后续服务功能的输入",
@@ -328,7 +328,7 @@ const slides: Slide[] = [
   },
   {
     index: "08",
-    section: "서비스 사례",
+    section: "SERVICE CASES",
     chineseSection: "服务案例",
     title: "세 서비스는 인식 결과를\n서로 다른 행동에 연결합니다",
     chineseTitle: "三项服务把识别结果连接到不同操作",
@@ -364,7 +364,7 @@ const slides: Slide[] = [
   },
   {
     index: "09",
-    section: "서비스 사례 · Google Photos",
+    section: "SERVICE CASE · GOOGLE PHOTOS",
     chineseSection: "服务案例 · Google Photos",
     title: "Google Photos는 사진 속 의미를\n검색 가능한 단서로 바꿉니다",
     chineseTitle: "Google Photos把照片含义转换为可搜索线索",
@@ -410,7 +410,7 @@ const slides: Slide[] = [
   },
   {
     index: "10",
-    section: "서비스 사례 · Apple Photos",
+    section: "SERVICE CASE · APPLE PHOTOS",
     chineseSection: "服务案例 · Apple Photos",
     title: "Apple Photos는 사람과 반려동물을\n하나의 컬렉션으로 모읍니다",
     chineseTitle: "Apple Photos把人物与宠物整理为收藏集",
@@ -455,7 +455,7 @@ const slides: Slide[] = [
   },
   {
     index: "11",
-    section: "서비스 사례 · Google Lens",
+    section: "SERVICE CASE · GOOGLE LENS",
     chineseSection: "服务案例 · Google Lens",
     title: "Google Lens는 보이는 대상을\n바로 다음 행동으로 연결합니다",
     chineseTitle: "Google Lens把眼前对象直接连接到下一步操作",
@@ -501,7 +501,7 @@ const slides: Slide[] = [
   },
   {
     index: "12",
-    section: "실습 로드맵",
+    section: "LAB ROADMAP",
     chineseSection: "实践路线图",
     title: "설정부터 제출까지\n다섯 단계로 진행합니다",
     chineseTitle: "从设置到提交共分五个步骤",
@@ -534,7 +534,7 @@ const slides: Slide[] = [
   },
   {
     index: "13",
-    section: "실습 환경 준비",
+    section: "LAB ENVIRONMENT SETUP",
     chineseSection: "实践环境准备",
     title: "네 가지 도구가\n준비되어 있어야 합니다",
     chineseTitle: "需要准备四种工具",
@@ -568,7 +568,7 @@ const slides: Slide[] = [
   },
   {
     index: "14",
-    section: "Model Studio 설정",
+    section: "MODEL STUDIO SETUP",
     chineseSection: "Model Studio设置",
     title: "Singapore 지역과\n무료 사용 한도를 먼저 확인합니다",
     chineseTitle: "先确认新加坡区域与免费额度",
@@ -604,7 +604,7 @@ const slides: Slide[] = [
   },
   {
     index: "15",
-    section: "API Key와 Base URL",
+    section: "API KEY & BASE URL",
     chineseSection: "API Key与基础URL",
     title: "API Key는 코드가 아니라\n환경 파일에 저장합니다",
     chineseTitle: "API Key保存在环境文件中，而不是代码里",
@@ -636,7 +636,7 @@ const slides: Slide[] = [
   },
   {
     index: "16",
-    section: "프로젝트 파일",
+    section: "PROJECT FILES",
     chineseSection: "项目文件",
     title: "프로젝트는 세 파일로\n단순하게 시작합니다",
     chineseTitle: "项目从三个简单文件开始",
@@ -666,7 +666,7 @@ const slides: Slide[] = [
   },
   {
     index: "17",
-    section: "Qwen Text API 연결",
+    section: "CONNECT QWEN TEXT API",
     chineseSection: "连接Qwen文本API",
     title: "텍스트 응답이 출력되면\n연결 준비가 끝난 것입니다",
     chineseTitle: "输出文本回答后即表示连接准备完成",
@@ -697,7 +697,7 @@ const slides: Slide[] = [
   },
   {
     index: "18",
-    section: "실습 시나리오",
+    section: "LAB SCENARIO",
     chineseSection: "实践场景",
     title: "여러 물체가 있어도\n대표 카테고리는 하나만 고릅니다",
     chineseTitle: "即使有多个物体，也只选择一个代表类别",
@@ -728,7 +728,7 @@ const slides: Slide[] = [
   },
   {
     index: "19",
-    section: "분류 프롬프트",
+    section: "CLASSIFICATION PROMPT",
     chineseSection: "分类提示词",
     title: "라벨 목록과 출력 규칙을\n프롬프트에 함께 넣습니다",
     chineseTitle: "在提示词中同时加入标签列表与输出规则",
@@ -756,7 +756,7 @@ const slides: Slide[] = [
   },
   {
     index: "20",
-    section: "Vision 요청 준비",
+    section: "PREPARE VISION REQUEST",
     chineseSection: "准备Vision请求",
     title: "로컬 이미지를 읽어\nBase64 데이터로 변환합니다",
     chineseTitle: "读取本地图像并转换为Base64数据",
@@ -787,7 +787,7 @@ const slides: Slide[] = [
   },
   {
     index: "21",
-    section: "Qwen Vision 분류",
+    section: "QWEN VISION CLASSIFICATION",
     chineseSection: "Qwen Vision分类",
     title: "이미지와 프롬프트를 보내고\n카테고리 한 단어를 받습니다",
     chineseTitle: "发送图像与提示词，接收一个类别词",
@@ -818,7 +818,7 @@ const slides: Slide[] = [
   },
   {
     index: "22",
-    section: "문제 해결",
+    section: "TROUBLESHOOTING",
     chineseSection: "问题排查",
     title: "오류 메시지는\n어느 연결이 끊겼는지 알려 줍니다",
     chineseTitle: "错误信息会提示哪一处连接出现问题",
@@ -854,7 +854,7 @@ const slides: Slide[] = [
   },
   {
     index: "23",
-    section: "저장 및 제출",
+    section: "SAVE & SUBMIT",
     chineseSection: "保存与提交",
     title: "코드와 실행 결과를\nGitHub에 남깁니다",
     chineseTitle: "把代码与运行结果保存到GitHub",
@@ -895,7 +895,7 @@ function SlideCanvas({ slide, position }: { slide: Slide; position: number }) {
       <div className="w2-grid" aria-hidden="true" />
       <div className="w2-scanline" aria-hidden="true" />
       <header className="w2-slide-meta">
-        <span>{slide.index} · {slide.section}<small>{slide.chineseSection}</small></span>
+        <span>{slide.section}<small>{slide.chineseSection}</small></span>
         <span>{String(position + 1).padStart(2, "0")} / {String(slides.length).padStart(2, "0")}</span>
       </header>
       <div className="w2-title-wrap">
