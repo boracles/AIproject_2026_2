@@ -114,10 +114,13 @@ const slides: Slide[] = [
           <p>이미지 한 장을 서비스에 쓸 수 있는 분류 결과로 바꾸는 첫 실습</p>
           <small>将一张图像转换为可用于服务的分类结果</small>
         </div>
-        <div className="w2-cover-visual" aria-hidden="true">
-          <Camera />
-          <div className="w2-focus-frame"><span /></div>
-          <b>WEEK 02</b>
+        <div className="w2-cover-visual">
+          <img src="/ai-types/vision-object-detection.webp" alt="거리 사진 속 자전거와 바퀴를 감지하고 신뢰도 점수를 표시한 이미지 인식 화면" />
+          <span className="w2-cover-model-tag"><ScanSearch /> VISION MODEL OUTPUT</span>
+          <div className="w2-cover-result">
+            <small>CLASSIFICATION</small>
+            <strong>street scene <b>93%</b></strong>
+          </div>
         </div>
       </div>
     ),
