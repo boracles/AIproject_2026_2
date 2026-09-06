@@ -6,6 +6,7 @@ import {
   ArrowLeft,
   ArrowRight,
   BadgeCheck,
+  Blocks,
   BrainCircuit,
   Braces,
   Camera,
@@ -16,6 +17,7 @@ import {
   Cloud,
   Code2,
   Copy,
+  Download,
   ExternalLink,
   Expand,
   FileImage,
@@ -756,6 +758,40 @@ const slides: Slide[] = [
   },
   {
     index: "17",
+    section: "PYTHON INTERPRETER",
+    chineseSection: "Python解释器",
+    title: "Python 확장을 설치하고 .venv 인터프리터를 선택합니다",
+    chineseTitle: "安装Python扩展并选择.venv解释器",
+    note: (
+      <SpeakerNote
+        duration="7분"
+        lead="VS Code, Python 확장, Python 인터프리터는 서로 다른 도구입니다. 확장을 설치한 뒤 방금 만든 .venv의 Python을 선택해야 실행과 라이브러리가 같은 환경을 사용합니다."
+        points={[
+          "왼쪽 Extensions 아이콘을 열거나 Ctrl+Shift+X, macOS에서는 Command+Shift+X를 누릅니다.",
+          "검색창에 Python을 입력하고 게시자가 Microsoft인 Python 확장을 설치합니다.",
+          "Command Palette를 열고 Python: Select Interpreter를 실행합니다.",
+          "목록에서 경로에 .venv가 포함된 Python을 선택합니다. macOS는 .venv/bin/python, Windows는 .venv\\Scripts\\python.exe 형태입니다.",
+          "app.py를 열었을 때 오른쪽 아래 상태 표시줄에 .venv가 보이면 선택이 완료된 것입니다.",
+          "목록에 보이지 않으면 Enter interpreter path를 선택해 .venv 안의 Python 실행 파일을 직접 지정합니다.",
+        ]}
+        prompt="VS Code 오른쪽 아래에 표시된 Python 경로에 .venv가 포함되어 있나요?"
+        transition="편집기와 Python 환경이 연결됐으므로 Model Studio 계정 설정으로 넘어갑니다."
+        sources={[
+          { label: "VS Code Python 시작 가이드", href: "https://code.visualstudio.com/docs/python/python-tutorial" },
+          { label: "VS Code Python 환경 선택", href: "https://code.visualstudio.com/docs/python/environments" },
+        ]}
+      />
+    ),
+    content: (
+      <div className="w2-interpreter-layout">
+        <section className="w2-extension-card"><Blocks /><span>EXTENSIONS</span><strong>Python</strong><p>Microsoft</p><b><CheckCircle2 /> INSTALLED</b><small>Python扩展已安装</small></section>
+        <section className="w2-command-palette"><header><strong>&gt; Python: Select Interpreter</strong><small>Command Palette</small></header><article><span>RECOMMENDED</span><strong>Python 3.14 · .venv</strong><code>.venv/bin/python</code><small>Windows · .venv\\Scripts\\python.exe</small></article><article><span>STATUS BAR</span><strong><CheckCircle2 /> .venv selected</strong><small>右下角显示.venv</small></article></section>
+        <div className="w2-interpreter-chain"><p><Code2 /><strong>VS Code</strong><small>편집기</small></p><ArrowRight /><p><Blocks /><strong>Python Extension</strong><small>연결 기능</small></p><ArrowRight /><p><Terminal /><strong>.venv Python</strong><small>실행 환경</small></p></div>
+      </div>
+    ),
+  },
+  {
+    index: "18",
     section: "MODEL STUDIO SETUP",
     chineseSection: "Model Studio设置",
     title: "Model Studio를 활성화하고 Singapore를 선택합니다",
@@ -793,7 +829,7 @@ const slides: Slide[] = [
     ),
   },
   {
-    index: "18",
+    index: "19",
     section: "GET AN API KEY · 1/4",
     chineseSection: "获取API Key · 1/4",
     title: "Model Studio에서 API Key 메뉴를 엽니다",
@@ -838,7 +874,7 @@ const slides: Slide[] = [
     ),
   },
   {
-    index: "19",
+    index: "20",
     section: "GET AN API KEY · 2/4",
     chineseSection: "获取API Key · 2/4",
     title: "기본 워크스페이스를 선택하고 Key를 만듭니다",
@@ -881,7 +917,7 @@ const slides: Slide[] = [
     ),
   },
   {
-    index: "20",
+    index: "21",
     section: "GET AN API KEY · 3/4",
     chineseSection: "获取API Key · 3/4",
     title: "생성 직후 API Key와 API Host를 모두 복사합니다",
@@ -916,7 +952,7 @@ const slides: Slide[] = [
     ),
   },
   {
-    index: "21",
+    index: "22",
     section: "GET AN API KEY · 4/4",
     chineseSection: "获取API Key · 4/4",
     title: "두 값을 .env에 저장하고 GitHub에서 제외합니다",
@@ -950,7 +986,7 @@ const slides: Slide[] = [
     ),
   },
   {
-    index: "22",
+    index: "23",
     section: "PRE-FLIGHT CHECK",
     chineseSection: "运行前检查",
     title: "API 호출 전에 폴더와 환경 상태를 확인합니다",
@@ -967,7 +1003,7 @@ const slides: Slide[] = [
           "이 단계에서는 Key 값을 출력하지 않고 파일 존재와 패키지 설치만 확인합니다.",
         ]}
         prompt="네 가지 확인 항목 중 아직 완료되지 않은 항목을 하나 표시해 보세요."
-        transition="준비가 끝나면 가장 간단한 텍스트 요청으로 실제 API 연결을 확인합니다."
+        transition="준비가 끝나면 app.py의 전체 조립 순서를 먼저 확인합니다."
       />
     ),
     content: (
@@ -982,7 +1018,45 @@ const slides: Slide[] = [
     ),
   },
   {
-    index: "23",
+    index: "24",
+    section: "APP.PY BUILD MAP",
+    chineseSection: "app.py组装顺序",
+    title: "app.py는 여섯 코드 블록을 위에서 아래로 연결합니다",
+    chineseTitle: "app.py由六个代码块从上到下连接而成",
+    note: (
+      <SpeakerNote
+        duration="5분"
+        lead="앞으로 나오는 코드는 서로 독립된 예제가 아니라 하나의 app.py에 순서대로 연결됩니다. 먼저 전체 구조를 확인하고 각 블록을 채웁니다."
+        points={[
+          "첫 블록에서 라이브러리를 import하고 .env의 API Key와 API Host를 읽습니다.",
+          "두 번째 블록에서 OpenAI 호환 client를 만들고, 세 번째 블록에서 허용 LABELS와 분류 prompt를 정의합니다.",
+          "네 번째 블록에서 sample.jpg를 Base64로 변환합니다.",
+          "다섯 번째 블록에서 Qwen Vision을 호출하고 category를 받습니다.",
+          "여섯 번째 블록에서 category를 검사하고 sorted/category 폴더에 사진을 복사합니다.",
+          "직접 입력이 어려운 학생은 완성 app.py를 내려받을 수 있지만, .env에는 반드시 본인의 Key와 Host를 직접 넣습니다.",
+        ]}
+        prompt="현재 실습에서 AI 모델 호출 이후에 실행되는 서비스 동작은 몇 번째 블록인가요?"
+        transition="먼저 첫 두 블록만 사용해 가장 간단한 텍스트 연결 테스트를 실행합니다."
+      />
+    ),
+    content: (
+      <div className="w2-app-map-layout">
+        <div className="w2-app-map">
+          {[
+            ["01", "IMPORT + ENV", "라이브러리와 비밀 값"],
+            ["02", "CLIENT", "Key · API Host 연결"],
+            ["03", "LABELS + PROMPT", "분류 규칙 정의"],
+            ["04", "IMAGE", "sample.jpg → Base64"],
+            ["05", "QWEN VISION", "category 응답"],
+            ["06", "SERVICE ACTION", "sorted/category 생성"],
+          ].map(([number, title, detail], index) => <div className="w2-app-map-step" key={number}><article><span>{number}</span><strong>{title}</strong><small>{detail}</small></article>{index < 5 && <ChevronRight />}</div>)}
+        </div>
+        <aside className="w2-code-download"><Download /><span>STARTER FILE</span><strong>완성 app.py</strong><small>完整练习代码</small><a href="/week2-qwen-vision-app.py" download>app.py 다운로드 <Download /></a><a href="/week2-env-example.txt" download>.env 예시 다운로드 <Download /></a></aside>
+      </div>
+    ),
+  },
+  {
+    index: "25",
     section: "CONNECT QWEN TEXT API",
     chineseSection: "连接Qwen文本API",
     title: "텍스트 응답이 출력되면\n연결 준비가 끝난 것입니다",
@@ -1014,7 +1088,7 @@ const slides: Slide[] = [
     ),
   },
   {
-    index: "24",
+    index: "26",
     section: "PREPARE SAMPLE IMAGE",
     chineseSection: "准备示例图像",
     title: "sample.jpg를 프로젝트 폴더에 저장합니다",
@@ -1054,7 +1128,7 @@ const slides: Slide[] = [
     ),
   },
   {
-    index: "25",
+    index: "27",
     section: "LAB SCENARIO",
     chineseSection: "实践场景",
     title: "여러 물체가 있어도\n대표 카테고리는 하나만 고릅니다",
@@ -1085,7 +1159,7 @@ const slides: Slide[] = [
     ),
   },
   {
-    index: "26",
+    index: "28",
     section: "CLASSIFICATION PROMPT",
     chineseSection: "分类提示词",
     title: "라벨 목록과 출력 규칙을\n프롬프트에 함께 넣습니다",
@@ -1113,7 +1187,7 @@ const slides: Slide[] = [
     ),
   },
   {
-    index: "27",
+    index: "29",
     section: "PREPARE VISION REQUEST",
     chineseSection: "准备Vision请求",
     title: "로컬 이미지를 읽어\nBase64 데이터로 변환합니다",
@@ -1144,7 +1218,7 @@ const slides: Slide[] = [
     ),
   },
   {
-    index: "28",
+    index: "30",
     section: "QWEN VISION CLASSIFICATION",
     chineseSection: "Qwen Vision分类",
     title: "이미지와 프롬프트를 보내고\n카테고리 한 단어를 받습니다",
@@ -1175,7 +1249,7 @@ const slides: Slide[] = [
     ),
   },
   {
-    index: "29",
+    index: "31",
     section: "SERVICE ACTION",
     chineseSection: "服务动作",
     title: "category를 검사하고 해당 폴더에 사진을 복사합니다",
@@ -1209,7 +1283,7 @@ const slides: Slide[] = [
     ),
   },
   {
-    index: "30",
+    index: "32",
     section: "RUN & VERIFY",
     chineseSection: "运行与确认",
     title: "Terminal 출력과 새 폴더를 함께 확인합니다",
@@ -1238,7 +1312,7 @@ const slides: Slide[] = [
     ),
   },
   {
-    index: "31",
+    index: "33",
     section: "TROUBLESHOOTING",
     chineseSection: "问题排查",
     title: "오류 메시지는\n어느 연결이 끊겼는지 알려 줍니다",
@@ -1278,7 +1352,41 @@ const slides: Slide[] = [
     ),
   },
   {
-    index: "32",
+    index: "34",
+    section: "CONNECT GITHUB REPOSITORY",
+    chineseSection: "连接GitHub仓库",
+    title: "빈 GitHub 저장소를 만들고 로컬 폴더와 연결합니다",
+    chineseTitle: "创建空GitHub仓库并连接本地文件夹",
+    note: (
+      <SpeakerNote
+        duration="8분"
+        lead="처음 저장하는 팀은 GitHub에서 빈 Repository를 만든 뒤 현재 qwen-practice 폴더에 remote 주소를 연결합니다."
+        points={[
+          "GitHub에서 New repository를 누르고 이름을 qwen-vision-week2처럼 알아보기 쉽게 정합니다.",
+          "수업 제출 정책에 따라 Public 또는 Private를 선택합니다. Private인 경우 교수자 계정을 Collaborator로 초대해야 확인할 수 있습니다.",
+          "로컬 파일과 충돌하지 않도록 Add a README, .gitignore, license는 선택하지 않고 빈 저장소로 만듭니다.",
+          "저장소의 HTTPS 주소를 복사합니다. 예시는 https://github.com/USERNAME/qwen-vision-week2.git 형식입니다.",
+          "VS Code Terminal에서 git init, git branch -M main, git remote add origin 주소를 실행합니다.",
+          "git remote -v에 origin의 fetch와 push 주소가 보이면 연결이 완료된 것입니다.",
+        ]}
+        prompt="git remote -v에 본인 팀 저장소 주소가 두 줄로 표시되나요?"
+        transition="마지막으로 비밀 파일이 제외됐는지 확인하고 commit과 push를 실행합니다."
+        sources={[
+          { label: "GitHub 저장소 만들기", href: "https://docs.github.com/en/repositories/creating-and-managing-repositories/quickstart-for-repositories" },
+          { label: "GitHub remote 관리", href: "https://docs.github.com/en/get-started/git-basics/managing-remote-repositories" },
+        ]}
+      />
+    ),
+    content: (
+      <div className="w2-github-connect-layout">
+        <section className="w2-github-repo"><GitBranch /><span>GITHUB · NEW REPOSITORY</span><strong>qwen-vision-week2</strong><p><CheckCircle2 /> Empty repository</p><p><ShieldCheck /> Public / Private 확인</p><small>README · .gitignore · License 추가하지 않기</small></section>
+        <CodeBlock title="VS CODE TERMINAL · CONNECT ONCE" code={`git init\ngit branch -M main\ngit remote add origin https://github.com/USERNAME/qwen-vision-week2.git\ngit remote -v`} />
+        <div className="w2-remote-result"><GitBranch /><span>EXPECTED</span><code>origin ... (fetch)<br />origin ... (push)</code><strong><CheckCircle2 /> REMOTE CONNECTED</strong><small>远程仓库连接完成</small></div>
+      </div>
+    ),
+  },
+  {
+    index: "35",
     section: "SAVE & SUBMIT",
     chineseSection: "保存与提交",
     title: "코드와 실행 결과를\nGitHub에 남깁니다",
@@ -1289,6 +1397,7 @@ const slides: Slide[] = [
         lead="제출 전에 git status에서 .env가 추적되지 않는지 반드시 확인합니다."
         points={[
           "git add . 이후 git status에 .env가 보이면 commit하지 말고 .gitignore부터 수정합니다.",
+          "처음 commit에서 사용자 정보 오류가 나오면 git config --global user.name과 user.email을 한 번 설정합니다.",
           "commit 메시지는 Week 2: Qwen API and Vision을 사용합니다.",
           "팀 GitHub Repository URL, Text API 연결 결과, Vision 분류 결과, sorted/category 폴더 결과를 제출합니다.",
           "마지막에 다음 주까지 완료할 목표를 한 문장으로 적습니다.",
@@ -1299,7 +1408,7 @@ const slides: Slide[] = [
     ),
     content: (
       <div className="w2-submit-layout">
-        <CodeBlock title="GIT" code={`git status\n# .env와 .venv가 보이지 않는지 확인\ngit add .\ngit commit -m "Week 2: Qwen API and Vision"\ngit push`} />
+        <CodeBlock title="GIT" code={`git status\n# .env와 .venv가 보이지 않는지 확인\ngit add .\ngit commit -m "Week 2: Qwen API and Vision"\ngit push -u origin main`} />
         <div className="w2-submit-checklist"><span>이번 주 제출물 · 本周提交内容</span>{[
           "팀 GitHub Repository URL",
           "Qwen Text API 연결 결과 1개",
