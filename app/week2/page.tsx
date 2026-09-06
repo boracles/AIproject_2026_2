@@ -40,6 +40,7 @@ type Slide = {
   section: string;
   chineseSection: string;
   title: string;
+  englishTitle?: string;
   chineseTitle: string;
   content: React.ReactNode;
   note: React.ReactNode;
@@ -93,8 +94,9 @@ const slides: Slide[] = [
     index: "01",
     section: "WEEK 02 · RECOGNITION & CLASSIFICATION",
     chineseSection: "第2周 · 识别与分类",
-    title: "Recognition and\nClassification",
-    chineseTitle: "识别与分类：Qwen Vision",
+    title: "Qwen Vision을 활용한 이미지 인식과 분류",
+    englishTitle: "Image Recognition & Classification with Qwen Vision",
+    chineseTitle: "使用 Qwen Vision 进行图像识别与分类",
     note: (
       <SpeakerNote
         duration="3분"
@@ -109,10 +111,9 @@ const slides: Slide[] = [
     ),
     content: (
       <div className="w2-cover">
-        <div>
-          <span className="w2-kicker">QWEN VISION LAB</span>
-          <p>이미지 한 장을 서비스에 쓸 수 있는 분류 결과로 바꾸는 첫 실습</p>
-          <small>将一张图像转换为可用于服务的分类结果</small>
+        <div className="w2-cover-label">
+          <span className="w2-kicker">WEEK 02 · QWEN VISION</span>
+          <small>Recognition · Classification · API Practice</small>
         </div>
         <div className="w2-cover-visual">
           <img src="/ai-types/vision-object-detection.webp" alt="거리 사진 속 자전거와 바퀴를 감지하고 신뢰도 점수를 표시한 이미지 인식 화면" />
@@ -946,12 +947,13 @@ function SlideCanvas({ slide, position }: { slide: Slide; position: number }) {
       </header>
       <div className="w2-title-wrap">
         <h1>{slide.title.split("\n").map((line) => <span key={line}>{line}</span>)}</h1>
-        <p>{slide.chineseTitle}</p>
+        {slide.englishTitle && <p className="w2-title-english">{slide.englishTitle}</p>}
+        <p className="w2-title-chinese">{slide.chineseTitle}</p>
       </div>
       <div className="w2-slide-content">{slide.content}</div>
-      <footer className="w2-slide-footer">
-        <span>Dong-A University · Empirical AI Development Project II</span>
-        <b>QWEN / VISION / CLASSIFICATION</b>
+      <footer className={`w2-slide-footer ${slide.index === "01" ? "is-cover" : ""}`}>
+        <strong>Department of Artificial Intelligence, Dong-A University · Empirical AI Development Project II (Capstone Design)</strong>
+        <small>Instructor · Bora Youn</small>
       </footer>
     </section>
   );
