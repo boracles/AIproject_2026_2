@@ -15,6 +15,8 @@ import {
   ClipboardCheck,
   Cloud,
   Code2,
+  Copy,
+  ExternalLink,
   Expand,
   FileImage,
   FolderTree,
@@ -22,10 +24,12 @@ import {
   Images,
   KeyRound,
   Laptop,
+  MousePointerClick,
   MonitorUp,
   Presentation,
   RefreshCcw,
   ScanSearch,
+  Settings2,
   ShieldCheck,
   Sparkles,
   Tags,
@@ -574,7 +578,7 @@ const slides: Slide[] = [
         lead="실습은 한 번에 긴 코드를 입력하지 않고 성공 지점을 다섯 개로 나누어 진행합니다."
         points={[
           "먼저 Python과 필요한 도구가 설치되어 있는지 확인합니다.",
-          "그다음 Model Studio의 Region, 무료 quota, API Key를 준비합니다.",
+          "그다음 Model Studio를 활성화하고 Singapore Region, 무료 quota, API Key와 API Host를 차례로 준비합니다.",
           "텍스트 요청으로 연결만 먼저 확인한 뒤 Vision 요청으로 확장합니다.",
           "마지막에는 실행 결과를 확인하고 GitHub에 저장합니다.",
         ]}
@@ -585,7 +589,7 @@ const slides: Slide[] = [
       <div className="w2-lab-roadmap">
         {[
           [Laptop, "01", "환경 확인", "Python · VS Code"],
-          [Cloud, "02", "계정 설정", "Singapore · Free Quota"],
+          [Cloud, "02", "계정·Key 설정", "Singapore · API Key · Host"],
           [Terminal, "03", "Text API", "연결 성공 확인"],
           [Camera, "04", "Vision API", "sample.jpg 분류"],
           [GitBranch, "05", "저장·제출", "GitHub Repository"],
@@ -633,23 +637,25 @@ const slides: Slide[] = [
     index: "14",
     section: "MODEL STUDIO SETUP",
     chineseSection: "Model Studio设置",
-    title: "Singapore 지역과\n무료 사용 한도를 먼저 확인합니다",
-    chineseTitle: "先确认新加坡区域与免费额度",
+    title: "Model Studio를 활성화하고 Singapore를 선택합니다",
+    chineseTitle: "启用Model Studio并选择新加坡区域",
     note: (
       <SpeakerNote
         duration="10분"
-        lead="API Key를 만들기 전에 Region이 Singapore인지 확인합니다. 지역이 다르면 주소와 Key가 맞지 않을 수 있습니다."
+        lead="Alibaba Cloud 계정으로 로그인한 뒤 Model Studio를 활성화하고, API Key를 만들기 전에 Region을 Singapore로 맞춥니다."
         points={[
-          "Model Studio를 활성화하고 Singapore Region을 선택합니다.",
+          "Alibaba Cloud 계정이 없다면 계정을 만든 뒤 이메일 또는 휴대전화 인증을 완료합니다.",
+          "Model Studio 콘솔에 처음 들어가면 서비스 활성화 안내를 완료합니다.",
+          "화면 오른쪽 위 Region 선택 메뉴에서 Singapore를 고릅니다. API Key와 API Host는 Region에 연결됩니다.",
           "모델 사용 페이지의 Free Quota 탭에서 사용 가능한 한도와 만료일을 확인합니다.",
           "결제 정보를 등록한 계정은 무료 한도 이후 비용이 발생할 수 있으므로 Free Quota Only를 켭니다.",
-          "Free Quota Only가 켜지면 한도를 다 쓴 뒤 호출이 중단되어 추가 비용을 막을 수 있습니다.",
-          "화면 이름은 서비스 업데이트에 따라 달라질 수 있으므로 Free Quota 또는 Model Usage 메뉴를 찾습니다.",
+          "접근 권한 오류가 나오면 계정 소유자이거나 administrator 또는 API-Key 페이지 권한을 가진 RAM 사용자인지 확인합니다.",
         ]}
         prompt="현재 화면에서 Region과 Free Quota Only 상태를 옆 사람과 서로 확인해 주세요."
-        transition="이제 API Key를 만들고 프로젝트에 안전하게 저장하겠습니다."
+        transition="준비가 끝났다면 콘솔에서 API Key 메뉴를 찾아 들어가겠습니다."
         sources={[
           { label: "Alibaba Cloud Model Studio 무료 quota", href: "https://www.alibabacloud.com/help/en/model-studio/new-free-quota" },
+          { label: "API Key 생성 권한과 절차", href: "https://www.alibabacloud.com/help/en/model-studio/get-api-key" },
           { label: "모델 사용량과 Free Quota Only", href: "https://docs.modelstudio.console.alibabacloud.com/en/model-studio/model-usage-statistics" },
         ]}
       />
@@ -667,52 +673,176 @@ const slides: Slide[] = [
   },
   {
     index: "15",
-    section: "API KEY & BASE URL",
-    chineseSection: "API Key与基础URL",
-    title: "API Key는 코드가 아니라\n환경 파일에 저장합니다",
-    chineseTitle: "API Key保存在环境文件中，而不是代码里",
+    section: "GET AN API KEY · 1/4",
+    chineseSection: "获取API Key · 1/4",
+    title: "Model Studio에서 API Key 메뉴를 엽니다",
+    chineseTitle: "在Model Studio中打开API Key菜单",
     note: (
       <SpeakerNote
-        duration="8분"
-        lead="API Key는 비밀번호와 같습니다. 화면 공유나 GitHub에 노출되면 즉시 삭제하고 새 Key를 만들어야 합니다."
+        duration="6분"
+        lead="공식 콘솔에 로그인한 뒤 Region, API Key 메뉴, Create API Key 버튼을 순서대로 찾습니다."
         points={[
-          "Model Studio에서 API Key를 만들고 생성 직후 전체 값을 복사합니다.",
-          "Key는 .env 파일의 DASHSCOPE_API_KEY에만 넣습니다.",
-          "수업 자료의 dashscope-intl 주소는 기존 호환 주소이며 현재도 동작합니다.",
-          "공식 문서는 워크스페이스별 Singapore 주소 사용을 권장합니다. 콘솔에 전용 주소가 보이면 그 값을 DASHSCOPE_BASE_URL에 사용해도 됩니다.",
-          ".env를 GitHub에 올리지 않도록 .gitignore에 반드시 등록합니다.",
+          "bailian.console.alibabacloud.com에서 Alibaba Cloud Model Studio 콘솔을 엽니다.",
+          "화면 오른쪽 위 Region이 Singapore인지 다시 확인합니다. 다른 Region에서 만든 Key는 Singapore API Host와 섞어 쓰지 않습니다.",
+          "왼쪽 메뉴 또는 콘솔 바로가기에서 API Key를 선택합니다.",
+          "API Key 관리 화면 오른쪽 위의 Create API Key 버튼을 누릅니다.",
+          "API Key 페이지가 보이지 않으면 현재 계정의 페이지 권한을 먼저 확인합니다.",
         ]}
-        prompt="지금 화면을 공유 중인 학생은 Key 값이 보이지 않는지 먼저 확인해 주세요."
-        transition="세 개의 프로젝트 파일을 만들고 환경 값을 연결하겠습니다."
+        prompt="버튼을 누르기 전에 화면 오른쪽 위에 Singapore가 표시되는지 확인해 주세요."
+        transition="생성 창이 열리면 세 가지 옵션을 차례로 입력하겠습니다."
         sources={[
           { label: "API Key 만들기", href: "https://www.alibabacloud.com/help/en/model-studio/get-api-key" },
-          { label: "OpenAI 호환 Vision API와 지역별 주소", href: "https://www.alibabacloud.com/help/en/model-studio/qwen-vl-compatible-with-openai" },
         ]}
       />
     ),
     content: (
-      <div className="w2-secret-layout">
-        <div className="w2-secret-card"><KeyRound /><span>SECRET</span><strong>DASHSCOPE_API_KEY</strong><p>채팅방 · 과제 게시판 · GitHub에 올리지 않기</p><small>不要上传到聊天、作业平台或GitHub</small></div>
-        <CodeBlock title=".env" compact code={`DASHSCOPE_API_KEY=YOUR_API_KEY\nDASHSCOPE_BASE_URL=https://dashscope-intl.aliyuncs.com/compatible-mode/v1`} />
+      <div className="w2-api-path-layout">
+        <a className="w2-api-console-link" href="https://bailian.console.alibabacloud.com/" target="_blank" rel="noreferrer">
+          <Cloud /><span><strong>Alibaba Cloud Model Studio Console</strong><small>bailian.console.alibabacloud.com</small></span><ExternalLink />
+        </a>
+        <div className="w2-api-path">
+          {[
+            [Cloud, "01", "콘솔 로그인", "Alibaba Cloud 계정", "登录控制台"],
+            [Settings2, "02", "Singapore 선택", "오른쪽 위 Region", "选择新加坡区域"],
+            [KeyRound, "03", "API Key 메뉴", "Key 관리 화면", "打开API Key菜单"],
+            [MousePointerClick, "04", "Create API Key", "오른쪽 위 버튼", "点击创建API Key"],
+          ].map(([Icon, number, title, detail, chinese], index) => { const StepIcon = Icon as typeof Cloud; return (
+            <div className="w2-api-path-step" key={number as string}>
+              <article><StepIcon /><span>{number as string}</span><strong>{title as string}</strong><p>{detail as string}</p><small>{chinese as string}</small></article>
+              {index < 3 && <ChevronRight />}
+            </div>
+          ); })}
+        </div>
       </div>
     ),
   },
   {
     index: "16",
+    section: "GET AN API KEY · 2/4",
+    chineseSection: "获取API Key · 2/4",
+    title: "기본 워크스페이스를 선택하고 Key를 만듭니다",
+    chineseTitle: "选择默认工作空间并创建Key",
+    note: (
+      <SpeakerNote
+        duration="6분"
+        lead="Create API Key 창에서는 Workspace, Description, Permissions 세 항목을 설정합니다."
+        points={[
+          "Workspace는 수업 실습에서는 default workspace를 선택합니다. 팀별 비용이나 권한을 분리할 때만 별도 workspace를 사용합니다.",
+          "Description에는 week2-qwen-vision처럼 용도를 알아볼 수 있는 이름을 입력합니다.",
+          "Permissions는 수업에서는 공식 권장값인 All을 선택합니다.",
+          "Custom은 허용 IP와 호출 가능한 모델을 제한할 때 쓰는 고급 설정입니다. 학교나 이동 네트워크에서는 IP가 바뀔 수 있으므로 수업 중에는 All이 단순합니다.",
+          "세 항목을 확인하고 OK를 누르면 Key가 생성됩니다.",
+        ]}
+        prompt="Description에 본인의 실제 Key 값을 입력하지 말고, 용도만 적었는지 확인해 주세요."
+        transition="다음 성공 창은 다시 볼 수 없으므로 닫기 전에 두 값을 저장하겠습니다."
+        sources={[
+          { label: "API Key 생성 옵션", href: "https://www.alibabacloud.com/help/en/model-studio/get-api-key" },
+        ]}
+      />
+    ),
+    content: (
+      <div className="w2-key-create-layout">
+        <section className="w2-key-form" aria-label="API Key 생성 옵션">
+          <header><KeyRound /><strong>Create API Key</strong><small>创建API Key</small></header>
+          <article><span>Workspace</span><strong>default workspace</strong><small>默认工作空间</small></article>
+          <article><span>Description</span><strong>week2-qwen-vision</strong><small>用于区分用途的名称</small></article>
+          <article><span>Permissions</span><strong>All</strong><small>允许调用所有标准模型</small></article>
+        </section>
+        <aside className="w2-key-confirm">
+          <BadgeCheck />
+          <span>BEFORE CREATE</span>
+          <p><strong>Region</strong><small>Singapore</small></p>
+          <p><strong>Workspace</strong><small>default</small></p>
+          <p><strong>Permissions</strong><small>All</small></p>
+          <b>OK · 创建</b>
+        </aside>
+      </div>
+    ),
+  },
+  {
+    index: "17",
+    section: "GET AN API KEY · 3/4",
+    chineseSection: "获取API Key · 3/4",
+    title: "생성 직후 API Key와 API Host를 모두 복사합니다",
+    chineseTitle: "创建后立即复制API Key和API Host",
+    note: (
+      <SpeakerNote
+        duration="7분"
+        lead="생성 성공 창에서 전체 API Key와 API Host를 복사하거나 다운로드합니다. 창을 닫기 전에 반드시 두 값을 모두 저장합니다."
+        points={[
+          "새 보안 방식으로 생성된 Key는 보통 sk-ws로 시작합니다. 화면의 전체 값을 Copy 버튼으로 복사합니다.",
+          "API Host는 현재 선택한 workspace와 Singapore Region에 연결된 서비스 주소입니다. OpenAI SDK에서는 base_url로 사용합니다.",
+          "Singapore의 권장 형식은 https://{WorkspaceId}.ap-southeast-1.maas.aliyuncs.com/compatible-mode/v1 입니다.",
+          "생성 창을 닫으면 전체 평문 Key를 다시 볼 수 없습니다. 잃어버리면 Reset하거나 새 Key를 만들어야 합니다.",
+          "Reset하면 이전 Key는 즉시 무효가 되므로 기존 프로젝트의 .env도 새 값으로 교체합니다.",
+        ]}
+        prompt="두 값을 복사했는지 확인하되, 실제 Key 문자열을 화면이나 채팅으로 공유하지 마세요."
+        transition="복사한 두 값을 프로젝트의 .env 파일에 안전하게 옮기겠습니다."
+        sources={[
+          { label: "API Key 생성과 보안 방식", href: "https://www.alibabacloud.com/help/en/model-studio/get-api-key" },
+          { label: "Singapore API Host 형식", href: "https://www.alibabacloud.com/help/en/model-studio/qwen-vl-compatible-with-openai" },
+        ]}
+      />
+    ),
+    content: (
+      <div className="w2-key-output-layout">
+        <div className="w2-key-output-grid">
+          <article><KeyRound /><span>API KEY</span><strong>sk-ws••••••••••••••••</strong><small>전체 값을 지금 복사 · 立即复制完整Key</small><b><Copy /> COPY NOW</b></article>
+          <article><Cloud /><span>API HOST · SINGAPORE</span><strong>https://&#123;WorkspaceId&#125;.ap-southeast-1.maas.aliyuncs.com/compatible-mode/v1</strong><small>OpenAI SDK의 base_url · 用作base_url</small><b><Copy /> COPY NOW</b></article>
+        </div>
+        <div className="w2-copy-warning"><AlertTriangle /><p><strong>이 창을 닫으면 전체 API Key를 다시 볼 수 없습니다.</strong><small>关闭此窗口后，无法再次查看完整API Key。丢失时请重置或重新创建。</small></p></div>
+      </div>
+    ),
+  },
+  {
+    index: "18",
+    section: "GET AN API KEY · 4/4",
+    chineseSection: "获取API Key · 4/4",
+    title: "두 값을 .env에 저장하고 GitHub에서 제외합니다",
+    chineseTitle: "将两个值保存到.env并排除在GitHub之外",
+    note: (
+      <SpeakerNote
+        duration="8분"
+        lead="API Key는 비밀번호이므로 코드에 직접 적지 않고 프로젝트의 .env 파일에만 저장합니다."
+        points={[
+          "VS Code에서 qwen-practice 폴더 안에 정확히 .env라는 파일을 만듭니다. Windows에서는 .env.txt가 되지 않았는지 확장자를 확인합니다.",
+          "DASHSCOPE_API_KEY 오른쪽에는 방금 복사한 전체 Key를 붙여넣습니다. 따옴표와 앞뒤 공백은 넣지 않습니다.",
+          "DASHSCOPE_BASE_URL 오른쪽에는 같은 생성 창에서 복사한 API Host를 붙여넣습니다.",
+          ".gitignore 파일 첫 줄에 .env를 적어 GitHub 추적에서 제외합니다.",
+          "Key가 화면 공유, 채팅 또는 GitHub에 노출되면 해당 Key를 Disable 또는 Delete하고 새 Key를 발급합니다.",
+        ]}
+        prompt="실제 Key는 가리고, .env 파일명과 두 변수 이름만 옆 사람과 확인해 주세요."
+        transition="이제 프로젝트 파일과 라이브러리를 준비한 뒤 Key가 정상적으로 읽히는지 확인하겠습니다."
+        sources={[
+          { label: "환경 변수로 API Key 보관하기", href: "https://www.alibabacloud.com/help/en/model-studio/get-api-key" },
+        ]}
+      />
+    ),
+    content: (
+      <div className="w2-env-layout">
+        <CodeBlock title=".env · NEVER COMMIT" code={`DASHSCOPE_API_KEY=PASTE_YOUR_FULL_KEY_HERE\nDASHSCOPE_BASE_URL=https://YOUR_WORKSPACE_ID.ap-southeast-1.maas.aliyuncs.com/compatible-mode/v1`} />
+        <div className="w2-env-safety">
+          <CodeBlock title=".gitignore" compact code={`.env\n__pycache__/`} />
+          <article><ShieldCheck /><span>SECRET CHECK</span><strong>코드 · 채팅 · GitHub에 Key를 붙여넣지 않기</strong><small>不要把Key粘贴到代码、聊天或GitHub</small></article>
+        </div>
+      </div>
+    ),
+  },
+  {
+    index: "19",
     section: "PROJECT FILES",
     chineseSection: "项目文件",
-    title: "프로젝트는 세 파일로\n단순하게 시작합니다",
-    chineseTitle: "项目从三个简单文件开始",
+    title: "프로젝트 폴더를 만들고 라이브러리를 설치합니다",
+    chineseTitle: "创建项目文件夹并安装所需库",
     note: (
       <SpeakerNote
         duration="8분"
         lead="qwen-practice 폴더를 만들고 VS Code에서 폴더 자체를 엽니다."
         points={[
-          "app.py에는 API 호출 코드를 작성합니다.",
-          ".env에는 API Key와 Base URL을 넣고 절대 제출하지 않습니다.",
-          ".gitignore에는 .env와 __pycache__/를 등록합니다.",
+          "app.py에는 API 호출 코드를 작성하고, 앞에서 만든 .env와 .gitignore를 같은 폴더에 둡니다.",
+          "터미널의 현재 위치가 qwen-practice인지 확인합니다.",
           "라이브러리는 python -m pip install -U openai python-dotenv 명령으로 설치합니다.",
-          "파일명이 .env.txt가 되지 않았는지 Windows 파일 탐색기에서 확장자를 확인합니다.",
+          "설치 후 app.py에서 python-dotenv가 .env를 읽고 OpenAI SDK가 Qwen API를 호출합니다.",
         ]}
         transition="파일 준비가 끝나면 가장 간단한 텍스트 요청으로 연결부터 확인합니다."
       />
@@ -728,7 +858,7 @@ const slides: Slide[] = [
     ),
   },
   {
-    index: "17",
+    index: "20",
     section: "CONNECT QWEN TEXT API",
     chineseSection: "连接Qwen文本API",
     title: "텍스트 응답이 출력되면\n연결 준비가 끝난 것입니다",
@@ -739,6 +869,7 @@ const slides: Slide[] = [
         lead="Vision 코드를 바로 실행하지 않고 먼저 텍스트 요청으로 Key, 주소, 라이브러리 연결을 확인합니다."
         points={[
           "load_dotenv()가 .env의 값을 현재 프로그램으로 불러옵니다.",
+          "Key나 Base URL이 비어 있으면 API를 호출하기 전에 오류를 내도록 먼저 검사합니다. 실제 Key 값 자체는 출력하지 않습니다.",
           "OpenAI 클라이언트에 API Key와 Base URL을 전달합니다.",
           "모델 이름은 qwen3.8-flash이며, 간단한 확인 문장을 요청합니다.",
           "extra_body에서 thinking을 끄면 연결 확인용 요청을 빠르게 실행할 수 있습니다.",
@@ -753,13 +884,13 @@ const slides: Slide[] = [
     ),
     content: (
       <div className="w2-code-result-layout">
-        <CodeBlock title="app.py · TEXT TEST" compact code={`import os\nfrom dotenv import load_dotenv\nfrom openai import OpenAI\n\nload_dotenv()\nclient = OpenAI(\n    api_key=os.getenv("DASHSCOPE_API_KEY"),\n    base_url=os.getenv("DASHSCOPE_BASE_URL")\n)\n\nresponse = client.chat.completions.create(\n    model="qwen3.8-flash",\n    messages=[{"role": "user", "content": "Say API connection successful."}],\n    extra_body={"enable_thinking": False}\n)\nprint(response.choices[0].message.content)`} />
+        <CodeBlock title="app.py · TEXT TEST" compact code={`import os\nfrom dotenv import load_dotenv\nfrom openai import OpenAI\n\nload_dotenv()\napi_key = os.getenv("DASHSCOPE_API_KEY")\nbase_url = os.getenv("DASHSCOPE_BASE_URL")\nif not api_key or not base_url:\n    raise RuntimeError("Check your .env file")\n\nclient = OpenAI(api_key=api_key, base_url=base_url)\nresponse = client.chat.completions.create(\n    model="qwen3.8-flash",\n    messages=[{"role": "user", "content": "Say API connection successful."}],\n    extra_body={"enable_thinking": False}\n)\nprint(response.choices[0].message.content)`} />
         <div className="w2-success"><Terminal /><span>RUN</span><code>python app.py</code><strong><CheckCircle2 /> API connection successful</strong></div>
       </div>
     ),
   },
   {
-    index: "18",
+    index: "21",
     section: "LAB SCENARIO",
     chineseSection: "实践场景",
     title: "여러 물체가 있어도\n대표 카테고리는 하나만 고릅니다",
@@ -790,7 +921,7 @@ const slides: Slide[] = [
     ),
   },
   {
-    index: "19",
+    index: "22",
     section: "CLASSIFICATION PROMPT",
     chineseSection: "分类提示词",
     title: "라벨 목록과 출력 규칙을\n프롬프트에 함께 넣습니다",
@@ -818,7 +949,7 @@ const slides: Slide[] = [
     ),
   },
   {
-    index: "20",
+    index: "23",
     section: "PREPARE VISION REQUEST",
     chineseSection: "准备Vision请求",
     title: "로컬 이미지를 읽어\nBase64 데이터로 변환합니다",
@@ -849,7 +980,7 @@ const slides: Slide[] = [
     ),
   },
   {
-    index: "21",
+    index: "24",
     section: "QWEN VISION CLASSIFICATION",
     chineseSection: "Qwen Vision分类",
     title: "이미지와 프롬프트를 보내고\n카테고리 한 단어를 받습니다",
@@ -880,7 +1011,7 @@ const slides: Slide[] = [
     ),
   },
   {
-    index: "22",
+    index: "25",
     section: "TROUBLESHOOTING",
     chineseSection: "问题排查",
     title: "오류 메시지는\n어느 연결이 끊겼는지 알려 줍니다",
@@ -916,7 +1047,7 @@ const slides: Slide[] = [
     ),
   },
   {
-    index: "23",
+    index: "26",
     section: "SAVE & SUBMIT",
     chineseSection: "保存与提交",
     title: "코드와 실행 결과를\nGitHub에 남깁니다",
