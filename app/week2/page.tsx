@@ -19,6 +19,8 @@ import {
   ExternalLink,
   Expand,
   FileImage,
+  FilePlus2,
+  FolderOpen,
   FolderTree,
   GitBranch,
   Images,
@@ -26,6 +28,7 @@ import {
   Laptop,
   MousePointerClick,
   MonitorUp,
+  PackageCheck,
   Presentation,
   RefreshCcw,
   ScanSearch,
@@ -577,9 +580,10 @@ const slides: Slide[] = [
         duration="4분"
         lead="실습은 한 번에 긴 코드를 입력하지 않고 성공 지점을 다섯 개로 나누어 진행합니다."
         points={[
-          "먼저 Python과 필요한 도구가 설치되어 있는지 확인합니다.",
+          "먼저 VS Code에서 qwen-practice 폴더와 세 파일을 만들고 .venv에 라이브러리를 설치합니다.",
           "그다음 Model Studio를 활성화하고 Singapore Region, 무료 quota, API Key와 API Host를 차례로 준비합니다.",
           "텍스트 요청으로 연결만 먼저 확인한 뒤 Vision 요청으로 확장합니다.",
+          "Vision이 반환한 category를 검사하고 sorted/category 폴더에 사진을 복사합니다.",
           "마지막에는 실행 결과를 확인하고 GitHub에 저장합니다.",
         ]}
         transition="첫 단계로 각자 실습 환경이 준비되어 있는지 확인하겠습니다."
@@ -588,10 +592,10 @@ const slides: Slide[] = [
     content: (
       <div className="w2-lab-roadmap">
         {[
-          [Laptop, "01", "환경 확인", "Python · VS Code"],
+          [Laptop, "01", "VS Code 준비", "폴더 · 파일 · .venv"],
           [Cloud, "02", "계정·Key 설정", "Singapore · API Key · Host"],
           [Terminal, "03", "Text API", "연결 성공 확인"],
-          [Camera, "04", "Vision API", "sample.jpg 분류"],
+          [Camera, "04", "분류·자동 정리", "sample.jpg → category folder"],
           [GitBranch, "05", "저장·제출", "GitHub Repository"],
         ].map(([Icon, number, title, detail], index) => { const StepIcon = Icon as typeof Laptop; return (
           <div className="w2-roadmap-step" key={number as string}><article><StepIcon /><span>{number as string}</span><strong>{title as string}</strong><small>{detail as string}</small></article>{index < 4 && <ChevronRight />}</div>
@@ -635,6 +639,123 @@ const slides: Slide[] = [
   },
   {
     index: "14",
+    section: "VS CODE SETUP · 1/3",
+    chineseSection: "VS Code准备 · 1/3",
+    title: "qwen-practice 폴더를 만들고 VS Code에서 엽니다",
+    chineseTitle: "创建qwen-practice文件夹并在VS Code中打开",
+    note: (
+      <SpeakerNote
+        duration="6분"
+        lead="파일 하나만 여는 것이 아니라 실습 폴더 전체를 VS Code에서 열어야 Explorer와 Terminal의 기준 위치가 같아집니다."
+        points={[
+          "바탕화면이나 Documents에 qwen-practice라는 새 폴더를 만듭니다.",
+          "VS Code를 실행하고 File 메뉴에서 Open Folder를 선택합니다.",
+          "방금 만든 qwen-practice 폴더를 선택한 뒤 Open을 누릅니다.",
+          "처음 여는 폴더라면 Workspace Trust 안내에서 본인이 만든 폴더인지 확인한 뒤 신뢰를 선택합니다.",
+          "왼쪽 Explorer 맨 위에 QWEN-PRACTICE가 보이면 폴더 열기가 완료된 것입니다.",
+        ]}
+        prompt="Explorer 맨 위에 파일명이 아니라 폴더명 QWEN-PRACTICE가 보이나요?"
+        transition="열린 폴더 안에 실습에 필요한 세 파일을 만들겠습니다."
+        sources={[
+          { label: "VS Code 기본 편집과 Explorer", href: "https://code.visualstudio.com/docs/editing/codebasics" },
+        ]}
+      />
+    ),
+    content: (
+      <div className="w2-vscode-open-layout">
+        <div className="w2-vscode-window">
+          <header><i /><i /><i /><strong>qwen-practice — Visual Studio Code</strong></header>
+          <div className="w2-vscode-body">
+            <aside><FolderOpen /><Code2 /><GitBranch /></aside>
+            <section><span>EXPLORER</span><strong>⌄ QWEN-PRACTICE</strong><small>폴더가 비어 있습니다 · 文件夹为空</small></section>
+            <main><FolderOpen /><strong>Open Folder</strong><small>File → Open Folder… → qwen-practice</small></main>
+          </div>
+        </div>
+        <ol className="w2-vscode-steps">
+          <li><span>01</span><p><strong>폴더 만들기</strong><small>创建qwen-practice文件夹</small></p></li>
+          <li><span>02</span><p><strong>File → Open Folder</strong><small>在VS Code中打开文件夹</small></p></li>
+          <li><span>03</span><p><strong>QWEN-PRACTICE 확인</strong><small>确认Explorer中的文件夹名称</small></p></li>
+        </ol>
+      </div>
+    ),
+  },
+  {
+    index: "15",
+    section: "VS CODE SETUP · 2/3",
+    chineseSection: "VS Code准备 · 2/3",
+    title: "Explorer에서 세 파일을 정확한 이름으로 만듭니다",
+    chineseTitle: "在Explorer中使用准确名称创建三个文件",
+    note: (
+      <SpeakerNote
+        duration="6분"
+        lead="Explorer의 New File 버튼을 세 번 눌러 app.py, .env, .gitignore를 만듭니다. 점으로 시작하는 파일명까지 정확해야 합니다."
+        points={[
+          "Explorer에서 QWEN-PRACTICE 폴더 이름 위에 마우스를 올리고 New File 아이콘을 누릅니다.",
+          "첫 파일은 app.py로 만듭니다. Python 코드가 들어갈 실행 파일입니다.",
+          "두 번째 파일은 .env로 만듭니다. API Key와 API Host를 저장합니다.",
+          "세 번째 파일은 .gitignore로 만듭니다. .env와 .venv가 GitHub에 올라가지 않도록 설정합니다.",
+          "Windows에서 .env.txt 또는 .gitignore.txt로 만들어지지 않았는지 Explorer의 이름을 다시 확인합니다.",
+        ]}
+        prompt="왼쪽 Explorer에 app.py, .env, .gitignore 세 이름이 모두 정확히 보이나요?"
+        transition="이제 VS Code 안에서 Terminal을 열고 프로젝트 전용 Python 환경을 만들겠습니다."
+        sources={[
+          { label: "VS Code 기본 편집과 파일 저장", href: "https://code.visualstudio.com/docs/editing/codebasics" },
+        ]}
+      />
+    ),
+    content: (
+      <div className="w2-vscode-files-layout">
+        <div className="w2-explorer-mock">
+          <header><span>EXPLORER</span><FilePlus2 /></header>
+          <strong>⌄ QWEN-PRACTICE</strong>
+          <p><Code2 /> app.py <small>Python 실행 코드</small></p>
+          <p><KeyRound /> .env <small>API Key · API Host</small></p>
+          <p><ShieldCheck /> .gitignore <small>비밀 파일 제외</small></p>
+        </div>
+        <div className="w2-file-role-cards">
+          <article><span>01</span><strong>app.py</strong><p>Qwen API 호출과 사진 정리 코드</p><small>Qwen API调用与照片整理代码</small></article>
+          <article><span>02</span><strong>.env</strong><p>컴퓨터 안에만 두는 비밀 값</p><small>仅保存在本机的密钥</small></article>
+          <article><span>03</span><strong>.gitignore</strong><p>.env와 .venv를 Git에서 제외</p><small>从Git中排除敏感文件</small></article>
+        </div>
+      </div>
+    ),
+  },
+  {
+    index: "16",
+    section: "VS CODE SETUP · 3/3",
+    chineseSection: "VS Code准备 · 3/3",
+    title: "Terminal에서 가상환경을 만들고 라이브러리를 설치합니다",
+    chineseTitle: "在Terminal中创建虚拟环境并安装库",
+    note: (
+      <SpeakerNote
+        duration="12분"
+        lead="VS Code의 Terminal 메뉴에서 New Terminal을 열고, 프로젝트 전용 .venv를 만든 뒤 필요한 두 라이브러리를 설치합니다."
+        points={[
+          "Terminal → New Terminal을 선택합니다. 프롬프트 왼쪽 경로 끝이 qwen-practice인지 확인합니다.",
+          "macOS는 python -m venv .venv, Windows는 py -m venv .venv를 실행합니다.",
+          "macOS는 source .venv/bin/activate, Windows PowerShell은 .venv\\Scripts\\Activate.ps1로 활성화합니다.",
+          "터미널 줄 앞에 (.venv)가 생기면 프로젝트 전용 Python 환경이 활성화된 것입니다.",
+          "python -m pip install -U openai python-dotenv를 실행하고 Successfully installed 또는 Requirement already satisfied를 확인합니다.",
+          "PowerShell 실행 정책 오류가 나면 Command Prompt 터미널을 열고 .venv\\Scripts\\activate.bat를 실행합니다.",
+        ]}
+        prompt="현재 터미널 줄 맨 앞에 (.venv)가 표시되나요?"
+        transition="로컬 실습 환경이 준비됐으므로 Model Studio 계정과 API Key를 설정하겠습니다."
+        sources={[
+          { label: "Python venv 공식 문서", href: "https://docs.python.org/3/library/venv.html" },
+          { label: "Python 패키지 설치 가이드", href: "https://packaging.python.org/en/latest/tutorials/installing-packages/" },
+        ]}
+      />
+    ),
+    content: (
+      <div className="w2-venv-layout">
+        <CodeBlock title="macOS · ZSH" code={`python -m venv .venv\nsource .venv/bin/activate\npython -m pip install -U openai python-dotenv`} />
+        <CodeBlock title="Windows · PowerShell" code={`py -m venv .venv\n.venv\\Scripts\\Activate.ps1\npython -m pip install -U openai python-dotenv`} />
+        <div className="w2-venv-ready"><PackageCheck /><span>TERMINAL READY</span><strong>(.venv) qwen-practice</strong><small>가상환경 활성화 완료 · 虚拟环境已启用</small></div>
+      </div>
+    ),
+  },
+  {
+    index: "17",
     section: "MODEL STUDIO SETUP",
     chineseSection: "Model Studio设置",
     title: "Model Studio를 활성화하고 Singapore를 선택합니다",
@@ -672,7 +793,7 @@ const slides: Slide[] = [
     ),
   },
   {
-    index: "15",
+    index: "18",
     section: "GET AN API KEY · 1/4",
     chineseSection: "获取API Key · 1/4",
     title: "Model Studio에서 API Key 메뉴를 엽니다",
@@ -717,7 +838,7 @@ const slides: Slide[] = [
     ),
   },
   {
-    index: "16",
+    index: "19",
     section: "GET AN API KEY · 2/4",
     chineseSection: "获取API Key · 2/4",
     title: "기본 워크스페이스를 선택하고 Key를 만듭니다",
@@ -760,7 +881,7 @@ const slides: Slide[] = [
     ),
   },
   {
-    index: "17",
+    index: "20",
     section: "GET AN API KEY · 3/4",
     chineseSection: "获取API Key · 3/4",
     title: "생성 직후 API Key와 API Host를 모두 복사합니다",
@@ -795,7 +916,7 @@ const slides: Slide[] = [
     ),
   },
   {
-    index: "18",
+    index: "21",
     section: "GET AN API KEY · 4/4",
     chineseSection: "获取API Key · 4/4",
     title: "두 값을 .env에 저장하고 GitHub에서 제외합니다",
@@ -822,43 +943,46 @@ const slides: Slide[] = [
       <div className="w2-env-layout">
         <CodeBlock title=".env · NEVER COMMIT" code={`DASHSCOPE_API_KEY=PASTE_YOUR_FULL_KEY_HERE\nDASHSCOPE_BASE_URL=https://YOUR_WORKSPACE_ID.ap-southeast-1.maas.aliyuncs.com/compatible-mode/v1`} />
         <div className="w2-env-safety">
-          <CodeBlock title=".gitignore" compact code={`.env\n__pycache__/`} />
+        <CodeBlock title=".gitignore" compact code={`.env\n.venv/\n__pycache__/`} />
           <article><ShieldCheck /><span>SECRET CHECK</span><strong>코드 · 채팅 · GitHub에 Key를 붙여넣지 않기</strong><small>不要把Key粘贴到代码、聊天或GitHub</small></article>
         </div>
       </div>
     ),
   },
   {
-    index: "19",
-    section: "PROJECT FILES",
-    chineseSection: "项目文件",
-    title: "프로젝트 폴더를 만들고 라이브러리를 설치합니다",
-    chineseTitle: "创建项目文件夹并安装所需库",
+    index: "22",
+    section: "PRE-FLIGHT CHECK",
+    chineseSection: "运行前检查",
+    title: "API 호출 전에 폴더와 환경 상태를 확인합니다",
+    chineseTitle: "调用API前检查文件夹与环境状态",
     note: (
       <SpeakerNote
-        duration="8분"
-        lead="qwen-practice 폴더를 만들고 VS Code에서 폴더 자체를 엽니다."
+        duration="6분"
+        lead="코드를 붙여넣기 전에 폴더, 가상환경, 라이브러리, 비밀 파일 네 가지 준비 상태를 한 번에 확인합니다."
         points={[
-          "app.py에는 API 호출 코드를 작성하고, 앞에서 만든 .env와 .gitignore를 같은 폴더에 둡니다.",
-          "터미널의 현재 위치가 qwen-practice인지 확인합니다.",
-          "라이브러리는 python -m pip install -U openai python-dotenv 명령으로 설치합니다.",
-          "설치 후 app.py에서 python-dotenv가 .env를 읽고 OpenAI SDK가 Qwen API를 호출합니다.",
+          "Explorer 맨 위 폴더명이 qwen-practice이고 app.py, .env, .gitignore가 그 바로 아래에 있어야 합니다.",
+          "터미널 줄 앞에는 (.venv)가 표시되어야 합니다.",
+          "python -c 확인 명령이 PACKAGES: OK를 출력하면 openai와 python-dotenv 설치가 끝난 것입니다.",
+          ".gitignore에는 .env, .venv/, __pycache__/ 세 줄이 들어 있어야 합니다.",
+          "이 단계에서는 Key 값을 출력하지 않고 파일 존재와 패키지 설치만 확인합니다.",
         ]}
-        transition="파일 준비가 끝나면 가장 간단한 텍스트 요청으로 연결부터 확인합니다."
+        prompt="네 가지 확인 항목 중 아직 완료되지 않은 항목을 하나 표시해 보세요."
+        transition="준비가 끝나면 가장 간단한 텍스트 요청으로 실제 API 연결을 확인합니다."
       />
     ),
     content: (
-      <div className="w2-files-layout">
-        <div className="w2-folder-tree"><FolderTree /><span>qwen-practice/</span><strong>├── app.py<br />├── .env<br />└── .gitignore</strong></div>
-        <div className="w2-file-setup">
-          <CodeBlock title="INSTALL" compact code="python -m pip install -U openai python-dotenv" />
-          <CodeBlock title=".gitignore" compact code={`.env\n__pycache__/`} />
+      <div className="w2-preflight-layout">
+        <div className="w2-folder-tree"><FolderTree /><span>qwen-practice/</span><strong>├── .venv/<br />├── app.py<br />├── .env<br />└── .gitignore</strong></div>
+        <div className="w2-preflight-checks">
+          <article><CheckCircle2 /><div><strong>(.venv) 활성화</strong><small>虚拟环境已启用</small></div></article>
+          <article><CheckCircle2 /><div><strong>세 파일 확인</strong><small>确认三个文件</small></div></article>
+          <CodeBlock title="PACKAGE CHECK" compact code={`python -c "import openai, dotenv; print('PACKAGES: OK')"`} />
         </div>
       </div>
     ),
   },
   {
-    index: "20",
+    index: "23",
     section: "CONNECT QWEN TEXT API",
     chineseSection: "连接Qwen文本API",
     title: "텍스트 응답이 출력되면\n연결 준비가 끝난 것입니다",
@@ -876,7 +1000,7 @@ const slides: Slide[] = [
           "터미널에서 python app.py를 실행하고 응답이 출력되면 다음 단계로 넘어갑니다.",
         ]}
         prompt="오류가 난 학생은 오류 메시지의 마지막 세 줄만 읽고 Key, URL, model 중 어느 부분인지 표시해 보세요."
-        transition="연결이 확인되면 같은 클라이언트에 이미지 입력을 추가합니다."
+        transition="연결이 확인되면 Vision 실습에 사용할 sample.jpg를 프로젝트 폴더에 준비합니다."
         sources={[
           { label: "Alibaba Cloud Model Studio 모델 목록", href: "https://www.alibabacloud.com/help/en/model-studio/models" },
         ]}
@@ -890,7 +1014,47 @@ const slides: Slide[] = [
     ),
   },
   {
-    index: "21",
+    index: "24",
+    section: "PREPARE SAMPLE IMAGE",
+    chineseSection: "准备示例图像",
+    title: "sample.jpg를 프로젝트 폴더에 저장합니다",
+    chineseTitle: "将sample.jpg保存到项目文件夹",
+    note: (
+      <SpeakerNote
+        duration="6분"
+        lead="실습 이미지를 열어 qwen-practice 폴더 안에 sample.jpg라는 이름으로 저장하고 VS Code Explorer에서 위치를 확인합니다."
+        points={[
+          "슬라이드의 실습 이미지 열기 링크를 눌러 원본 이미지를 새 탭에서 엽니다.",
+          "이미지를 저장할 때 위치는 qwen-practice 폴더, 파일명은 정확히 sample.jpg로 지정합니다.",
+          "VS Code로 돌아오면 Explorer의 app.py와 같은 깊이에 sample.jpg가 나타나야 합니다.",
+          "파일이 보이지 않으면 Explorer의 Refresh 버튼을 누르거나 폴더를 다시 엽니다.",
+          "자신의 사진을 사용해도 되지만 JPG 파일은 sample.jpg로 이름을 바꿉니다. PNG라면 뒤 단계의 MIME type도 image/png로 변경합니다.",
+        ]}
+        prompt="Explorer에서 app.py와 sample.jpg가 같은 폴더 안에 나란히 보이나요?"
+        transition="이미지를 먼저 눈으로 보고 어떤 대표 카테고리가 적절한지 예상해 보겠습니다."
+        sources={[
+          { label: "실습 이미지 원본 · Unsplash", href: "https://images.unsplash.com/photo-1757778988730-6aed4fbef8a8" },
+        ]}
+      />
+    ),
+    content: (
+      <div className="w2-sample-setup">
+        <figure><img src="https://images.unsplash.com/photo-1757778988730-6aed4fbef8a8?auto=format&fit=crop&fm=jpg&q=82&w=1600" alt="휴대전화와 커피, 꽃이 놓인 책상 실습 사진" /><figcaption><FileImage /> sample.jpg</figcaption></figure>
+        <section>
+          <span>SAVE AS</span>
+          <strong>qwen-practice/sample.jpg</strong>
+          <ol>
+            <li><b>01</b><p>이미지 링크 열기<small>打开图像链接</small></p></li>
+            <li><b>02</b><p>Save Image As…<small>将图像另存为</small></p></li>
+            <li><b>03</b><p>파일명 sample.jpg<small>文件名必须准确</small></p></li>
+          </ol>
+          <a href="https://images.unsplash.com/photo-1757778988730-6aed4fbef8a8?auto=format&fit=crop&fm=jpg&q=90&w=2000" target="_blank" rel="noreferrer">실습 이미지 열기 <ExternalLink /></a>
+        </section>
+      </div>
+    ),
+  },
+  {
+    index: "25",
     section: "LAB SCENARIO",
     chineseSection: "实践场景",
     title: "여러 물체가 있어도\n대표 카테고리는 하나만 고릅니다",
@@ -921,7 +1085,7 @@ const slides: Slide[] = [
     ),
   },
   {
-    index: "22",
+    index: "26",
     section: "CLASSIFICATION PROMPT",
     chineseSection: "分类提示词",
     title: "라벨 목록과 출력 규칙을\n프롬프트에 함께 넣습니다",
@@ -943,13 +1107,13 @@ const slides: Slide[] = [
     ),
     content: (
       <div className="w2-prompt-layout">
-        <CodeBlock title="CLASSIFICATION PROMPT" code={`LABELS = ["person", "document", "food", "device", "other"]\n\nprompt = f"""\nClassify this photo for an automatic photo organization service.\nChoose exactly one category from: {', '.join(LABELS)}\nChoose the category that best represents the photo.\nReturn only the category name.\n"""`} />
+        <CodeBlock title="app.py · ADD BELOW CLIENT" code={`LABELS = ["person", "document", "food", "device", "other"]\n\nprompt = f"""\nClassify this photo for an automatic photo organization service.\nChoose exactly one category from: {', '.join(LABELS)}\nChoose the category that best represents the photo.\nReturn only the category name.\n"""`} />
         <div className="w2-prompt-rules"><article><span>01</span><strong>허용 라벨 고정</strong><small>固定允许的标签</small></article><article><span>02</span><strong>한 개만 선택</strong><small>只选择一个</small></article><article><span>03</span><strong>카테고리명만 반환</strong><small>仅返回类别名称</small></article></div>
       </div>
     ),
   },
   {
-    index: "23",
+    index: "27",
     section: "PREPARE VISION REQUEST",
     chineseSection: "准备Vision请求",
     title: "로컬 이미지를 읽어\nBase64 데이터로 변환합니다",
@@ -974,13 +1138,13 @@ const slides: Slide[] = [
     ),
     content: (
       <div className="w2-encode-layout">
-        <CodeBlock title="READ + ENCODE" code={`import base64\n\nwith open("sample.jpg", "rb") as f:\n    image_base64 = base64.b64encode(\n        f.read()\n    ).decode("utf-8")\n\nimage_data_url = (\n    "data:image/jpeg;base64,"\n    + image_base64\n)`} />
+        <CodeBlock title="app.py · ADD BELOW PROMPT" code={`import base64\n\nwith open("sample.jpg", "rb") as f:\n    image_base64 = base64.b64encode(\n        f.read()\n    ).decode("utf-8")\n\nimage_data_url = (\n    "data:image/jpeg;base64,"\n    + image_base64\n)`} />
         <div className="w2-encode-flow"><div><FileImage /><strong>sample.jpg</strong><small>binary file</small></div><ChevronRight /><div><Braces /><strong>Base64</strong><small>text data</small></div><ChevronRight /><div><Cloud /><strong>image_url</strong><small>API input</small></div></div>
       </div>
     ),
   },
   {
-    index: "24",
+    index: "28",
     section: "QWEN VISION CLASSIFICATION",
     chineseSection: "Qwen Vision分类",
     title: "이미지와 프롬프트를 보내고\n카테고리 한 단어를 받습니다",
@@ -997,7 +1161,7 @@ const slides: Slide[] = [
           "결과가 허용된 라벨과 다르면 프롬프트를 고치거나 출력 검증 로직을 추가합니다.",
         ]}
         prompt="실행 결과와 여러분의 예상 라벨이 다르면 모델이 틀린 것인지, 분류 기준이 애매한 것인지 먼저 구분해 보세요."
-        transition="실행 중 자주 만나는 오류를 원인별로 빠르게 해결하겠습니다."
+        transition="받은 category를 검사한 뒤 실제 폴더를 만들고 사진을 복사하겠습니다."
         sources={[
           { label: "OpenAI 호환 Qwen Vision 호출", href: "https://www.alibabacloud.com/help/en/model-studio/qwen-vl-compatible-with-openai" },
         ]}
@@ -1005,13 +1169,76 @@ const slides: Slide[] = [
     ),
     content: (
       <div className="w2-vision-layout">
-        <CodeBlock title="VISION REQUEST" compact code={`response = client.chat.completions.create(\n    model="qwen3.8-flash",\n    messages=[{\n        "role": "user",\n        "content": [\n            {"type": "image_url", "image_url": {\n                "url": f"data:image/jpeg;base64,{image_base64}"\n            }},\n            {"type": "text", "text": prompt}\n        ]\n    }],\n    extra_body={"enable_thinking": False}\n)\n\ncategory = response.choices[0].message.content.strip()\nprint("Category:", category)`} />
+        <CodeBlock title="app.py · REPLACE TEXT TEST REQUEST" compact code={`response = client.chat.completions.create(\n    model="qwen3.8-flash",\n    messages=[{\n        "role": "user",\n        "content": [\n            {"type": "image_url", "image_url": {\n                "url": image_data_url\n            }},\n            {"type": "text", "text": prompt}\n        ]\n    }],\n    extra_body={"enable_thinking": False}\n)\n\ncategory = response.choices[0].message.content.strip().lower()\nprint("Category:", category)`} />
         <div className="w2-vision-result"><Camera /><span>MODEL OUTPUT</span><strong>Category: device</strong><small>分类结果：device</small></div>
       </div>
     ),
   },
   {
-    index: "25",
+    index: "29",
+    section: "SERVICE ACTION",
+    chineseSection: "服务动作",
+    title: "category를 검사하고 해당 폴더에 사진을 복사합니다",
+    chineseTitle: "验证category并将照片复制到对应文件夹",
+    note: (
+      <SpeakerNote
+        duration="10분"
+        lead="모델 응답을 바로 폴더명으로 쓰지 않고 먼저 허용된 라벨인지 검사한 뒤 sorted/category 폴더를 만듭니다."
+        points={[
+          "category.lower()로 대문자 차이를 없애고 결과를 표준화합니다.",
+          "category가 LABELS 안에 없으면 ValueError를 발생시켜 예상하지 못한 폴더 생성을 막습니다.",
+          "Path('sorted') / category는 category 값에 따라 sorted/device 같은 경로를 만듭니다.",
+          "mkdir의 parents=True는 상위 sorted 폴더까지 만들고 exist_ok=True는 폴더가 이미 있어도 오류가 나지 않게 합니다.",
+          "첫 실습은 원본 보호를 위해 shutil.copy2를 사용합니다. 실제 이동 기능은 copy2를 move로 바꿔 실험할 수 있습니다.",
+        ]}
+        prompt="모델이 설명 문장을 반환했을 때 LABELS 검사가 왜 필요한지 설명해 보세요."
+        transition="전체 app.py를 실행하고 Terminal 출력과 Explorer의 새 폴더를 확인하겠습니다."
+      />
+    ),
+    content: (
+      <div className="w2-sort-action-layout">
+        <CodeBlock title="app.py · APPEND AT THE END" code={`from pathlib import Path\nimport shutil\n\nif category not in LABELS:\n    raise ValueError(f"Unexpected category: {category}")\n\ntarget_dir = Path("sorted") / category\ntarget_dir.mkdir(parents=True, exist_ok=True)\ntarget_file = target_dir / "sample.jpg"\n\nshutil.copy2("sample.jpg", target_file)\nprint("Saved:", target_file)`} />
+        <div className="w2-sort-flow">
+          <article><CheckCircle2 /><span>VALIDATE</span><strong>category in LABELS</strong><small>验证返回类别</small></article>
+          <ChevronRight />
+          <article><FolderOpen /><span>CREATE</span><strong>sorted/device/</strong><small>创建分类文件夹</small></article>
+          <ChevronRight />
+          <article><Images /><span>COPY</span><strong>sample.jpg</strong><small>保留原图并复制</small></article>
+        </div>
+      </div>
+    ),
+  },
+  {
+    index: "30",
+    section: "RUN & VERIFY",
+    chineseSection: "运行与确认",
+    title: "Terminal 출력과 새 폴더를 함께 확인합니다",
+    chineseTitle: "同时确认Terminal输出与新建文件夹",
+    note: (
+      <SpeakerNote
+        duration="10분"
+        lead="app.py를 저장한 뒤 활성화된 가상환경에서 실행하고, Terminal의 category와 Explorer의 폴더 결과가 일치하는지 확인합니다."
+        points={[
+          "Ctrl+S 또는 Command+S로 app.py를 먼저 저장합니다. 탭의 흰 점이 사라져야 저장된 상태입니다.",
+          "Terminal에서 python app.py를 실행합니다.",
+          "Category: device와 Saved: sorted/device/sample.jpg 두 줄이 나오면 인식 결과와 서비스 동작이 연결된 것입니다.",
+          "Explorer를 새로고침하고 sorted → device → sample.jpg가 만들어졌는지 확인합니다.",
+          "자신의 사진으로 바꾸기 전에 예상 category를 먼저 적고, 실행 결과와 비교해 한 문장으로 기록합니다.",
+        ]}
+        prompt="Terminal의 category와 실제 생성된 폴더명이 정확히 일치하나요?"
+        transition="실행이 되지 않는 경우 오류 메시지의 종류에 따라 원인을 찾겠습니다."
+      />
+    ),
+    content: (
+      <div className="w2-run-verify-layout">
+        <CodeBlock title="VS CODE TERMINAL" code={`(.venv) qwen-practice % python app.py\nCategory: device\nSaved: sorted/device/sample.jpg`} />
+        <div className="w2-output-tree"><FolderTree /><span>EXPLORER RESULT</span><strong>qwen-practice/<br />├── app.py<br />├── sample.jpg<br />└── sorted/<br />&nbsp;&nbsp;&nbsp;&nbsp;└── device/<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└── sample.jpg</strong><small>인식 결과가 실제 서비스 동작으로 연결됨</small></div>
+        <div className="w2-practice-check"><span>TRY YOUR PHOTO</span><p><b>1</b> 예상 라벨 적기</p><p><b>2</b> sample.jpg 교체</p><p><b>3</b> 실행 결과 비교</p><small>使用自己的照片重复实验</small></div>
+      </div>
+    ),
+  },
+  {
+    index: "31",
     section: "TROUBLESHOOTING",
     chineseSection: "问题排查",
     title: "오류 메시지는\n어느 연결이 끊겼는지 알려 줍니다",
@@ -1022,9 +1249,11 @@ const slides: Slide[] = [
         lead="오류가 나면 코드를 처음부터 다시 쓰지 말고 마지막 오류 메시지에서 원인을 분류합니다."
         points={[
           "ModuleNotFoundError는 현재 Python 환경에 라이브러리가 설치되지 않았다는 뜻입니다.",
+          "RuntimeError: Check your .env file은 .env 파일명, 위치 또는 두 변수 중 빠진 값이 있는지 확인합니다.",
           "Authentication 오류는 Key가 비어 있거나 잘못 복사되었거나 Region이 맞지 않을 때 발생합니다.",
           "model_not_found는 모델 이름, 지역 또는 사용 권한을 확인해야 합니다.",
           "FileNotFoundError는 sample.jpg의 파일명과 위치를 확인합니다.",
+          "Unexpected category는 모델 응답이 허용된 LABELS 중 하나가 아니라는 뜻이므로 프롬프트와 출력 내용을 확인합니다.",
           "429 또는 quota 오류는 무료 한도와 호출 속도를 확인하고 잠시 뒤 다시 실행합니다.",
         ]}
         prompt="오류가 있는 학생은 화면에 Key를 노출하지 말고 오류 유형과 마지막 메시지만 공유해 주세요."
@@ -1038,16 +1267,18 @@ const slides: Slide[] = [
       <div className="w2-troubleshoot">
         {[
           ["ModuleNotFoundError", "라이브러리 설치 환경 확인", "python -m pip install ..."],
+          ["Check your .env file", ".env 이름·위치·두 변수 확인", "Key 값은 공유하지 않기"],
           ["Authentication", ".env · API Key · Region 확인", "Key를 화면에 공유하지 않기"],
           ["model_not_found", "모델 이름과 사용 가능한 지역 확인", "qwen3.8-flash"],
           ["FileNotFoundError", "sample.jpg 위치와 철자 확인", "app.py와 같은 폴더"],
+          ["Unexpected category", "응답이 LABELS에 포함되는지 확인", "프롬프트 출력 규칙 확인"],
           ["429 / quota", "무료 한도와 호출 속도 확인", "잠시 후 다시 실행"],
         ].map(([error, cause, action]) => <article key={error}><AlertTriangle /><code>{error}</code><strong>{cause}</strong><small>{action}</small></article>)}
       </div>
     ),
   },
   {
-    index: "26",
+    index: "32",
     section: "SAVE & SUBMIT",
     chineseSection: "保存与提交",
     title: "코드와 실행 결과를\nGitHub에 남깁니다",
@@ -1059,7 +1290,7 @@ const slides: Slide[] = [
         points={[
           "git add . 이후 git status에 .env가 보이면 commit하지 말고 .gitignore부터 수정합니다.",
           "commit 메시지는 Week 2: Qwen API and Vision을 사용합니다.",
-          "팀 GitHub Repository URL, Text API 연결 결과, Vision 분류 결과를 제출합니다.",
+          "팀 GitHub Repository URL, Text API 연결 결과, Vision 분류 결과, sorted/category 폴더 결과를 제출합니다.",
           "마지막에 다음 주까지 완료할 목표를 한 문장으로 적습니다.",
           "오늘의 완료 기준은 API 연결과 이미지 분류 실행이 실제로 확인되는 것입니다.",
         ]}
@@ -1068,11 +1299,12 @@ const slides: Slide[] = [
     ),
     content: (
       <div className="w2-submit-layout">
-        <CodeBlock title="GIT" code={`git status\ngit add .\ngit commit -m "Week 2: Qwen API and Vision"\ngit push`} />
+        <CodeBlock title="GIT" code={`git status\n# .env와 .venv가 보이지 않는지 확인\ngit add .\ngit commit -m "Week 2: Qwen API and Vision"\ngit push`} />
         <div className="w2-submit-checklist"><span>이번 주 제출물 · 本周提交内容</span>{[
           "팀 GitHub Repository URL",
           "Qwen Text API 연결 결과 1개",
           "sample.jpg Vision 분류 결과 1개",
+          "sorted/category 폴더 결과 1개",
           "다음 주 목표 1문장",
         ].map((item) => <p key={item}><ClipboardCheck /><strong>{item}</strong></p>)}<div><CheckCircle2 /><strong>WEEK 02 COMPLETE</strong><small>完成API连接与图像分类</small></div></div>
       </div>
