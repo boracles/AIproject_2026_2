@@ -1,6 +1,16 @@
-# 실증적AI개발프로젝트Ⅱ · 1주차 수업자료
+# 실증적AI개발프로젝트Ⅱ · 수업자료
 
-동아대학교 AI학과 `실증적AI개발프로젝트Ⅱ(종합설계)` 1주차 수업용 웹 슬라이드입니다.
+동아대학교 AI학과 `실증적AI개발프로젝트Ⅱ(종합설계)` 수업용 웹 슬라이드입니다.
+
+## 수업별 주소
+
+- 1주차 학생용 화면: `http://localhost:3000/`
+- 1주차 교수자 화면: `http://localhost:3000/?view=presenter`
+- 2주차 학생용 화면: `http://localhost:3000/week2`
+- 2주차 교수자 화면: `http://localhost:3000/week2?view=presenter`
+- 2주차 전체화면 바로 시작: `http://localhost:3000/week2?view=slideshow&fullscreen=1`
+
+2주차 화면은 키보드 방향키·Page Up·Page Down·Space와 모바일 좌우 스와이프를 지원합니다. 교수자 화면에서 `슬라이드쇼 열기`를 누르면 학생용 화면과 현재 슬라이드가 동기화됩니다.
 
 ## 가장 쉬운 실행 방법
 
@@ -13,7 +23,7 @@
 
 이 자료는 단일 HTML 파일이 아니라 React와 Vinext로 만든 웹사이트입니다. 따라서 `index.html`을 직접 여는 대신 로컬 개발 서버를 실행한 뒤 브라우저에서 접속해야 합니다.
 
-슬라이드 내용은 `app/page.tsx`, 디자인은 `app/globals.css`, 사례 이미지는 `public/cases` 폴더에 있습니다.
+1주차 슬라이드 내용은 `app/page.tsx`, 2주차 슬라이드 내용은 `app/week2/page.tsx`, 공통 디자인은 `app/globals.css`에 있습니다.
 
 ## 발표할 때
 
