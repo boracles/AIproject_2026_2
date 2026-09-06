@@ -226,36 +226,48 @@ const slides: Slide[] = [
   },
   {
     index: "04",
-    section: "TEAM PROJECT IDEA PITCH",
-    chineseSection: "团队项目想法发表",
-    title: "팀당 2분에서 3분,\n여섯 가지 질문에 답합니다",
-    chineseTitle: "每组用2至3分钟回答六个问题",
+    section: "TEAM PRESENTATION · 小组发表",
+    chineseSection: "",
+    title: "팀 프로젝트 발표",
+    chineseTitle: "团队项目发表",
     note: (
       <SpeakerNote
         duration="팀 수에 따라 20분에서 30분"
-        lead="각 팀은 완성된 기획을 발표하는 것이 아니라 현재의 출발점을 분명히 공유합니다."
+        lead="각 팀은 2분에서 3분 동안 여섯 항목을 중심으로 현재의 프로젝트 계획을 소개합니다."
         points={[
-          "발표 시간은 팀당 2분에서 3분입니다. 시간이 끝나면 다음 팀으로 넘어갑니다.",
-          "문제 정의는 기능 설명이 아니라 사용자가 겪는 불편이나 해결해야 할 상황으로 말합니다.",
-          "AI 역할은 오늘의 분류 실습과 같을 수도 있고, 예측·추천·생성·대화·자동화일 수도 있습니다.",
-          "마지막에는 다음 주까지 실제로 완료할 수 있는 한 가지 목표를 말합니다.",
+          "Topic에서는 선택한 프로젝트 주제를 한 문장으로 말합니다.",
+          "Problem은 만들 기능이 아니라 사용자가 겪는 불편이나 해결해야 할 상황으로 설명합니다.",
+          "Target User는 이 문제를 가장 자주 겪고 해결의 도움을 받을 사람을 구체적으로 정합니다.",
+          "Initial Idea에서는 문제를 해결하기 위해 가장 먼저 만들 핵심 기능을 제안합니다.",
+          "AI Role은 인식·분류, 예측, 추천, 생성, 대화, 자동화 중 프로젝트에서 맡길 역할을 연결합니다.",
+          "마지막 Week 3 Goal은 다음 수업에서 완료 여부를 실제 화면이나 코드로 확인할 수 있게 말합니다.",
         ]}
         prompt="발표를 들으면서 해결하려는 문제와 AI 역할이 자연스럽게 연결되는지 한 문장으로 메모해 주세요."
         transition="발표를 마친 팀은 다음 주부터 사용할 개발 리뷰 형식도 함께 기억해 주세요."
       />
     ),
     content: (
-      <div className="w2-presentation-grid">
-        {[
-          ["01", "Topic", "어떤 주제를 선택했나요?", "选择了什么主题？"],
-          ["02", "Problem", "어떤 문제를 해결하나요?", "要解决什么问题？"],
-          ["03", "Target User", "누구를 위한 서비스인가요?", "目标用户是谁？"],
-          ["04", "Initial Idea", "어떤 기능을 만들고 싶나요?", "想制作什么功能？"],
-          ["05", "AI Role", "AI가 어떤 역할을 맡나요?", "AI承担什么角色？"],
-          ["06", "Week 3 Goal", "다음 주까지 무엇을 완료하나요?", "第3周前完成什么？"],
-        ].map(([number, label, question, chinese]) => (
-          <article key={number}><span>{number}</span><div><b>{label}</b><strong>{question}</strong><small>{chinese}</small></div></article>
-        ))}
+      <div className="w2-pitch-layout">
+        <div className="w2-pitch-intro">
+          <Presentation />
+          <p><strong>각 팀은 2–3분 동안 아래 여섯 항목을 중심으로 프로젝트 계획을 소개합니다.</strong><small>每组用2–3分钟，围绕以下六项内容介绍项目计划。</small></p>
+          <b>2–3 MIN / TEAM</b>
+        </div>
+        <div className="w2-pitch-grid">
+          {[
+            [Tags, "01", "TOPIC", "어떤 주제를 선택했나요?", "选择了什么主题？"],
+            [AlertTriangle, "02", "PROBLEM", "어떤 문제를 해결하나요?", "要解决什么问题？"],
+            [UsersRound, "03", "TARGET USER", "누구를 위한 서비스인가요?", "目标用户是谁？"],
+            [Sparkles, "04", "INITIAL IDEA", "어떤 기능을 만들고 싶나요?", "想制作什么功能？"],
+            [BrainCircuit, "05", "AI ROLE", "AI가 어떤 역할을 맡나요?", "AI承担什么角色？"],
+            [BadgeCheck, "06", "WEEK 3 GOAL", "다음 주까지 무엇을 완료하나요?", "第3周前完成什么？"],
+          ].map(([Icon, number, label, question, chinese]) => { const PitchIcon = Icon as typeof Tags; return (
+            <article key={number as string}>
+              <div className="w2-pitch-icon"><PitchIcon /></div>
+              <div><span>{number as string} · {label as string}</span><strong>{question as string}</strong><small>{chinese as string}</small></div>
+            </article>
+          ); })}
+        </div>
       </div>
     ),
   },
@@ -929,7 +941,7 @@ function SlideCanvas({ slide, position }: { slide: Slide; position: number }) {
       <div className="w2-grid" aria-hidden="true" />
       <div className="w2-scanline" aria-hidden="true" />
       <header className="w2-slide-meta">
-        <span>{slide.section}<small>{slide.chineseSection}</small></span>
+        <span>{slide.section}{slide.chineseSection && <small>{slide.chineseSection}</small>}</span>
         <span>{String(position + 1).padStart(2, "0")} / {String(slides.length).padStart(2, "0")}</span>
       </header>
       <div className="w2-title-wrap">
