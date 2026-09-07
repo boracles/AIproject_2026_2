@@ -395,6 +395,7 @@ const slides: Slide[] = [
         points={[
           "첫 번째 기준은 서비스가 사진이나 카메라에서 무엇을 인식하는지입니다.",
           "두 번째 기준은 인식 결과를 검색, 정리, 번역 같은 어떤 기능에 연결하는지입니다.",
+          "왼쪽의 같은 사진 모음도 Google Photos에서는 내용 검색의 대상, Apple Photos에서는 사람과 반려동물 컬렉션의 대상, Google Lens에서는 즉시 검색하거나 번역할 대상으로 사용됩니다.",
           "Google Photos는 사진 검색과 정리, Apple Photos는 앨범 구성과 검색, Google Lens는 검색·번역·정보 확인에 활용합니다.",
           "같은 Recognition과 Classification 결과도 연결되는 기능에 따라 서로 다른 서비스 경험이 됩니다.",
         ]}
@@ -408,29 +409,29 @@ const slides: Slide[] = [
       />
     ),
     content: (
-      <div className="w2-case-overview">
-        <div className="w2-case-table is-overview" role="table" aria-label="이미지 인식 서비스 활용 비교">
-          <div className="w2-case-head" role="row">
-            <span role="columnheader"><strong>서비스</strong><small>服务</small></span>
-            <span role="columnheader"><strong>무엇을 인식하나</strong><small>识别什么</small></span>
-            <span role="columnheader"><strong>어디에 사용하나</strong><small>用于什么功能</small></span>
+      <div className="w2-service-map">
+        <figure className="w2-service-map-visual">
+          <img src="/week2/vision-service-photo-grid.png" alt="가족과 반려견, 부산 해변, 영수증, 인물, 고양이, 메뉴 사진으로 구성한 이미지 인식 예시 모음" />
+          <span className="is-people"><UsersRound /> people · pet</span>
+          <span className="is-place"><Images /> Busan · beach</span>
+          <span className="is-text"><ScanSearch /> receipt · menu</span>
+          <figcaption>같은 사진 모음 · 相同的照片集合</figcaption>
+        </figure>
+        <section className="w2-service-map-list">
+          <article>
+            <Images /><div><span>GOOGLE PHOTOS</span><strong>내용을 검색 단서로 사용</strong><small>사람·장소·사물 → 검색과 정리<br />人物、地点、物体 → 搜索与整理</small></div>
+          </article>
+          <article>
+            <UsersRound /><div><span>APPLE PHOTOS</span><strong>반복되는 대상을 컬렉션으로 구성</strong><small>사람·반려동물 → 그룹과 앨범<br />人物、宠物 → 分组与相册</small></div>
+          </article>
+          <article>
+            <ScanSearch /><div><span>GOOGLE LENS</span><strong>현재 보이는 대상을 즉시 활용</strong><small>사물·텍스트 → 검색과 번역<br />物体、文字 → 搜索与翻译</small></div>
+          </article>
+          <div className="w2-case-takeaway" aria-label="Recognition leads to different uses">
+            <strong>Recognition <ArrowRight /> Different Uses</strong>
+            <small>识别结果 <ArrowRight /> 不同用途</small>
           </div>
-          {[
-            ["Google Photos", "사진 속 사람·장소·사물", "照片中的人物、地点与物体", "사진 검색과 정리", "照片搜索与整理"],
-            ["Apple Photos", "사람·반려동물·장면", "人物、宠物与场景", "앨범 구성과 검색", "相册整理与搜索"],
-            ["Google Lens", "카메라에 보이는 사물·텍스트", "摄像头中的物体与文字", "검색·번역·정보 확인", "搜索、翻译与信息确认"],
-          ].map(([service, recognition, recognitionZh, use, useZh]) => (
-            <div className="w2-case-row" role="row" key={service}>
-              <span role="cell" data-label="서비스"><strong>{service}</strong></span>
-              <span role="cell" data-label="무엇을 인식하나"><strong>{recognition}</strong><small>{recognitionZh}</small></span>
-              <span role="cell" data-label="어디에 사용하나"><strong>{use}</strong><small>{useZh}</small></span>
-            </div>
-          ))}
-        </div>
-        <div className="w2-case-takeaway" aria-label="Recognition leads to different uses">
-          <strong>Recognition <ArrowRight /> Different Uses</strong>
-          <small>识别结果 <ArrowRight /> 不同用途</small>
-        </div>
+        </section>
       </div>
     ),
   },
@@ -460,22 +461,23 @@ const slides: Slide[] = [
       />
     ),
     content: (
-      <div className="w2-case-detail is-google">
-        <section className="w2-case-identity">
-          <Images />
-          <span>GOOGLE PHOTOS</span>
-          <strong>내용으로 다시 찾기</strong>
-          <small>按内容重新查找照片</small>
-        </section>
-        <section className="w2-case-mechanism">
-          <div className="w2-case-flow">
-            <article><b>INPUT</b><strong>저장된 사진</strong><small>백업된 이미지 모음</small></article>
-            <ChevronRight />
-            <article><b>RECOGNIZE</b><strong>사람 · 반려동물<br />장소 · 문서 · 사물</strong><small>사진 속 의미 단서</small></article>
-            <ChevronRight />
-            <article><b>ACTION</b><strong>검색 · 그룹 · 정리</strong><small>필요한 사진에 빠르게 도달</small></article>
+      <div className="w2-service-demo is-google">
+        <figure className="w2-product-screen">
+          <img src="/week2/vision-service-photo-grid.png" alt="Google Photos의 내용 검색을 설명하기 위한 가족, 장소, 영수증 사진 모음" />
+          <div className="w2-search-query"><ScanSearch /><b>영수증 부산 강아지</b><span>검색</span></div>
+          <div className="w2-result-tags"><b>dog · 3</b><b>Busan · 1</b><b>receipt · 1</b></div>
+          <figcaption>개념 예시 화면 · 파일명을 몰라도 사진 속 내용으로 찾기</figcaption>
+        </figure>
+        <section className="w2-service-demo-copy">
+          <div className="w2-demo-steps">
+            {[
+              ["01 · INPUT", "백업된 사진 모음", "파일명과 폴더가 제각각인 라이브러리"],
+              ["02 · RECOGNIZE", "사람 · 장소 · 사물 · 문서", "사진마다 검색 가능한 의미 단서 생성"],
+              ["03 · USER QUERY", "‘영수증’처럼 내용으로 검색", "검색어와 일치하는 사진 후보를 모음"],
+              ["04 · SERVICE VALUE", "다시 찾는 시간을 줄임", "검색 · 그룹 · 자동 정리로 연결"],
+            ].map(([label, title, detail]) => <article key={label}><span>{label}</span><strong>{title}</strong><small>{detail}</small></article>)}
           </div>
-          <p className="w2-case-example"><span>사용 예</span><strong>“강아지” · “부산” · “영수증”</strong>처럼 내용으로 검색</p>
+          <p className="w2-feedback-loop"><RefreshCcw /><span><b>사용자 교정</b> 잘못 묶인 얼굴·대상 수정 → 다음 검색 결과 개선<small>用户可修正错误分组</small></span></p>
         </section>
       </div>
     ),
@@ -505,22 +507,25 @@ const slides: Slide[] = [
       />
     ),
     content: (
-      <div className="w2-case-detail is-apple">
-        <section className="w2-case-identity">
-          <UsersRound />
-          <span>APPLE PHOTOS</span>
-          <strong>관계로 모아 보기</strong>
-          <small>按人物关系整理浏览</small>
-        </section>
-        <section className="w2-case-mechanism">
-          <div className="w2-case-flow">
-            <article><b>INPUT</b><strong>사진 · 비디오</strong><small>기기 속 라이브러리</small></article>
-            <ChevronRight />
-            <article><b>RECOGNIZE</b><strong>사람 · 반려동물<br />장면 · 사물</strong><small>반복되는 대상 묶기</small></article>
-            <ChevronRight />
-            <article><b>ACTION</b><strong>People &amp; Pets<br />검색 · 컬렉션</strong><small>이름 지정과 즐겨찾기</small></article>
+      <div className="w2-service-demo is-apple">
+        <figure className="w2-product-screen">
+          <img src="/week2/vision-service-photo-grid.png" alt="Apple Photos의 People and Pets 컬렉션을 설명하기 위한 인물과 반려동물 사진 모음" />
+          <div className="w2-people-collection">
+            <span>PEOPLE &amp; PETS</span>
+            <p><b className="is-person">Bora</b><b className="is-dog">Mong</b><b className="is-cat">Nabi</b></p>
           </div>
-          <p className="w2-case-example"><span>사용 예</span><strong>이름 붙이기 → 그룹 찾기 → 오분류 수정</strong></p>
+          <figcaption>개념 예시 화면 · 반복해서 등장하는 사람과 반려동물을 한 컬렉션으로</figcaption>
+        </figure>
+        <section className="w2-service-demo-copy">
+          <div className="w2-demo-steps">
+            {[
+              ["01 · INPUT", "기기 속 사진과 비디오", "시간이 지날수록 계속 쌓이는 라이브러리"],
+              ["02 · MATCH", "같은 사람·반려동물 찾기", "반복되는 얼굴과 특징을 그룹으로 구성"],
+              ["03 · USER LABEL", "이름 지정 · 즐겨찾기", "Bora, Mong처럼 사용자가 의미를 더함"],
+              ["04 · SERVICE VALUE", "컬렉션 · 검색 · 회상", "관계 중심으로 사진을 다시 경험"],
+            ].map(([label, title, detail]) => <article key={label}><span>{label}</span><strong>{title}</strong><small>{detail}</small></article>)}
+          </div>
+          <p className="w2-feedback-loop"><RefreshCcw /><span><b>사용자 교정</b> ‘이 사람이 아님’ · 중복 그룹 합치기<small>用户可修正人物与宠物分组</small></span></p>
         </section>
       </div>
     ),
@@ -543,7 +548,7 @@ const slides: Slide[] = [
           "따라서 Vision 서비스의 핵심 질문은 ‘무엇으로 보이는가?’에서 끝나지 않고 ‘이 결과로 사용자가 지금 무엇을 할 수 있는가?’까지 이어집니다.",
         ]}
         prompt="여러분 프로젝트가 카메라 입력을 받는다면, 인식 직후 가장 먼저 보여 줄 행동 버튼은 무엇인가요?"
-        transition="세 사례의 공통 구조를 확인했습니다. 이제 같은 구조를 직접 구현하는 오늘 실습 순서를 보겠습니다."
+        transition="세 사례에서 본 결과를 바탕으로 Recognition과 Classification이 정확히 무엇을 출력하는지 개념을 정리하겠습니다."
         sources={[
           { label: "Google Lens 기능 소개", href: "https://lens.google/intl/ko/" },
           { label: "Google Lens 작동 방식", href: "https://lens.google/intl/ko/howlensworks/" },
@@ -551,28 +556,259 @@ const slides: Slide[] = [
       />
     ),
     content: (
-      <div className="w2-case-detail is-lens">
-        <section className="w2-case-identity">
-          <ScanSearch />
-          <span>GOOGLE LENS</span>
-          <strong>보는 즉시 행동하기</strong>
-          <small>看见后立即采取行动</small>
-        </section>
-        <section className="w2-case-mechanism">
-          <div className="w2-case-flow">
-            <article><b>INPUT</b><strong>카메라 · 이미지<br />스크린샷</strong><small>전체 또는 선택 영역</small></article>
-            <ChevronRight />
-            <article><b>RECOGNIZE</b><strong>사물 · 텍스트<br />제품 · 식물 · 장소</strong><small>장면에 맞는 의미 추출</small></article>
-            <ChevronRight />
-            <article><b>ACTION</b><strong>검색 · 번역 · 복사<br />식별 · 쇼핑</strong><small>상황별 다음 행동</small></article>
+      <div className="w2-service-demo is-lens">
+        <figure className="w2-product-screen">
+          <img src="/week2/vision-service-photo-grid.png" alt="Google Lens의 메뉴 인식과 번역을 설명하기 위한 식당 메뉴와 스마트폰 사진" />
+          <div className="w2-lens-frame"><i /><i /><i /><i /><span>TEXT DETECTED</span></div>
+          <div className="w2-lens-actions"><b>텍스트 선택</b><b>번역</b><b>검색</b></div>
+          <figcaption>개념 예시 화면 · 선택한 영역의 대상과 텍스트에 맞는 행동 제안</figcaption>
+        </figure>
+        <section className="w2-service-demo-copy">
+          <div className="w2-demo-steps">
+            {[
+              ["01 · INPUT", "카메라 · 사진 · 스크린샷", "전체 장면 또는 필요한 영역을 선택"],
+              ["02 · RECOGNIZE", "사물 · 텍스트 · 제품 · 장소", "보이는 대상의 종류와 맥락을 함께 파악"],
+              ["03 · ROUTE", "인식 종류에 맞는 기능 선택", "텍스트→번역, 제품→검색, 식물→식별"],
+              ["04 · SERVICE VALUE", "보고 있던 화면에서 바로 행동", "복사 · 번역 · 검색 · 정보 확인"],
+            ].map(([label, title, detail]) => <article key={label}><span>{label}</span><strong>{title}</strong><small>{detail}</small></article>)}
           </div>
-          <p className="w2-case-example"><span>사용 예</span><strong>메뉴 번역 · 식물 식별 · 비슷한 제품 찾기</strong></p>
+          <p className="w2-feedback-loop"><MousePointerClick /><span><b>행동 분기</b> 같은 인식 결과도 사용자의 목적에 따라 버튼이 달라짐<small>根据用户目的提供不同操作</small></span></p>
         </section>
       </div>
     ),
   },
   {
     index: "12",
+    section: "CONCEPT 01 · RECOGNITION",
+    chineseSection: "概念01 · 识别",
+    title: "Recognition은 이미지 안에서 보이는 정보를 찾아냅니다",
+    chineseTitle: "Recognition从图像中找出可见信息",
+    note: (
+      <SpeakerNote
+        duration="7분"
+        lead="Recognition은 이미지 안에 무엇이 보이는지 찾아 이름, 위치, 속성, 텍스트 같은 정보로 바꾸는 과정입니다."
+        points={[
+          "입력은 이미지 전체이지만 출력은 한 단어일 필요가 없습니다. 한 장에서 사람, 반려견, 나무, 길처럼 여러 대상을 동시에 찾을 수 있습니다.",
+          "대상의 이름만 반환하면 image tagging, 위치까지 사각형으로 표시하면 object detection, 글자를 읽으면 OCR에 가깝습니다.",
+          "오른쪽 예시처럼 같은 사진에서 family, dog, park를 동시에 찾을 수 있습니다. 이 정보는 아직 검색이나 앨범 같은 서비스 기능이 아니라 모델이 만든 관찰 결과입니다.",
+          "서비스는 필요한 결과만 선택합니다. 사진 검색은 의미 라벨을, 안전 점검은 위험 대상과 위치를, 번역은 텍스트 영역을 사용합니다.",
+          "따라서 Recognition을 설계할 때는 ‘어떤 입력에서 무엇을 찾아야 하는가’를 먼저 명확히 적습니다.",
+        ]}
+        prompt="여러분 프로젝트의 입력 화면에서 AI가 반드시 찾아야 하는 대상이나 정보는 무엇인가요?"
+        transition="여러 정보를 찾는 Recognition과 달리, Classification은 미리 정한 범주 중 하나를 고릅니다."
+      />
+    ),
+    content: (
+      <div className="w2-recognition-explainer">
+        <figure>
+          <img src="/week2/vision-service-photo-grid.png" alt="가족, 반려견, 장소, 문서 등 여러 대상을 찾는 Recognition 예시" />
+          <span className="is-family">family</span><span className="is-dog">dog</span><span className="is-place">beach</span><span className="is-document">receipt</span>
+        </figure>
+        <section>
+          <div className="w2-question-card"><ScanSearch /><span>MODEL QUESTION</span><strong>이 이미지에 무엇이 보이나?</strong><small>这张图像中有什么？</small></div>
+          <div className="w2-output-list"><span>OUTPUT · 여러 결과 가능</span><p><b>object</b><strong>family · dog · receipt</strong></p><p><b>place</b><strong>beach · city</strong></p><p><b>text</b><strong>menu · price</strong></p></div>
+        </section>
+      </div>
+    ),
+  },
+  {
+    index: "13",
+    section: "CONCEPT 02 · CLASSIFICATION",
+    chineseSection: "概念02 · 分类",
+    title: "Classification은 정해진 label 중 하나를 선택합니다",
+    chineseTitle: "Classification从预设标签中选择一个类别",
+    note: (
+      <SpeakerNote
+        duration="7분"
+        lead="Classification은 사진 전체를 보고 서비스가 미리 정한 label 중 가장 적합한 하나를 선택하는 과정입니다."
+        points={[
+          "오늘 실습의 label set은 person, document, food, device, other 다섯 개입니다. 모델이 새로운 단어를 마음대로 만들지 않도록 선택지를 먼저 제한합니다.",
+          "휴대전화, 커피, 꽃이 함께 있는 사진도 ‘사진 전체를 대표하는 대상’이라는 기준에 따라 device 하나를 선택합니다.",
+          "실제 분류 모델은 label별 score를 만들고 가장 큰 값을 top-1 결과로 사용할 수 있습니다. 오른쪽 score는 개념을 설명하기 위한 예시입니다.",
+          "한 사진에 여러 label을 동시에 허용하면 multi-label classification입니다. 이번 실습은 폴더 하나를 결정해야 하므로 single-label classification을 사용합니다.",
+          "출력 형식을 한 단어로 고정하면 폴더 이름, 데이터베이스 값, 다음 코드 조건에 안정적으로 연결할 수 있습니다.",
+        ]}
+        prompt="사진 한 장을 반드시 폴더 하나에 넣어야 한다면 multi-label보다 single-label이 편리한 이유는 무엇인가요?"
+        transition="이제 Recognition과 Classification의 질문, 출력, 사용 방법을 한 화면에서 비교하겠습니다."
+      />
+    ),
+    content: (
+      <div className="w2-classification-explainer">
+        <figure><img src="https://images.unsplash.com/photo-1757778988730-6aed4fbef8a8?auto=format&fit=crop&fm=jpg&q=78&w=900" alt="휴대전화와 커피, 꽃이 함께 놓인 분류 예시 사진" /><figcaption>sample.jpg · 전체 장면을 대표하는 label 1개</figcaption></figure>
+        <section>
+          <div className="w2-question-card"><Tags /><span>MODEL QUESTION</span><strong>이 사진은 어느 category인가?</strong><small>这张照片属于哪个类别？</small></div>
+          <div className="w2-score-list">
+            {[["device","86%"],["food","7%"],["other","4%"],["person","2%"],["document","1%"]].map(([label,score], i) => <p className={i === 0 ? "is-top" : ""} key={label}><b>{label}</b><i style={{"--score": score} as React.CSSProperties} /><span>{score}</span></p>)}
+          </div>
+          <div className="w2-top-result"><CheckCircle2 /><span>TOP-1 RESULT</span><strong>device</strong></div>
+        </section>
+      </div>
+    ),
+  },
+  {
+    index: "14",
+    section: "CONCEPT CHECK · RECOGNITION VS CLASSIFICATION",
+    chineseSection: "概念比较 · 识别与分类",
+    title: "두 기능은 질문과 출력 형태가 다릅니다",
+    chineseTitle: "两种功能的问题与输出形式不同",
+    note: (
+      <SpeakerNote
+        duration="6분"
+        lead="Recognition과 Classification은 같은 Vision 모델을 사용할 수 있지만, 서비스가 던지는 질문과 필요한 출력이 다릅니다."
+        points={[
+          "Recognition의 질문은 ‘무엇이 어디에 보이는가?’입니다. 여러 대상, 텍스트, 위치, 속성을 함께 반환할 수 있습니다.",
+          "Classification의 질문은 ‘미리 정한 category 중 어디에 속하는가?’입니다. 하나의 label이나 제한된 label 목록을 반환합니다.",
+          "Recognition 결과는 검색 색인, 화면 표시, 정보 추출에 유용하고 Classification 결과는 라우팅, 폴더 정리, 우선순위 결정에 유용합니다.",
+          "Google Lens의 텍스트 찾기는 Recognition에 가깝고, 오늘 실습의 device 결정은 Classification에 가깝습니다.",
+          "프로젝트 문서에는 AI라는 넓은 표현 대신 입력, 질문, 출력 형식을 구체적으로 적어야 구현 범위가 선명해집니다.",
+        ]}
+        prompt="‘영수증 사진을 찾아 receipts 폴더로 이동’에는 Recognition과 Classification 중 어느 쪽이 필요한가요? 이유도 말해 보세요."
+        transition="Classification을 사용하려면 먼저 서비스에 맞는 label set과 선택 규칙을 정해야 합니다."
+      />
+    ),
+    content: (
+      <div className="w2-concept-compare">
+        <article className="is-recognition"><ScanSearch /><span>RECOGNITION</span><strong>무엇이 어디에 보이나?</strong><small>看到了什么？在哪里？</small><dl><div><dt>출력</dt><dd>여러 객체 · 텍스트 · 위치</dd></div><div><dt>예</dt><dd>phone · cup · flower</dd></div><div><dt>연결</dt><dd>검색 · 추출 · 화면 표시</dd></div></dl></article>
+        <div className="w2-compare-versus">VS</div>
+        <article className="is-classification"><Tags /><span>CLASSIFICATION</span><strong>어느 category인가?</strong><small>属于哪个类别？</small><dl><div><dt>출력</dt><dd>정해진 label 1개</dd></div><div><dt>예</dt><dd>device</dd></div><div><dt>연결</dt><dd>폴더 · 라우팅 · 우선순위</dd></div></dl></article>
+      </div>
+    ),
+  },
+  {
+    index: "15",
+    section: "DESIGN THE LABEL SET",
+    chineseSection: "设计分类标签",
+    title: "분류 label은 서비스의 정리 규칙이 됩니다",
+    chineseTitle: "分类标签会成为服务的整理规则",
+    note: (
+      <SpeakerNote
+        duration="7분"
+        lead="분류 label은 모델이 자동으로 정해 주는 목록이 아니라, 서비스가 어떤 행동을 할지 결정하기 위해 설계하는 규칙입니다."
+        points={[
+          "오늘은 사진 정리가 목적이므로 사람, 문서, 음식, 기기, 기타를 label로 사용합니다. 각 label은 곧 destination folder가 됩니다.",
+          "label은 학생과 모델이 같은 의미로 이해할 수 있어야 합니다. 예를 들어 object와 thing처럼 의미가 겹치는 이름은 피합니다.",
+          "사진이 어느 label에도 맞지 않을 때를 위해 other가 필요합니다. 빠진 범주가 많으면 모델이 억지로 잘못된 label을 고르게 됩니다.",
+          "label끼리 겹칠 때는 대표 대상, 화면 중앙, 사용 목적 같은 선택 기준을 프롬프트에 적습니다.",
+          "label이 서비스 행동과 연결되지 않는다면 줄이거나 다시 정의합니다. 분류 결과가 바로 코드 조건에 쓰일 수 있어야 합니다.",
+        ]}
+        prompt="여러분 프로젝트에 필요한 label을 3개에서 5개만 고른다면 무엇이며, 각 label 뒤에 어떤 행동이 이어지나요?"
+        transition="규칙을 만들어도 실제 사진은 애매할 수 있으므로 예외 경로가 필요합니다."
+      />
+    ),
+    content: (
+      <div className="w2-label-design">
+        <section className="w2-label-route">
+          <span>LABEL SET</span>
+          {[[UsersRound,"person","people/"],[FileImage,"document","documents/"],[Sparkles,"food","food/"],[Laptop,"device","devices/"],[Blocks,"other","review/"]].map(([Icon,label,folder]) => { const LabelIcon = Icon as typeof Tags; return <article key={label as string}><LabelIcon /><strong>{label as string}</strong><ArrowRight /><code>{folder as string}</code></article>; })}
+        </section>
+        <section className="w2-label-rules">
+          <article><b>01</b><div><strong>구분 가능</strong><small>label 의미가 서로 겹치지 않기<br />标签含义不重叠</small></div></article>
+          <article><b>02</b><div><strong>빠진 경우 포함</strong><small>other 또는 review 경로 두기<br />为例外保留路径</small></div></article>
+          <article><b>03</b><div><strong>행동과 연결</strong><small>각 label의 다음 기능을 정하기<br />连接到后续功能</small></div></article>
+        </section>
+      </div>
+    ),
+  },
+  {
+    index: "16",
+    section: "HANDLE UNCERTAIN RESULTS",
+    chineseSection: "处理不确定结果",
+    title: "애매한 결과에는 별도의 확인 경로가 필요합니다",
+    chineseTitle: "模糊结果需要单独的确认流程",
+    note: (
+      <SpeakerNote
+        duration="7분"
+        lead="실제 이미지에는 대상이 여러 개 있고 촬영 상태도 다양하므로 항상 하나의 답이 명확하게 나오지는 않습니다."
+        points={[
+          "휴대전화와 커피가 함께 있으면 device와 food가 모두 가능합니다. 서비스 목적이 업무 기기 정리인지 식사 기록인지에 따라 대표 label이 달라집니다.",
+          "흐리거나 일부만 보이는 사진, 처음 보는 대상, 프롬프트 범주에 없는 대상은 other 또는 review 경로로 보냅니다.",
+          "자동 처리 정책은 확실한 결과만 바로 정리하고, 애매한 결과는 사용자 확인을 요청하며, 실패한 결과는 원본을 유지하도록 설계할 수 있습니다.",
+          "오늘의 간단한 Qwen 프롬프트는 label 한 단어를 받습니다. 실제 서비스에서는 이유, 후보 label, 규칙 검사 같은 추가 정보를 구조화해 검증할 수 있습니다.",
+          "사용자가 잘못된 결과를 수정할 수 있어야 하고, 수정 기록은 label과 프롬프트를 개선하는 자료가 됩니다.",
+        ]}
+        prompt="AI가 틀렸을 때 원본 사진을 잃지 않게 하려면 자동 정리 코드에 어떤 안전장치를 넣어야 할까요?"
+        transition="앞서 본 세 서비스도 자동 인식 뒤에 검색, 행동 선택, 사용자 교정 단계를 둡니다."
+      />
+    ),
+    content: (
+      <div className="w2-uncertain-flow">
+        <section className="w2-uncertain-input"><img src="https://images.unsplash.com/photo-1757778988730-6aed4fbef8a8?auto=format&fit=crop&fm=jpg&q=78&w=900" alt="휴대전화와 커피가 함께 놓여 분류가 애매할 수 있는 사진" /><span>device + food ?</span></section>
+        <ArrowRight />
+        <section className="w2-decision-policy">
+          <span>SERVICE POLICY · 服务策略</span>
+          <article className="is-auto"><CheckCircle2 /><div><b>명확한 결과</b><strong>자동 정리</strong><small>auto sort</small></div></article>
+          <article className="is-check"><MousePointerClick /><div><b>애매한 결과</b><strong>사용자 확인</strong><small>ask to confirm</small></div></article>
+          <article className="is-safe"><ShieldCheck /><div><b>실패 · 범주 밖</b><strong>원본 유지 + review</strong><small>keep original</small></div></article>
+        </section>
+        <ArrowRight />
+        <section className="w2-safe-result"><FolderTree /><span>SAFE RESULT</span><strong>복사 후 분류</strong><small>원본은 그대로 보존<br />保留原始照片</small></section>
+      </div>
+    ),
+  },
+  {
+    index: "17",
+    section: "CASE SYNTHESIS",
+    chineseSection: "案例总结",
+    title: "세 서비스는 같은 네 단계로 설명할 수 있습니다",
+    chineseTitle: "三个服务都可以用相同的四个步骤说明",
+    note: (
+      <SpeakerNote
+        duration="6분"
+        lead="Google Photos, Apple Photos, Google Lens의 화면은 다르지만 입력, 인식 결과, 서비스 행동, 사용자 교정이라는 공통 구조로 분석할 수 있습니다."
+        points={[
+          "Google Photos는 저장된 사진을 입력으로 받아 의미 단서를 만들고 검색과 정리로 연결합니다.",
+          "Apple Photos는 반복되는 사람과 반려동물을 그룹으로 만들고 이름 지정과 컬렉션 경험으로 연결합니다.",
+          "Google Lens는 현재 카메라나 화면에서 대상과 텍스트를 찾고 검색, 번역, 복사 버튼으로 연결합니다.",
+          "세 서비스 모두 모델 결과를 그대로 보여 주지 않고 사용자가 원하는 다음 행동을 앞에 배치합니다.",
+          "프로젝트를 설명할 때도 모델 이름보다 이 네 칸을 먼저 채우면 구현해야 할 데이터와 화면이 구체적으로 보입니다.",
+        ]}
+        prompt="여러분 프로젝트를 Input, AI Result, Service Action, User Correction 네 칸으로 한 문장씩 적어 보세요."
+        transition="개념을 짧게 확인한 뒤 같은 구조를 Qwen Vision 실습으로 구현하겠습니다."
+      />
+    ),
+    content: (
+      <div className="w2-synthesis-table">
+        <div className="w2-synthesis-head"><span>SERVICE</span><span>INPUT</span><span>AI RESULT</span><span>SERVICE ACTION</span><span>USER CONTROL</span></div>
+        {[
+          ["Google Photos","저장된 사진","의미·사람·장소","검색·정리","오분류 수정"],
+          ["Apple Photos","사진·비디오","같은 사람·반려동물","컬렉션·이름","합치기·수정"],
+          ["Google Lens","카메라·화면","대상·텍스트","검색·번역·복사","영역·행동 선택"],
+          ["OUR LAB","sample.jpg","category 1개","folder에 복사","other·원본 유지"],
+        ].map((row) => <div className={row[0] === "OUR LAB" ? "is-lab" : ""} key={row[0]}>{row.map((cell, i) => <span key={cell}>{i === 0 ? <strong>{cell}</strong> : cell}</span>)}</div>)}
+      </div>
+    ),
+  },
+  {
+    index: "18",
+    section: "30-SECOND CHECK",
+    chineseSection: "30秒理解检查",
+    title: "세 상황이 어느 단계인지 직접 구분해 봅니다",
+    chineseTitle: "判断三个情境分别属于哪个阶段",
+    note: (
+      <SpeakerNote
+        duration="5분"
+        lead="세 문장을 읽고 Recognition, Classification, Service Action 중 하나를 선택한 뒤 옆 학생과 이유를 비교합니다."
+        points={[
+          "첫 번째 ‘메뉴판의 글자를 찾고 읽기’는 이미지 안의 텍스트를 찾는 Recognition, 그중 OCR에 해당합니다.",
+          "두 번째 ‘사진을 document, food, device 중 하나로 결정하기’는 정해진 label 중 하나를 고르는 Classification입니다.",
+          "세 번째 ‘document 결과를 receipts 폴더에 복사하기’는 모델 출력 뒤에 실행되는 Service Action입니다.",
+          "한 서비스에는 이 세 단계가 순서대로 함께 들어갈 수 있습니다. 구분하는 이유는 각 단계의 오류와 구현 방법이 다르기 때문입니다.",
+          "답을 맞히는 것보다 어떤 입력을 받고 어떤 출력을 내는지 근거로 설명하는 것이 목표입니다.",
+        ]}
+        prompt="각 카드의 답과 이유를 30초 동안 옆 학생에게 설명해 보세요."
+        transition="이제 개념을 코드로 옮기기 위해 실습 전체 경로를 확인하겠습니다."
+      />
+    ),
+    content: (
+      <div className="w2-concept-check">
+        <article><span>01</span><ScanSearch /><strong>메뉴판의 글자를<br />찾고 읽는다</strong><small>查找并读取菜单文字</small><b>RECOGNITION · OCR</b></article>
+        <article><span>02</span><Tags /><strong>document · food · device 중<br />하나를 고른다</strong><small>从标签中选择一个类别</small><b>CLASSIFICATION</b></article>
+        <article><span>03</span><FolderTree /><strong>document 결과를<br />receipts 폴더에 복사한다</strong><small>将结果复制到文件夹</small><b>SERVICE ACTION</b></article>
+      </div>
+    ),
+  },
+  {
+    index: "19",
     section: "LAB ROADMAP",
     chineseSection: "实践路线图",
     title: "설정부터 제출까지\n다섯 단계로 진행합니다",
@@ -606,7 +842,7 @@ const slides: Slide[] = [
     ),
   },
   {
-    index: "13",
+    index: "20",
     section: "LAB ENVIRONMENT SETUP",
     chineseSection: "实践环境准备",
     title: "네 가지 도구가\n준비되어 있어야 합니다",
@@ -640,7 +876,7 @@ const slides: Slide[] = [
     ),
   },
   {
-    index: "14",
+    index: "21",
     section: "VS CODE SETUP · 1/3",
     chineseSection: "VS Code准备 · 1/3",
     title: "qwen-practice 폴더를 만들고 VS Code에서 엽니다",
@@ -682,7 +918,7 @@ const slides: Slide[] = [
     ),
   },
   {
-    index: "15",
+    index: "22",
     section: "VS CODE SETUP · 2/3",
     chineseSection: "VS Code准备 · 2/3",
     title: "Explorer에서 세 파일을 정확한 이름으로 만듭니다",
@@ -723,7 +959,7 @@ const slides: Slide[] = [
     ),
   },
   {
-    index: "16",
+    index: "23",
     section: "VS CODE SETUP · 3/3",
     chineseSection: "VS Code准备 · 3/3",
     title: "Terminal에서 가상환경을 만들고 라이브러리를 설치합니다",
@@ -757,7 +993,7 @@ const slides: Slide[] = [
     ),
   },
   {
-    index: "17",
+    index: "24",
     section: "PYTHON INTERPRETER",
     chineseSection: "Python解释器",
     title: "Python 확장을 설치하고 .venv 인터프리터를 선택합니다",
@@ -791,7 +1027,7 @@ const slides: Slide[] = [
     ),
   },
   {
-    index: "18",
+    index: "25",
     section: "MODEL STUDIO SETUP",
     chineseSection: "Model Studio设置",
     title: "Model Studio를 활성화하고 Singapore를 선택합니다",
@@ -829,7 +1065,7 @@ const slides: Slide[] = [
     ),
   },
   {
-    index: "19",
+    index: "26",
     section: "GET AN API KEY · 1/4",
     chineseSection: "获取API Key · 1/4",
     title: "Model Studio에서 API Key 메뉴를 엽니다",
@@ -874,7 +1110,7 @@ const slides: Slide[] = [
     ),
   },
   {
-    index: "20",
+    index: "27",
     section: "GET AN API KEY · 2/4",
     chineseSection: "获取API Key · 2/4",
     title: "기본 워크스페이스를 선택하고 Key를 만듭니다",
@@ -917,7 +1153,7 @@ const slides: Slide[] = [
     ),
   },
   {
-    index: "21",
+    index: "28",
     section: "GET AN API KEY · 3/4",
     chineseSection: "获取API Key · 3/4",
     title: "생성 직후 API Key와 API Host를 모두 복사합니다",
@@ -952,7 +1188,7 @@ const slides: Slide[] = [
     ),
   },
   {
-    index: "22",
+    index: "29",
     section: "GET AN API KEY · 4/4",
     chineseSection: "获取API Key · 4/4",
     title: "두 값을 .env에 저장하고 GitHub에서 제외합니다",
@@ -986,7 +1222,7 @@ const slides: Slide[] = [
     ),
   },
   {
-    index: "23",
+    index: "30",
     section: "PRE-FLIGHT CHECK",
     chineseSection: "运行前检查",
     title: "API 호출 전에 폴더와 환경 상태를 확인합니다",
@@ -1018,7 +1254,7 @@ const slides: Slide[] = [
     ),
   },
   {
-    index: "24",
+    index: "31",
     section: "APP.PY BUILD MAP",
     chineseSection: "app.py组装顺序",
     title: "app.py는 여섯 코드 블록을 위에서 아래로 연결합니다",
@@ -1056,7 +1292,7 @@ const slides: Slide[] = [
     ),
   },
   {
-    index: "25",
+    index: "32",
     section: "CONNECT QWEN TEXT API",
     chineseSection: "连接Qwen文本API",
     title: "텍스트 응답이 출력되면\n연결 준비가 끝난 것입니다",
@@ -1088,7 +1324,7 @@ const slides: Slide[] = [
     ),
   },
   {
-    index: "26",
+    index: "33",
     section: "PREPARE SAMPLE IMAGE",
     chineseSection: "准备示例图像",
     title: "sample.jpg를 프로젝트 폴더에 저장합니다",
@@ -1128,7 +1364,7 @@ const slides: Slide[] = [
     ),
   },
   {
-    index: "27",
+    index: "34",
     section: "LAB SCENARIO",
     chineseSection: "实践场景",
     title: "여러 물체가 있어도\n대표 카테고리는 하나만 고릅니다",
@@ -1159,7 +1395,7 @@ const slides: Slide[] = [
     ),
   },
   {
-    index: "28",
+    index: "35",
     section: "CLASSIFICATION PROMPT",
     chineseSection: "分类提示词",
     title: "라벨 목록과 출력 규칙을\n프롬프트에 함께 넣습니다",
@@ -1187,7 +1423,7 @@ const slides: Slide[] = [
     ),
   },
   {
-    index: "29",
+    index: "36",
     section: "PREPARE VISION REQUEST",
     chineseSection: "准备Vision请求",
     title: "로컬 이미지를 읽어\nBase64 데이터로 변환합니다",
@@ -1218,7 +1454,7 @@ const slides: Slide[] = [
     ),
   },
   {
-    index: "30",
+    index: "37",
     section: "QWEN VISION CLASSIFICATION",
     chineseSection: "Qwen Vision分类",
     title: "이미지와 프롬프트를 보내고\n카테고리 한 단어를 받습니다",
@@ -1249,7 +1485,7 @@ const slides: Slide[] = [
     ),
   },
   {
-    index: "31",
+    index: "38",
     section: "SERVICE ACTION",
     chineseSection: "服务动作",
     title: "category를 검사하고 해당 폴더에 사진을 복사합니다",
@@ -1283,7 +1519,7 @@ const slides: Slide[] = [
     ),
   },
   {
-    index: "32",
+    index: "39",
     section: "RUN & VERIFY",
     chineseSection: "运行与确认",
     title: "Terminal 출력과 새 폴더를 함께 확인합니다",
@@ -1312,7 +1548,7 @@ const slides: Slide[] = [
     ),
   },
   {
-    index: "33",
+    index: "40",
     section: "TROUBLESHOOTING",
     chineseSection: "问题排查",
     title: "오류 메시지는\n어느 연결이 끊겼는지 알려 줍니다",
@@ -1352,7 +1588,7 @@ const slides: Slide[] = [
     ),
   },
   {
-    index: "34",
+    index: "41",
     section: "CONNECT GITHUB REPOSITORY",
     chineseSection: "连接GitHub仓库",
     title: "빈 GitHub 저장소를 만들고 로컬 폴더와 연결합니다",
@@ -1386,7 +1622,7 @@ const slides: Slide[] = [
     ),
   },
   {
-    index: "35",
+    index: "42",
     section: "SAVE & SUBMIT",
     chineseSection: "保存与提交",
     title: "코드와 실행 결과를\nGitHub에 남깁니다",
